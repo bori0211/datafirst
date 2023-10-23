@@ -1,0 +1,16 @@
+<?- include('header') ?>
+
+<div class="content">
+  <div class="container-fluid text-center py-4">
+    <img src="/assets/lambda_cover.png">
+  </div>
+  <div class="container-fluid text-left py-4">
+    <ol>
+      <li>CloudWatch - 로그가 생성될 때 (error, slowquery)</li>
+      <li>구독 필터: Lambda (callSendmail를 invoke)</li>
+      <li>Node.js에서 AWS Data 파싱(zlib.unzip) 후 메일 발송</li>
+    </ol>
+  </div>
+</div>
+
+<?- include('footer') ?>
