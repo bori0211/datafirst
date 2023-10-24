@@ -14,6 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <!--<script src="https://kit.fontawesome.com/6cf4429a4a.js" crossorigin="anonymous"></script>-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.3.0/github-markdown.css" integrity="sha512-9EEsfUEx9QyF/kZHJcwxsQ6QZtXNovUaCU041o4mvpIA94Xa0NfNga6JQ864kp6O/rzmcgc5CXfz7uQNxNkGoA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/custom/style.css">
   </head>
   
@@ -28,7 +29,6 @@
         </li>
       </ul>
     </nav>
-    
     
     <div class="login-modal">
       <div class="login-modal-content">
@@ -58,27 +58,27 @@
       </div>
     </div>
     
-    
     <div class="content-main">
       <div class="content-wrapper">
         <div class="content mb-2">
-          <div class="container-fluid p-4">
-            <h1 className="display-4">Hello, Vanilla JS & Firebase Realtime DB</h1>
-            <hr style="margin-bottom:40px;">
-            <div class="sign wait">
-              <h1>대기판 (#<span class="updateCount"></span>) / <span class="title"></span></h1>
-              <br>
-              <h2>예약 대기 환자: <span class="appointWait"></span>명</h2>
-              <h2>검사 대기 환자: <span class="testWait"></span>명</h2>
-              <h2>예상 대기 시간: <span class="estimatedWaitHour"></span>시간 <span class="estimatedWaitMin"></span>분</h2>
-            </div>
+          <div class="sign wait">
+            <article class="markdown-body">
+              <h1>Hello, Vanilla JS & Firebase Realtime DB</h1>
+              <blockquote>
+                <p>대기판 (#<strong class="updateCount"></strong>) / <strong class="title"></strong></p>
+                <ul>
+                  <li>예약 대기 환자: <strong class="appointWait"></strong>명</li>
+                  <li>검사 대기 환자: <strong class="testWait"></strong>명</li>
+                  <li>예상 대기 시간: <strong class="estimatedWaitHour"></strong>시간 <strong class="estimatedWaitMin"></strong>분</li>
+                </ul>
+              </blockquote>
+            </article>
           </div>
         </div>
         
         <div class="content">
-          <div class="container-fluid p-4">
+          <article class="markdown-body">
             <h1>My practice (2021-07-16)</h1>
-            <hr style="margin-bottom:40px;">
             
             <h2>js-basic</h2>
             <ol>
@@ -186,7 +186,7 @@
               </li>
             </ol>
             
-          </div>
+          </article>
         </div>
         
       </div>

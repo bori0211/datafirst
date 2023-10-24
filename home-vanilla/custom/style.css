@@ -227,4 +227,15 @@ button:focus,
   color: #aab8c2 !important;
 }
 
+/*********************************************************************************
+ * Component: Markdown                                                           *
+ ********************************************************************************/
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 34px;
+}
+
 /*# sourceMappingURL=style.css.map */
