@@ -1,7 +1,7 @@
 <?
 	// REQUIRE FILES (필수)
-	require "../config.inc.php";
-	require "../set_init_data.inc.php";
+	require __DIR__ . "/../config.inc.php";
+	require __DIR__ . "/../set_init_data.inc.php";
 ?>
 
   <div class="modal-dialog modal-lg">
