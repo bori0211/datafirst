@@ -2,9 +2,6 @@
 
 ## 1. express
 [![텍스트](https://express.datafirst.co.kr/assets/node.js_logo.png)](https://express.datafirst.co.kr)
-
-https://express.datafirst.co.kr/assets/node.js_logo.png
-
 ![캡처](https://express.datafirst.co.kr/assets/node.js_logo.png)
 ## 2. laravel
 ![캡처](https://www.datafirst.co.kr/assets/laravel_logo.jpg)
