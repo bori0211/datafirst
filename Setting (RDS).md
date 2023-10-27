@@ -1,0 +1,27 @@
+# RDS 세팅
+
+## 파라미터 그룹
+
+1. time_zone Asia/Seoul
+2. log_bin_trust_function_creators ON
+3. long_query_time 5
+4. slow_query_log 1
+5. event_scheduler ON
+
+## MySQL bin log 보기 (SHOW BINARY LOGS)
+
+```
+mysqlbinlog ^
+    --read-from-remote-server ^
+    --host=db.kidneylife.co.kr ^
+    --port=3306  ^
+    --user=root ^
+    --password ^
+    --to-last-log ^
+    --database=kl_999_dev ^
+    --result-file=result.sql ^
+    --skip-gtids ^
+    --base64-output=DECODE-ROWS ^
+    --verbose ^
+    mysql-bin-changelog.039731
+```
