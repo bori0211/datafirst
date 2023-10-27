@@ -128,3 +128,88 @@ SetEnvIf Referer "^http://tvzonebbs1.media.daum.net/"  spam_referal
 1. nmap -sP -PR 192.168.0.*
 2. nmap -sP -PR 61.78.127.99/28
 3. nmap -T2 -F 192.168.0.0/24 (TCP Port)
+
+
+# .bash_profile
+
+```
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+#PATH=$PATH:$HOME/.local/bin:$HOME/bin
+#PATH=$PATH:/c/xampp/php
+#PATH=$PATH:/c/'Program Files'/php
+#export PATH
+#export GREP_OPTIONS="--exclude-dir=.git --exclude-dir=.svn --exclude-dir=node_modules --exclude-dir=bower --exclude-dir=vendor --exclude=bundle.js --exclude=style.css"
+
+# PS1
+export PS1="[\u@\h \W]\$ "
+
+##git --version
+##echo ""
+
+bash --version
+echo ""
+
+# 한글
+chcp.com 949
+echo ""
+
+# 기본 경로
+cd /c/dev
+```
+
+## .minttyrc
+
+```
+Font=굴림체
+FontHeight=12
+Columns=120
+Rows=36
+CursorType=block
+CursorColour=0,255,0
+RightClickAction=menu
+MiddleClickAction=extend
+```
+
+## start_taskmgr.cmd
+
+```
+start taskmgr.exe
+rem node node_exec_test.js
+```
+
+## start_wsl.bat
+
+```
+rem wsl -u root -- service redis-server start
+rem wsl -u root -- service ssh start
+rem wsl -u root -- service apache2 start
+rem wsl -u root -- systemctl start redis-server
+rem wsl -u root -- systemctl start ssh
+```
+
+## autorun.bat
+
+```
+@echo off
+REM Unix in Win Start here
+REM KEY_CURRENT_USER\Software\Microsoft\Command Processor
+REM AutoRun (String) (C:\Users\김석태\autorun.bat)
+
+REM doskey ls=dir/w $*
+REM doskey ll=dir $*
+REM doskey cat=type $*
+REM doskey pwd=cd
+
+REM doskey cp=copy $*
+REM doskey mv=move $*
+REM doskey rm=del $*
+
+REM doskey grep=find "$1" $2 
+REM doskey ps=tasklist $*
+```
