@@ -43,6 +43,19 @@ SetEnvIf Referer "^http://tvzonebbs1.media.daum.net/"  spam_referal
 1. /var/log/httpd 폴더 권한 (0755로)
 2. php_error.log 쓰기 권한 (chown apache:apche /var/log/php_error.log)
 
+|php.ini|Target|Default|
+|---|:---:|:---:|
+|short_open_tag|On|Off|
+|expose_php|On|Off|
+|error_reporting|E_ALL & ~E_NOTICE|E_ALL & ~E_DEPRECATED & ~E_STRICT|
+|display_startup_errors|On|Off|
+|html_errors|On||
+|error_log|/var/log/php_error.log||
+|upload_max_filesize|8M|2M|
+|date.timezone|Asia/Seoul||
+|session.gc_divisor|1|1000|
+|session.gc_maxlifetime|7200|1440|
+
 <br><br>
 
 # Windows 세팅
@@ -147,11 +160,19 @@ REM doskey ps=tasklist $*
 
 ## 파라미터 그룹
 
-1. time_zone Asia/Seoul
-2. log_bin_trust_function_creators ON
-3. long_query_time 5
-4. slow_query_log 1
-5. event_scheduler ON
+|파라미터|Target|Default|
+|---|:---:|:---:|
+|innodb_buffer_pool_size|268435456|{DBInstanceClassMemory*3/4}|
+|innodb_file_per_table|0|1|
+|innodb_flush_log_at_trx_commit|0||
+|log_bin_trust_function_creators|1||
+|log_error_verbosity|2||
+|log_output|FILE|TABLE|
+|long_query_time|1||
+|skip_name_resolve|1||
+|slow_query_log|1||
+|time_zone|Asia/Seoul||
+|transaction_isolation|READ-COMMITTED||
 
 ## MySQL bin log 보기 (SHOW BINARY LOGS)
 
