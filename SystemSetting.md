@@ -58,6 +58,44 @@ SetEnvIf Referer "^http://tvzonebbs1.media.daum.net/"  spam_referal
 
 <br><br>
 
+# RDS 세팅
+
+## 파라미터 그룹
+
+|파라미터|Target|Default|
+|---|:---:|:---:|
+|innodb_buffer_pool_size|268435456|{DBInstanceClassMemory*3/4}|
+|innodb_file_per_table|0|1|
+|innodb_flush_log_at_trx_commit|0||
+|log_bin_trust_function_creators|1||
+|log_error_verbosity|2||
+|log_output|FILE|TABLE|
+|long_query_time|1||
+|skip_name_resolve|1||
+|slow_query_log|1||
+|time_zone|Asia/Seoul||
+|transaction_isolation|READ-COMMITTED||
+
+## MySQL bin log 보기 (SHOW BINARY LOGS)
+
+```
+mysqlbinlog ^
+    --read-from-remote-server ^
+    --host=db.datafirst.co.kr ^
+    --port=3306  ^
+    --user=root ^
+    --password ^
+    --to-last-log ^
+    --database=kl_999_dev ^
+    --result-file=result.sql ^
+    --skip-gtids ^
+    --base64-output=DECODE-ROWS ^
+    --verbose ^
+    mysql-bin-changelog.526995
+```
+
+<br><br>
+
 # Windows 세팅
 
 ## PING 허용
@@ -152,42 +190,4 @@ REM doskey rm=del $*
 
 REM doskey grep=find "$1" $2 
 REM doskey ps=tasklist $*
-```
-
-<br><br>
-
-# RDS 세팅
-
-## 파라미터 그룹
-
-|파라미터|Target|Default|
-|---|:---:|:---:|
-|innodb_buffer_pool_size|268435456|{DBInstanceClassMemory*3/4}|
-|innodb_file_per_table|0|1|
-|innodb_flush_log_at_trx_commit|0||
-|log_bin_trust_function_creators|1||
-|log_error_verbosity|2||
-|log_output|FILE|TABLE|
-|long_query_time|1||
-|skip_name_resolve|1||
-|slow_query_log|1||
-|time_zone|Asia/Seoul||
-|transaction_isolation|READ-COMMITTED||
-
-## MySQL bin log 보기 (SHOW BINARY LOGS)
-
-```
-mysqlbinlog ^
-    --read-from-remote-server ^
-    --host=db.datafirst.co.kr ^
-    --port=3306  ^
-    --user=root ^
-    --password ^
-    --to-last-log ^
-    --database=kl_999_dev ^
-    --result-file=result.sql ^
-    --skip-gtids ^
-    --base64-output=DECODE-ROWS ^
-    --verbose ^
-    mysql-bin-changelog.526995
 ```
