@@ -29,7 +29,7 @@
 				if ($row = $res->fetch_row())
 					$first_row = $row;
 				
-				$res->close();
+				$res->free();
 			}
 			
 			return $first_row;
@@ -41,7 +41,7 @@
 			if ($res = $this->query($query)) {
 				$rows = $res->fetch_all($resulttype);
 				
-				$res->close();
+				$res->free();
 			}
 			
 			return $rows;
