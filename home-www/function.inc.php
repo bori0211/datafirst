@@ -2,6 +2,10 @@
 	// COMPOSER AUTOLOAD
 	require __DIR__ . "/vendor/autoload.php";
 	
+	// Activate Reporting
+	//$driver = new mysqli_driver();
+	//$driver->report_mode = MYSQLI_REPORT_OFF;
+	
 	// MySQLi Extends
 	class mysqli_ext extends mysqli {
 		function __construct($db_config) {
