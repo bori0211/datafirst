@@ -164,31 +164,6 @@ select.form-control {
 .table {
   background-color: #fff;
   margin-bottom: 0;
-  /*
-  &.table-striped {
-    tbody {
-      tr:nth-of-type(odd) {
-        background-color: #fff;
-        --bs-table-accent-bg: unset;
-      }
-      tr:nth-of-type(even) {
-        background-color: rgba(0,0,0,.04);
-        --bs-table-accent-bg: unset;
-      }
-    }
-  }
-  */
-  /*
-  &.table-bordered {
-    thead, tbody, tfoot {
-      tr {
-        th, td {
-          border: 1px solid #ddd;
-        }
-      }
-    }
-  }
-  */
 }
 .table > thead > tr {
   background-color: rgba(0, 0, 0, 0.08);
