@@ -17,6 +17,8 @@
   "dependencies": {
     "fontawesome": "^6.0.0",
     "jquery": "^3.0.0",
-    "bootstrap": "^5.0.0"
+    "bootstrap": "^5.0.0",
+    "jquery-knob": "^1.2.13",
+    "chart.js": "^4.4.1"
   }
 }
