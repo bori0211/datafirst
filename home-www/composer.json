@@ -1,6 +1,7 @@
 {
     "name": "datafirst/home-www",
     "type": "project",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Seok-tae Kim",
