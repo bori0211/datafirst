@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.303.3",
+            "version": "3.304.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3389ceccdc8e78d38bf60c6648d7da9768a86d9b"
+                "reference": "29a79bac02997f3053559f6961a0e83622a14f88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3389ceccdc8e78d38bf60c6648d7da9768a86d9b",
-                "reference": "3389ceccdc8e78d38bf60c6648d7da9768a86d9b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/29a79bac02997f3053559f6961a0e83622a14f88",
+                "reference": "29a79bac02997f3053559f6961a0e83622a14f88",
                 "shasum": ""
             },
             "require": {
@@ -151,9 +151,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.303.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.304.0"
             },
-            "time": "2024-04-04T18:11:56+00:00"
+            "time": "2024-04-08T18:03:38+00:00"
         },
         {
             "name": "dompdf/dompdf",
