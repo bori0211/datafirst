@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.304.0",
+            "version": "3.304.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "29a79bac02997f3053559f6961a0e83622a14f88"
+                "reference": "20be41a5f1eef4c8a53a6ae7c0fc8b7346c0c386"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/29a79bac02997f3053559f6961a0e83622a14f88",
-                "reference": "29a79bac02997f3053559f6961a0e83622a14f88",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/20be41a5f1eef4c8a53a6ae7c0fc8b7346c0c386",
+                "reference": "20be41a5f1eef4c8a53a6ae7c0fc8b7346c0c386",
                 "shasum": ""
             },
             "require": {
@@ -151,22 +151,22 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.304.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.304.4"
             },
-            "time": "2024-04-08T18:03:38+00:00"
+            "time": "2024-04-12T18:06:45+00:00"
         },
         {
             "name": "dompdf/dompdf",
-            "version": "v2.0.4",
+            "version": "v2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "093f2d9739cec57428e39ddadedfd4f3ae862c0f"
+                "reference": "502e966a0da0446dd6712ee4f678dc4736181fcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/093f2d9739cec57428e39ddadedfd4f3ae862c0f",
-                "reference": "093f2d9739cec57428e39ddadedfd4f3ae862c0f",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/502e966a0da0446dd6712ee4f678dc4736181fcb",
+                "reference": "502e966a0da0446dd6712ee4f678dc4736181fcb",
                 "shasum": ""
             },
             "require": {
@@ -174,7 +174,7 @@
                 "ext-mbstring": "*",
                 "masterminds/html5": "^2.0",
                 "phenx/php-font-lib": ">=0.5.4 <1.0.0",
-                "phenx/php-svg-lib": ">=0.3.3 <1.0.0",
+                "phenx/php-svg-lib": ">=0.5.2 <1.0.0",
                 "php": "^7.1 || ^8.0"
             },
             "require-dev": {
@@ -213,9 +213,9 @@
             "homepage": "https://github.com/dompdf/dompdf",
             "support": {
                 "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/v2.0.4"
+                "source": "https://github.com/dompdf/dompdf/tree/v2.0.5"
             },
-            "time": "2023-12-12T20:19:39+00:00"
+            "time": "2024-04-11T11:59:08+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
