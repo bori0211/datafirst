@@ -231,6 +231,8 @@ select.form-control {
         text-align: center;
         border-bottom-width: 1px;
         
+        background-color: rgba(0,0,0,0.01);
+        
         &.bg-white {
           background-color: #fff;
           --bs-table-accent-bg: unset;
@@ -284,6 +286,21 @@ select.form-control {
     }
   }
   
+  /*
+  &.table-striped {
+    tbody {
+      tr:nth-of-type(odd) {
+        background-color: #fff;
+        --bs-table-accent-bg: unset;
+      }
+      tr:nth-of-type(even) {
+        background-color: rgba(0,0,0,.04);
+        --bs-table-accent-bg: unset;
+      }
+    }
+  }
+  */
+  
   &.table-bordered {
     thead, tbody, tfoot {
       tr {
@@ -293,6 +310,18 @@ select.form-control {
       }
     }
   }
+  
+  /*
+  &.table-bordered {
+    thead, tbody, tfoot {
+      tr {
+        th, td {
+          border: 1px solid #ddd;
+        }
+      }
+    }
+  }
+  */
   
   &.table-nobordered {
     thead, tbody, tfoot {

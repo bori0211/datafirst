@@ -164,6 +164,17 @@ select.form-control {
 .table {
   background-color: #fff;
   margin-bottom: 0;
+  /*
+  &.table-bordered {
+    thead, tbody, tfoot {
+      tr {
+        th, td {
+          border: 1px solid #ddd;
+        }
+      }
+    }
+  }
+  */
 }
 .table > thead > tr {
   background-color: rgba(0, 0, 0, 0.08);
@@ -177,6 +188,7 @@ select.form-control {
   font-weight: normal;
   text-align: center;
   border-bottom-width: 1px;
+  background-color: rgba(0, 0, 0, 0.01);
 }
 .table > thead > tr > th.bg-white, .table > tbody > tr > th.bg-white, .table > tfoot > tr > th.bg-white {
   background-color: #fff;
@@ -224,6 +236,14 @@ select.form-control {
 }
 .table > thead > tr > td.bg-yellow, .table > tbody > tr > td.bg-yellow, .table > tfoot > tr > td.bg-yellow {
   background-color: rgba(243, 156, 18, 0.05);
+}
+.table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fff;
+  --bs-table-accent-bg: unset;
+}
+.table.table-striped tbody tr:nth-of-type(even) {
+  background-color: rgba(0, 0, 0, 0.04);
+  --bs-table-accent-bg: unset;
 }
 .table.table-bordered thead tr th, .table.table-bordered thead tr td, .table.table-bordered tbody tr th, .table.table-bordered tbody tr td, .table.table-bordered tfoot tr th, .table.table-bordered tfoot tr td {
   border: 1px solid #ddd !important;
