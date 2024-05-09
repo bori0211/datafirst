@@ -343,7 +343,8 @@ footer {
   font-weight: bold;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
   border-color: #d2d6de;
   border-radius: 0;
   padding: 5px;
@@ -371,6 +372,70 @@ select.form-control {
   padding: 7px 0;
   font-size: 13px;
   color: $text-body-color;
+}
+
+
+
+/*********************************************************************************
+ * Component: Table                                                              *
+ ********************************************************************************/
+
+.table {
+  --bs-table-bg: unset;
+  --bs-table-border-color: #ddd;
+  
+  >thead.table-title >tr {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  >thead, >tbody, >tfoot {
+    >tr {
+      >th {
+        padding: 8px;
+        vertical-align: middle;
+        font-weight: normal;
+        text-align: center;
+        
+        &.bg-blue {
+          background-color: rgba($primary-color, 0.1);
+        }
+        
+        &.bg-green {
+          background-color: rgba($success-color, 0.1);
+        }
+        
+        &.bg-red {
+          background-color: rgba($danger-color, 0.1);
+        }
+        
+        &.bg-yellow {
+          background-color: rgba($warning-color, 0.1);
+        }
+      }
+      
+      >td {
+        padding: 8px;
+        vertical-align: middle;
+        
+        &.bg-blue {
+          background-color: rgba($primary-color, 0.05);
+        }
+        
+        &.bg-green {
+          background-color: rgba($success-color, 0.05);
+        }
+        
+        &.bg-red {
+          background-color: rgba($danger-color, 0.05);
+        }
+        
+        &.bg-yellow {
+          background-color: rgba($warning-color, 0.05);
+        }
+      }
+    }
+  }
+  
 }
 
 
@@ -451,18 +516,20 @@ select.form-control {
  * Component: Miscellaneous                                                      *
  ********************************************************************************/
 
-.bg-primary {
-  background-color: $primary-color !important;
-  color: #fff !important;
-}
-
-[class^="bg-"].disabled {
-  opacity: 0.65;
-  filter: alpha(opacity=65);
-}
-
 .text-primary {
   color: $primary-color !important;
+}
+
+.text-success {
+  color: $success-color !important;
+}
+
+.text-danger {
+  color: $danger-color !important;
+}
+
+.text-warning {
+  color: $warning-color !important;
 }
 
 .text-grey {

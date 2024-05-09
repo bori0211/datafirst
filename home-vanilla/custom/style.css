@@ -2,54 +2,6 @@
 /*********************************************************************************
  * SCSS: Variables                                                               *
  ********************************************************************************/
-/* Bootstrap 기본 */
-/*********************************************************************************
- * Websign Modal                                                                 *
- ********************************************************************************/
-.login-modal {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1050;
-}
-.login-modal .login-modal-content {
-  display: block;
-  position: relative;
-  width: auto;
-  z-index: 1050;
-  max-width: 500px;
-  margin: 1.75rem auto;
-  background: white;
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
-  padding: 1rem;
-}
-
-.board-modal {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1050;
-}
-.board-modal .board-modal-content {
-  display: block;
-  position: relative;
-  width: auto;
-  z-index: 1050;
-  max-width: 500px;
-  margin: 1.75rem auto;
-  background: white;
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
-  padding: 1rem;
-}
-
 /*********************************************************************************
  * Core: General Layout Style (필수)                                             *
  ********************************************************************************/
@@ -145,6 +97,53 @@ button:focus,
 }
 
 /*********************************************************************************
+ * Component: Modal                                                              *
+ ********************************************************************************/
+.login-modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+.login-modal .login-modal-content {
+  display: block;
+  position: relative;
+  width: auto;
+  z-index: 1050;
+  max-width: 500px;
+  margin: 1.75rem auto;
+  background: white;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+}
+
+.board-modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+.board-modal .board-modal-content {
+  display: block;
+  position: relative;
+  width: auto;
+  z-index: 1050;
+  max-width: 500px;
+  margin: 1.75rem auto;
+  background: white;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+}
+
+/*********************************************************************************
  * Component: Button                                                             *
  ********************************************************************************/
 .btn {
@@ -205,16 +204,6 @@ button:focus,
 /*********************************************************************************
  * Component: Miscellaneous                                                      *
  ********************************************************************************/
-.bg-primary {
-  background-color: #1976d2 !important;
-  color: #fff !important;
-}
-
-[class^=bg-].disabled {
-  opacity: 0.65;
-  filter: alpha(opacity=65);
-}
-
 .text-primary {
   color: #1976d2 !important;
 }

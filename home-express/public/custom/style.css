@@ -2,8 +2,8 @@
 /*********************************************************************************
  * SCSS: Variables                                                               *
  ********************************************************************************/
-.table {
-  --bs-table-striped-bg: rgba(0, 0, 0, 0.04);
+:root {
+  --bs-primary: #1976d2;
 }
 
 /*********************************************************************************
@@ -18,12 +18,12 @@ body {
 }
 
 a {
-  color: #212529;
+  color: var(--bs-body-color);
   transition: all 0.35s;
   text-decoration: none;
 }
 a:active, a:hover, a:focus {
-  color: #212529;
+  color: var(--bs-body-color);
 }
 
 h1,
@@ -61,7 +61,7 @@ button:focus,
   letter-spacing: 1px;
   opacity: 0.6;
   padding: 4px 8px;
-  color: #212529;
+  color: var(--bs-body-color);
 }
 .navbar .navbar-nav .nav-item > a.selected, .navbar .navbar-nav .nav-item > a:hover {
   opacity: 1;
@@ -129,7 +129,8 @@ button:focus,
   font-weight: bold;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
   border-color: #d2d6de;
   border-radius: 0;
   padding: 5px;
@@ -137,7 +138,8 @@ button:focus,
   /*line-height: 18px;*/
   min-height: 30px;
 }
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
   border-color: #1976d2;
 }
 
@@ -155,78 +157,43 @@ select.form-control {
   margin: 0;
   padding: 7px 0;
   font-size: 13px;
-  color: #212529;
+  color: var(--bs-body-color);
 }
 
 /*********************************************************************************
  * Component: Table                                                              *
  ********************************************************************************/
 .table {
-  background-color: #fff;
-  margin-bottom: 0;
-  /*
-  &.table-bordered {
-    thead, tbody, tfoot {
-      tr {
-        th, td {
-          border: 1px solid #ddd;
-        }
-      }
-    }
-  }
-  */
+  --bs-table-bg: unset;
+  --bs-table-border-color: #ddd;
 }
-.table > thead > tr {
-  background-color: rgba(0, 0, 0, 0.08);
-}
-.table > tfoot > tr {
-  background-color: rgba(0, 0, 0, 0.08);
+.table > thead.table-title > tr {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th {
   padding: 8px;
   vertical-align: middle;
   font-weight: normal;
   text-align: center;
-  border-bottom-width: 1px;
-  background-color: rgba(0, 0, 0, 0.01);
 }
-.table > thead > tr > th.bg-white, .table > tbody > tr > th.bg-white, .table > tfoot > tr > th.bg-white {
-  background-color: #fff;
-  --bs-table-accent-bg: unset;
-}
-.table > thead > tr > th.bg-grey, .table > tbody > tr > th.bg-grey, .table > tfoot > tr > th.bg-grey {
-  background-color: rgba(0, 0, 0, 0.08);
-  --bs-table-accent-bg: unset;
-}
-.table > thead > tr > th.bg-lightgrey, .table > tbody > tr > th.bg-lightgrey, .table > tfoot > tr > th.bg-lightgrey {
-  background-color: rgba(0, 0, 0, 0.04);
-  --bs-table-accent-bg: unset;
+.table > thead > tr > th.bg-blue, .table > tbody > tr > th.bg-blue, .table > tfoot > tr > th.bg-blue {
+  background-color: rgba(25, 118, 210, 0.1);
 }
 .table > thead > tr > th.bg-green, .table > tbody > tr > th.bg-green, .table > tfoot > tr > th.bg-green {
   background-color: rgba(0, 166, 90, 0.1);
-  --bs-table-accent-bg: unset;
 }
 .table > thead > tr > th.bg-red, .table > tbody > tr > th.bg-red, .table > tfoot > tr > th.bg-red {
   background-color: rgba(221, 75, 57, 0.1);
-  --bs-table-accent-bg: unset;
 }
 .table > thead > tr > th.bg-yellow, .table > tbody > tr > th.bg-yellow, .table > tfoot > tr > th.bg-yellow {
   background-color: rgba(243, 156, 18, 0.1);
-  --bs-table-accent-bg: unset;
 }
 .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
   padding: 8px;
   vertical-align: middle;
 }
-.table > thead > tr > td.bg-white, .table > tbody > tr > td.bg-white, .table > tfoot > tr > td.bg-white {
-  background-color: #fff;
-  --bs-table-accent-bg: unset;
-}
-.table > thead > tr > td.bg-grey, .table > tbody > tr > td.bg-grey, .table > tfoot > tr > td.bg-grey {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-.table > thead > tr > td.bg-lightgrey, .table > tbody > tr > td.bg-lightgrey, .table > tfoot > tr > td.bg-lightgrey {
-  background-color: rgba(0, 0, 0, 0.02);
+.table > thead > tr > td.bg-blue, .table > tbody > tr > td.bg-blue, .table > tfoot > tr > td.bg-blue {
+  background-color: rgba(25, 118, 210, 0.05);
 }
 .table > thead > tr > td.bg-green, .table > tbody > tr > td.bg-green, .table > tfoot > tr > td.bg-green {
   background-color: rgba(0, 166, 90, 0.05);
@@ -236,20 +203,6 @@ select.form-control {
 }
 .table > thead > tr > td.bg-yellow, .table > tbody > tr > td.bg-yellow, .table > tfoot > tr > td.bg-yellow {
   background-color: rgba(243, 156, 18, 0.05);
-}
-.table.table-striped tbody tr:nth-of-type(odd) {
-  background-color: #fff;
-  --bs-table-accent-bg: unset;
-}
-.table.table-striped tbody tr:nth-of-type(even) {
-  background-color: rgba(0, 0, 0, 0.04);
-  --bs-table-accent-bg: unset;
-}
-.table.table-bordered thead tr th, .table.table-bordered thead tr td, .table.table-bordered tbody tr th, .table.table-bordered tbody tr td, .table.table-bordered tfoot tr th, .table.table-bordered tfoot tr td {
-  border: 1px solid #ddd !important;
-}
-.table.table-nobordered thead tr th, .table.table-nobordered thead tr td, .table.table-nobordered tbody tr th, .table.table-nobordered tbody tr td, .table.table-nobordered tfoot tr th, .table.table-nobordered tfoot tr td {
-  border: 0;
 }
 
 /*********************************************************************************
@@ -295,16 +248,6 @@ select.form-control {
 /*********************************************************************************
  * Component: Miscellaneous                                                      *
  ********************************************************************************/
-.bg-primary {
-  background-color: #1976d2 !important;
-  color: #fff !important;
-}
-
-[class^=bg-].disabled {
-  opacity: 0.65;
-  filter: alpha(opacity=65);
-}
-
 .text-primary {
   color: #1976d2 !important;
 }

@@ -9,67 +9,11 @@ $warning-color: #f39c12;
 
 $bg-body-color: #f1f1f1;
 
-$text-body-color: #212529; /* Bootstrap 기본 */
+$text-body-color: #212529;
 $text-muted-color: #aab8c2;
 
 $text-icon-color: #b8b8b8;
 $text-icon-hover-color: #666;
-
-
-
-/*********************************************************************************
- * Websign Modal                                                                 *
- ********************************************************************************/
-
-.login-modal {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1050;
-  
-  .login-modal-content {
-    display: block;
-    position: relative;
-    width: auto;
-    z-index: 1050;
-    
-    max-width: 500px;
-    margin: 1.75rem auto;
-    
-    background: white;
-    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
-    padding: 1rem;
-  }
-}
-
-.board-modal {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1050;
-  
-  .board-modal-content {
-    display: block;
-    position: relative;
-    width: auto;
-    z-index: 1050;
-    
-    max-width: 500px;
-    margin: 1.75rem auto;
-    
-    background: white;
-    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
-    padding: 1rem;
-  }
-}
 
 
 
@@ -192,6 +136,62 @@ button:focus,
 
 
 /*********************************************************************************
+ * Component: Modal                                                              *
+ ********************************************************************************/
+
+.login-modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  
+  .login-modal-content {
+    display: block;
+    position: relative;
+    width: auto;
+    z-index: 1050;
+    
+    max-width: 500px;
+    margin: 1.75rem auto;
+    
+    background: white;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+  }
+}
+
+.board-modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  
+  .board-modal-content {
+    display: block;
+    position: relative;
+    width: auto;
+    z-index: 1050;
+    
+    max-width: 500px;
+    margin: 1.75rem auto;
+    
+    background: white;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+  }
+}
+
+
+
+/*********************************************************************************
  * Component: Button                                                             *
  ********************************************************************************/
 
@@ -270,16 +270,6 @@ button:focus,
 /*********************************************************************************
  * Component: Miscellaneous                                                      *
  ********************************************************************************/
-
-.bg-primary {
-  background-color: $primary-color !important;
-  color: #fff !important;
-}
-
-[class^="bg-"].disabled {
-  opacity: 0.65;
-  filter: alpha(opacity=65);
-}
 
 .text-primary {
   color: $primary-color !important;

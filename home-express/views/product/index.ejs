@@ -12,14 +12,14 @@
   <div class="content-body pb-4">
     <div class="container-fluid">
       <table class="table table-bordered table-striped">
-        <thead>
+        <thead class="table-title">
           <tr>
             <th>ID</th>
-            <th>상태</th>
+            <th class="bg-yellow">상태</th>
             <th>제품명</th>
             <th>가격</th>
             <th>등록일</th>
-            <th><a class="btn btn-default btn-xs btn-flat" href="/products/new"><i class="fas fa-plus fa-fw"></i></a> <button class="btn btn-default">TEST</button></th>
+            <th><a class="btn btn-default btn-xs btn-flat" href="/products/new"><i class="fas fa-plus fa-fw"></i></a> <button class="btn btn-default" disabled>TEST</button></th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@
             <td class="text-center" data-num="<?= row.id ?>">
               <?= row.id ?>
             </td>
-            <td class="text-center"><?= row.status ?></td>
+            <td class="text-center bg-yellow"><?= row.status ?></td>
             <td class="text-start"><?= row.title ?> <a href="/products/view/<?= row.id ?>"><i class="far fa-sticky-note fa-fw text-grey ml-1"></i></a></td>
             <td class="text-end"><?= row.price ?></td>
             <td class="text-center"><?= row.createdAt ?></td>

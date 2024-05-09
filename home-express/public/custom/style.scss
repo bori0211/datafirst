@@ -2,25 +2,25 @@
  * SCSS: Variables                                                               *
  ********************************************************************************/
 
+:root {
+  --bs-primary: #1976d2;
+}
+
+$selected-color: #cc181e;
+
 $primary-color: #1976d2;
 $success-color: #00a65a;
 $danger-color: #dd4b39;
 $warning-color: #f39c12;
 
-$text-body-color: #212529;
-$text-muted-color: #aab8c2;
-
 $bg-body-color: #f1f1f1;
 $bg-menu-hover-color: lightgrey;
 
-$selected-color: #cc181e;
+$text-body-color: var(--bs-body-color);
+$text-muted-color: #aab8c2;
 
 $text-icon-color: #b8b8b8;
 $text-icon-hover-color: #666;
-
-.table {
-  --bs-table-striped-bg: rgba(0, 0, 0, 0.04);
-}
 
 
 
@@ -170,7 +170,8 @@ button:focus,
   font-weight: bold;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
   border-color: #d2d6de;
   border-radius: 0;
   padding: 5px;
@@ -207,19 +208,11 @@ select.form-control {
  ********************************************************************************/
 
 .table {
-  background-color: #fff;
-  margin-bottom: 0;
+  --bs-table-bg: unset;
+  --bs-table-border-color: #ddd;
   
-  >thead {
-    >tr {
-      background-color: rgba(0,0,0,0.08);
-    }
-  }
-  
-  >tfoot {
-    >tr {
-      background-color: rgba(0,0,0,0.08);
-    }
+  >thead.table-title >tr {
+    background-color: rgba(0, 0, 0, 0.1);
   }
   
   >thead, >tbody, >tfoot {
@@ -229,33 +222,21 @@ select.form-control {
         vertical-align: middle;
         font-weight: normal;
         text-align: center;
-        border-bottom-width: 1px;
         
-        background-color: rgba(0,0,0,0.01);
+        &.bg-blue {
+          background-color: rgba($primary-color, 0.1);
+        }
         
-        &.bg-white {
-          background-color: #fff;
-          --bs-table-accent-bg: unset;
-        }
-        &.bg-grey {
-          background-color: rgba(0,0,0,0.08);
-          --bs-table-accent-bg: unset;
-        }
-        &.bg-lightgrey {
-          background-color: rgba(0,0,0,0.04);
-          --bs-table-accent-bg: unset;
-        }
         &.bg-green {
           background-color: rgba($success-color, 0.1);
-          --bs-table-accent-bg: unset;
         }
+        
         &.bg-red {
           background-color: rgba($danger-color, 0.1);
-          --bs-table-accent-bg: unset;
         }
+        
         &.bg-yellow {
           background-color: rgba($warning-color, 0.1);
-          --bs-table-accent-bg: unset;
         }
       }
       
@@ -263,22 +244,18 @@ select.form-control {
         padding: 8px;
         vertical-align: middle;
         
-        &.bg-white {
-          background-color: #fff;
-          --bs-table-accent-bg: unset;
+        &.bg-blue {
+          background-color: rgba($primary-color, 0.05);
         }
-        &.bg-grey {
-          background-color: rgba(0,0,0,0.04);
-        }
-        &.bg-lightgrey {
-          background-color: rgba(0,0,0,0.02);
-        }
+        
         &.bg-green {
           background-color: rgba($success-color, 0.05);
         }
+        
         &.bg-red {
           background-color: rgba($danger-color, 0.05);
         }
+        
         &.bg-yellow {
           background-color: rgba($warning-color, 0.05);
         }
@@ -286,52 +263,6 @@ select.form-control {
     }
   }
   
-  /*
-  &.table-striped {
-    tbody {
-      tr:nth-of-type(odd) {
-        background-color: #fff;
-        --bs-table-accent-bg: unset;
-      }
-      tr:nth-of-type(even) {
-        background-color: rgba(0,0,0,.04);
-        --bs-table-accent-bg: unset;
-      }
-    }
-  }
-  */
-  
-  &.table-bordered {
-    thead, tbody, tfoot {
-      tr {
-        th, td {
-          border: 1px solid #ddd !important;
-        }
-      }
-    }
-  }
-  
-  /*
-  &.table-bordered {
-    thead, tbody, tfoot {
-      tr {
-        th, td {
-          border: 1px solid #ddd;
-        }
-      }
-    }
-  }
-  */
-  
-  &.table-nobordered {
-    thead, tbody, tfoot {
-      tr {
-        th, td {
-          border: 0;
-        }
-      }
-    }
-  }
 }
 
 
@@ -392,16 +323,6 @@ select.form-control {
 /*********************************************************************************
  * Component: Miscellaneous                                                      *
  ********************************************************************************/
-
-.bg-primary {
-  background-color: $primary-color !important;
-  color: #fff !important;
-}
-
-[class^="bg-"].disabled {
-  opacity: 0.65;
-  filter: alpha(opacity=65);
-}
 
 .text-primary {
   color: $primary-color !important;

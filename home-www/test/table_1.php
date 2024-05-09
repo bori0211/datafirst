@@ -2,17 +2,21 @@
 <html>
   <head>
     <link rel="stylesheet" href="/bower/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/custom/style.css">
     <style>
-      /* Set the size of the div element that contains the map */
-      #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
-       
-.table {
+body {
   background-color: #fff;
-  margin-bottom: 0;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  overflow-y: scroll;
 }
+
+.table {
+  /*background-color: #fff;
+  margin-bottom: 0;*/
+}
+
     </style>
   </head>
   <body>
@@ -20,18 +24,18 @@
     
   <table class="table table-bordered table-striped mx-auto" style="width:320px;">
     <thead>
-      <tr>
-        <th>혈액형</th>
+      <tr class="table-title">
+        <th class="table-primary">혈액형</th>
         <th width="100">환자수</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="text-center">A</td>
+        <td class="table-primary text-center">A</td>
         <td class="text-end">28명</td>
       </tr>
       <tr>
-        <td class="text-center">B</td>
+        <td class="table-primary text-center">B</td>
         <td class="text-end">18명</td>
       </tr>
       <tr>
