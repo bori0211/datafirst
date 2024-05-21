@@ -2,12 +2,17 @@
  * SCSS: Variables                                                               *
  ********************************************************************************/
 
+:root {
+  --bs-primary: #1976d2;
+  --bs-body-font-size: 1.12rem;
+}
+
 $primary-color: #1976d2;
 $success-color: #00a65a;
 $danger-color: #dd4b39;
 $warning-color: #f39c12;
 
-$text-body-color: #212529;
+$text-body-color: var(--bs-body-color);
 $text-muted-color: #aab8c2;
 
 $text-icon-color: #b8b8b8;
@@ -22,7 +27,7 @@ $text-icon-hover-color: #666;
 body {
   background-color: #000;
   font-family: Arial, sans-serif;
-  font-size: 18px;
+  /*font-size: 18px;*/
   font-weight: 400;
   overflow-y: scroll;
 }
@@ -272,7 +277,7 @@ footer {
 
 
 /*********************************************************************************
- * Component: Modal                                                              *
+ * Layout: Modal                                                                 *
  ********************************************************************************/
 
 .modal {
@@ -319,65 +324,7 @@ footer {
 
 
 /*********************************************************************************
- * Component: Form                                                               *
- ********************************************************************************/
-
-.form-inline {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-}
-
-.form-inline .form-control,
-.form-inline .form-select,
-.form-inline .input-group.date {
-  width: auto; /* 575이하일 때 100% 되는 것을 방지 */
-}
-
-.form-inline .form-check {
-  padding-top: 7px; /* 상하 간격 맞추기 */
-}
-
-.col-form-label {
-  font-size: 13px;
-  font-weight: bold;
-}
-
-.form-control,
-.form-select {
-  border-color: #d2d6de;
-  border-radius: 0;
-  padding: 5px;
-  font-size: 12px;
-  /*line-height: 18px;*/
-  min-height: 30px;
-  
-  &:focus {
-    border-color: $primary-color;
-  }
-}
-
-.form-select {
-  background-position: right 0.15rem center;
-  padding: 5px 23px 5px 5px;
-}
-
-input.form-control,
-select.form-control {
-  height: 30px;
-}
-
-.form-text {
-  margin: 0;
-  padding: 7px 0;
-  font-size: 13px;
-  color: $text-body-color;
-}
-
-
-
-/*********************************************************************************
- * Component: Table                                                              *
+ * Content: Table                                                                *
  ********************************************************************************/
 
 .table {
@@ -441,29 +388,65 @@ select.form-control {
 
 
 /*********************************************************************************
- * Component: Media                                                              *
+ * Forms                                                                         *
  ********************************************************************************/
 
-.single-item {
-  margin-bottom: 0.4rem;
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.form-inline .form-control,
+.form-inline .form-select,
+.form-inline .input-group.date {
+  width: auto; /* 575이하일 때 100% 되는 것을 방지 */
+}
+
+.form-inline .form-check {
+  padding-top: 7px; /* 상하 간격 맞추기 */
+}
+
+.col-form-label {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.form-control,
+.form-select {
+  border-color: #d2d6de;
+  border-radius: 0;
+  padding: 5px;
+  font-size: 12px;
+  /*line-height: 18px;*/
+  min-height: 30px;
   
-  .single-icon {
-    display: inline-block;
-    min-width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    color: #fff;
-    background-color: $primary-color;
-    line-height: 30px;
-    text-align: center;
-    font-size: 14px;
+  &:focus {
+    border-color: $primary-color;
   }
+}
+
+.form-select {
+  background-position: right 0.15rem center;
+  padding: 5px 23px 5px 5px;
+}
+
+input.form-control,
+select.form-control {
+  height: 30px;
+}
+
+.form-text {
+  margin: 0;
+  padding: 7px 0;
+  font-size: 13px;
+  color: $text-body-color;
 }
 
 
 
 /*********************************************************************************
- * Component: Button                                                             *
+ * Components: Button                                                            *
  ********************************************************************************/
 
 .btn {
@@ -513,7 +496,29 @@ select.form-control {
 
 
 /*********************************************************************************
- * Component: Miscellaneous                                                      *
+ * Components: Media                                                             *
+ ********************************************************************************/
+
+.single-item {
+  margin-bottom: 0.4rem;
+  
+  .single-icon {
+    display: inline-block;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #fff;
+    background-color: $primary-color;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
+
+
+/*********************************************************************************
+ * Utilities: Colors                                                             *
  ********************************************************************************/
 
 .text-primary {

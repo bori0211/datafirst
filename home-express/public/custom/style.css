@@ -2,10 +2,6 @@
 /*********************************************************************************
  * SCSS: Variables                                                               *
  ********************************************************************************/
-:root {
-  --bs-primary: #1976d2;
-}
-
 /*********************************************************************************
  * Core: General Layout Style (필수)                                             *
  ********************************************************************************/
@@ -18,12 +14,12 @@ body {
 }
 
 a {
-  color: var(--bs-body-color);
+  color: #212529;
   transition: all 0.35s;
   text-decoration: none;
 }
 a:active, a:hover, a:focus {
-  color: var(--bs-body-color);
+  color: #212529;
 }
 
 h1,
@@ -61,7 +57,7 @@ button:focus,
   letter-spacing: 1px;
   opacity: 0.6;
   padding: 4px 8px;
-  color: var(--bs-body-color);
+  color: #212529;
 }
 .navbar .navbar-nav .nav-item > a.selected, .navbar .navbar-nav .nav-item > a:hover {
   opacity: 1;
@@ -106,7 +102,52 @@ button:focus,
 }
 
 /*********************************************************************************
- * Component: Form                                                               *
+ * Content: Table                                                                *
+ ********************************************************************************/
+.table {
+  --bs-table-bg: unset;
+  --bs-table-border-color: #ddd;
+}
+.table > thead.table-title > tr {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th {
+  padding: 8px;
+  vertical-align: middle;
+  font-weight: normal;
+  text-align: center;
+}
+.table > thead > tr > th.bg-blue, .table > tbody > tr > th.bg-blue, .table > tfoot > tr > th.bg-blue {
+  background-color: rgba(25, 118, 210, 0.1);
+}
+.table > thead > tr > th.bg-green, .table > tbody > tr > th.bg-green, .table > tfoot > tr > th.bg-green {
+  background-color: rgba(0, 166, 90, 0.1);
+}
+.table > thead > tr > th.bg-red, .table > tbody > tr > th.bg-red, .table > tfoot > tr > th.bg-red {
+  background-color: rgba(221, 75, 57, 0.1);
+}
+.table > thead > tr > th.bg-yellow, .table > tbody > tr > th.bg-yellow, .table > tfoot > tr > th.bg-yellow {
+  background-color: rgba(243, 156, 18, 0.1);
+}
+.table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  padding: 8px;
+  vertical-align: middle;
+}
+.table > thead > tr > td.bg-blue, .table > tbody > tr > td.bg-blue, .table > tfoot > tr > td.bg-blue {
+  background-color: rgba(25, 118, 210, 0.05);
+}
+.table > thead > tr > td.bg-green, .table > tbody > tr > td.bg-green, .table > tfoot > tr > td.bg-green {
+  background-color: rgba(0, 166, 90, 0.05);
+}
+.table > thead > tr > td.bg-red, .table > tbody > tr > td.bg-red, .table > tfoot > tr > td.bg-red {
+  background-color: rgba(221, 75, 57, 0.05);
+}
+.table > thead > tr > td.bg-yellow, .table > tbody > tr > td.bg-yellow, .table > tfoot > tr > td.bg-yellow {
+  background-color: rgba(243, 156, 18, 0.05);
+}
+
+/*********************************************************************************
+ * Forms                                                                         *
  ********************************************************************************/
 .form-inline {
   display: flex;
@@ -157,56 +198,11 @@ select.form-control {
   margin: 0;
   padding: 7px 0;
   font-size: 13px;
-  color: var(--bs-body-color);
+  color: #212529;
 }
 
 /*********************************************************************************
- * Component: Table                                                              *
- ********************************************************************************/
-.table {
-  --bs-table-bg: unset;
-  --bs-table-border-color: #ddd;
-}
-.table > thead.table-title > tr {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th {
-  padding: 8px;
-  vertical-align: middle;
-  font-weight: normal;
-  text-align: center;
-}
-.table > thead > tr > th.bg-blue, .table > tbody > tr > th.bg-blue, .table > tfoot > tr > th.bg-blue {
-  background-color: rgba(25, 118, 210, 0.1);
-}
-.table > thead > tr > th.bg-green, .table > tbody > tr > th.bg-green, .table > tfoot > tr > th.bg-green {
-  background-color: rgba(0, 166, 90, 0.1);
-}
-.table > thead > tr > th.bg-red, .table > tbody > tr > th.bg-red, .table > tfoot > tr > th.bg-red {
-  background-color: rgba(221, 75, 57, 0.1);
-}
-.table > thead > tr > th.bg-yellow, .table > tbody > tr > th.bg-yellow, .table > tfoot > tr > th.bg-yellow {
-  background-color: rgba(243, 156, 18, 0.1);
-}
-.table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-  padding: 8px;
-  vertical-align: middle;
-}
-.table > thead > tr > td.bg-blue, .table > tbody > tr > td.bg-blue, .table > tfoot > tr > td.bg-blue {
-  background-color: rgba(25, 118, 210, 0.05);
-}
-.table > thead > tr > td.bg-green, .table > tbody > tr > td.bg-green, .table > tfoot > tr > td.bg-green {
-  background-color: rgba(0, 166, 90, 0.05);
-}
-.table > thead > tr > td.bg-red, .table > tbody > tr > td.bg-red, .table > tfoot > tr > td.bg-red {
-  background-color: rgba(221, 75, 57, 0.05);
-}
-.table > thead > tr > td.bg-yellow, .table > tbody > tr > td.bg-yellow, .table > tfoot > tr > td.bg-yellow {
-  background-color: rgba(243, 156, 18, 0.05);
-}
-
-/*********************************************************************************
- * Component: Button                                                             *
+ * Components: Button                                                            *
  ********************************************************************************/
 .btn {
   border: 1px solid transparent;
@@ -246,7 +242,7 @@ select.form-control {
 }
 
 /*********************************************************************************
- * Component: Miscellaneous                                                      *
+ * Utilities: Colors                                                             *
  ********************************************************************************/
 .text-primary {
   color: #1976d2 !important;
