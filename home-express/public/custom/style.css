@@ -102,7 +102,7 @@ h6 {
   --bs-table-bg: unset;
   --bs-table-border-color: #ddd;
 }
-.table > thead.table-title > tr {
+.table > thead.table-head > tr {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th {
