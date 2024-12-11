@@ -22,6 +22,12 @@ body {
   <body>
     <h3>Table test</h3>
     
+<img src="https://www.lcampus.co.kr/__FileSave/Board/Gallery/1/0419.jpg">
+
+<img src="https://www.lcampus.co.kr/LetImg/letuinsemi.png">
+
+
+    
   <table class="table table-bordered table-striped mx-auto" style="width:320px;">
     <thead>
       <tr class="table-title">

@@ -17,6 +17,7 @@
 			return parent::__construct($db_host, $db_user, $db_password, $db_name);
 		}
 		
+		#[\ReturnTypeWillChange]
 		function query($query, $resultmode = MYSQLI_STORE_RESULT) {
 			$result = parent::query($query, $resultmode);
 			
@@ -65,5 +66,11 @@
 		}
 		
 		return $mysqli;
+	}
+	
+	// PAGE STATISTICS
+	function getmicrotime() {
+    	$microtimestmp = explode(" ", microtime());
+    	return $microtimestmp[0] + $microtimestmp[1];
 	}
 ?>
