@@ -87,7 +87,7 @@
 		
 		//Recipients
 		$mail->setFrom("chickendinner.me@gmail.com", "ChickenDinner");
-		$mail->addAddress("datafirst.contact@gmail.com", "DataFirst");     //Add a recipient
+		$mail->addAddress("bori0211@gmail.com", "DataFirst");     //Add a recipient
 		//$mail->addAddress('ellen@example.com');               //Name is optional
 		//$mail->addReplyTo('info@example.com', 'Information');
 		//$mail->addCC('cc@example.com');
