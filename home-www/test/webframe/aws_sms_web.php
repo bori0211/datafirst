@@ -4,7 +4,7 @@
 	use Aws\Sns\SnsClient;
 	use Aws\Exception\AwsException;
 	
-	$credentials = new Aws\Credentials\Credentials("AKIARH6Z3C3ZV3HQOS5F", "dY5B5zR2wMAEY4P0j3OFSMjgpRb784tNpbF5vRgz");
+	$credentials = new Aws\Credentials\Credentials(TEST_ACCESS_KEY_ID, TEST_SECRET_ACCESS_KEY);
 	
 	$SnSclient = new SnsClient([ "region" => "ap-northeast-1", "version" => "latest", "credentials" => $credentials ]);
 	$message = "PHP TEST 발송";
