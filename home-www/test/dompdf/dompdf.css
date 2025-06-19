@@ -1,0 +1,34 @@
+table {
+  border-spacing: 15px;
+  margin: 2em auto;
+}
+td {
+  outline-width: 5px;
+  border: thin dotted gray;
+  padding: 1em;
+}
+
+td.dotted { outline-style: dotted; color: maroon;}
+td.dashed { outline-style: dashed; color: orange; }
+td.solid  { outline-style: solid; color: yellow; }
+td.double { outline-style: double; color: olive; }
+td.groove { outline-style: groove; color: green; }
+td.ridge  { outline-style: ridge; color: lime; }
+td.inset  { outline-style: inset; color: teal; }
+td.outset { outline-style: outset; color: blue; }
+
+div { margin: 5pt; }
+
+div.full { outline:thin blue solid;}
+
+div.partialthinsolid,
+div.partial1,
+div.partial2 { outline:thin solid;}
+
+div.partial1 { outline-color:green; }
+div.partial2 { outline:blue;}
+
+div.partial3 { outline-style:dashed; }
+div.partial4 { outline-width:thick; }
+div.partial5 { outline-width:medium; }
+div.partial6 { outline-width:3pt; }
