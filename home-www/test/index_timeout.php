@@ -21,7 +21,7 @@
 	$mysqli = mysqli_instance();
 	
 	// MySQL
-	list($sleep) = $mysqli->query_fetch_first_row("SELECT SLEEP(15)");
+	list($sleep) = $mysqli->query_fetch_first_row("SELECT SLEEP(1)");
 	
 	// MYSQLi CLOSE
 	$mysqli->close();
@@ -34,9 +34,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>KL데모내과</title>
+    <title>WebFrame Timeout Test</title>
     <link rel="shortcut icon" href="/upload/11111111/favicon-16x16.png" type="image/png">
-    <script src="/bower/jquery/dist/jquery.min.js?v=3.7.1"></script>
+    <script src="/bower/jquery/dist/jquery.min.js?v=3.5.1"></script>
   </head>
   
   <body>
@@ -48,7 +48,7 @@
       <div class="content-body">
         <div class="container-fluid">
         <table class="table table-bordered table-striped px-3">
-          <thead class="table-head">
+          <thead>
             <tr>
               <th>보기</th>
               <th>코드</th>
@@ -74,6 +74,7 @@
         
       </div>
     </div>
+    
     
 <script>
 /*
