@@ -10,10 +10,8 @@ exports.indexProducts = async (req, res, next) => {
       selectedContent: 'Product',
       rows
     });
-    res.end();
   } catch (error) {
     res.status(500).json({ error });
-    res.end();
   }
 };
 
@@ -28,10 +26,8 @@ exports.viewProducts = async (req, res, next) => {
       selectedContent: 'Product',
       row: rows[0]
     });
-    res.end();
   } catch (error) {
     res.status(500).json({ error });
-    res.end();
   }
 };
 
@@ -50,7 +46,6 @@ exports.newProducts = async (req, res, next) => {
     selectedContent: 'Product',
     row: initData
   });
-  res.end();
 };
 
 /* INSERT */
@@ -68,10 +63,8 @@ exports.insertProducts = async (req, res, next) => {
     res.status(200).json({
       result: true
     });
-    res.end();
   } catch (error) {
     res.status(500).json({ error });
-    res.end();
   }
 };
 
@@ -87,10 +80,8 @@ exports.modifyProducts = async (req, res, next) => {
       selectedContent: 'Product',
       row: rows[0]
     });
-    res.end();
   } catch (error) {
     res.status(500).json({ error });
-    res.end();
   }
 };
 
@@ -110,10 +101,8 @@ exports.updateProducts = async (req, res, next) => {
     res.status(200).json({
       result: true
     });
-    res.end();
   } catch (error) {
     res.status(500).json({ error });
-    res.end();
   }
 };
 
@@ -128,9 +117,7 @@ exports.deleteProducts = async (req, res, next) => {
     res.status(200).json({
       result: true
     });
-    res.end();
   } catch (error) {
     res.status(500).json({ error });
-    res.end();
   }
 };

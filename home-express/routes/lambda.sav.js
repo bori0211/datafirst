@@ -13,7 +13,6 @@ router.get('/', async (req, res, next) => {
   console.log('lambda call');
 
   res.status(200).json({ 'result': true });
-  res.end();
 });
 
 router.post('/', async (req, res, next) => {
@@ -36,12 +35,10 @@ router.post('/', async (req, res, next) => {
     //console.log(row);
 
     res.status(200).json({ 'result': true });
-    res.end();
 
   } catch (error) {
 
     res.status(500).json({ error });
-    res.end();
   }
 });
 
@@ -83,11 +80,9 @@ router.post('/catch-slow-query', async (req, res, next) => {
     if (error) {
       console.log(error);
       res.status(500).json({ 'error': 'transporter sendMail error' });
-      res.end();
     } else {
       console.log('Email sent');
       res.status(200).json({ 'result': true });
-      res.end();
     }
   });
   
@@ -103,7 +98,6 @@ router.post('/catch-slow-query', async (req, res, next) => {
   zlib.unzip(buffer, (err, buffer) => {
     if (err) {
       res.status(500).json({ 'error': 'zlib unzip error' });
-      res.end();
     } else {
       //console.log(buffer.toString('utf8'));
       const body_text = buffer.toString('utf8');
@@ -119,11 +113,9 @@ router.post('/catch-slow-query', async (req, res, next) => {
         if (error) {
           console.log(error);
           res.status(500).json({ 'error': 'transporter sendMail error' });
-          res.end();
         } else {
           console.log('Email sent');
           res.status(200).json({ 'result': true });
-          res.end();
         }
       });
     }

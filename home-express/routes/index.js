@@ -9,7 +9,6 @@ router.get('/', (req, res, next) => {
     password: sha2['SHA-256']('1111').toString('hex'),
     selectedContent: 'Index'
   });
-  res.end();
 });
 
 module.exports = router;
