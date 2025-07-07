@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
     pageTitle: 'DataFirst',
     selectedContent: 'Lambda'
   });
-  res.end();
+  
 });
 
 
@@ -43,12 +43,10 @@ router.post('/', async (req, res, next) => {
     //console.log(row);
 
     res.status(200).json({ 'result': true });
-    res.end();
 
   } catch (error) {
 
     res.status(500).json({ error });
-    res.end();
   }
 });
 
@@ -76,7 +74,6 @@ router.post('/sendmail', async (req, res, next) => {
     zlib.unzip(orgBuffer, (err, unzipBuffer) => {
       if (err) {
         res.status(500).json({ 'error': 'zlib unzip error' });
-        res.end();
       } else {
         //console.log(buffer.toString('utf8'));
         const body_text = unzipBuffer.toString('utf8');
@@ -92,11 +89,9 @@ router.post('/sendmail', async (req, res, next) => {
           if (error) {
             console.log(error);
             res.status(500).json({ 'error': 'transporter sendMail error' });
-            res.end();
           } else {
             console.log('Email sent');
             res.status(200).json({ 'result': true });
-            res.end();
           }
         });
       }
@@ -117,11 +112,9 @@ router.post('/sendmail', async (req, res, next) => {
       if (error) {
         console.log(error);
         res.status(500).json({ 'result': false, 'error': 'transporter sendMail error' });
-        res.end();
       } else {
         console.log('Email sent');
         res.status(200).json({ 'result': true });
-        res.end();
       }
     });
   }

@@ -14,7 +14,6 @@ router.get('/', async (req, res, next) => {
     pageTitle: 'DataFirst',
     selectedContent: 'Telegraf'
   });
-  res.end();
 });
 
 
@@ -64,7 +63,6 @@ router.post('/', async (req, res, next) => {
   } catch (error) {
 
     res.status(500).json({ message: 'The MySQL returned an error: ' + error });
-    res.end();
   }
 
 
@@ -114,7 +112,6 @@ router.post('/', async (req, res, next) => {
     if (err) {
       console.log(err);
       res.status(500).json({ message: 'client authorize error: ' + err });
-      res.end();
     }
   });
 
@@ -134,11 +131,9 @@ router.post('/', async (req, res, next) => {
     if (err) {
       console.log(err);
       res.status(500).json({ message: 'The API returned an error: ' + err });
-      res.end();
     } else {
       //console.log(result);
       res.status(200).json({ result: true });
-      res.end();
     }
   });
 

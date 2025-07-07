@@ -3,7 +3,6 @@ const path = require('path');
 const express = require('express');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
-const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/products');
@@ -23,8 +22,8 @@ app.set('view options', { delimiter: '?', outputFunctionName: 'echo' });
 // Uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'assets', 'favicon.png')));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(logger('dev'));
 
 // Handling CORS
@@ -50,7 +49,6 @@ app.get('/tmp', (req, res) => {
   //res.statusCode = 200;
   //res.setHeader('Content-Type', 'text/html');
   //res.write('<h1>Hello World</h1>');
-  //res.end();
 
   let body = '';
   req.on('data', (chunk) => {
@@ -61,11 +59,9 @@ app.get('/tmp', (req, res) => {
     const { title, description, price } = JSON.parse(body);
     const product = { title: title, description, price };
     res.send('result:' + req.query.id);
-    res.end();
   });
 
   res.send('result:' + req.query.id);
-  res.end();
 });
 
 // catch 404 and forward to error handler

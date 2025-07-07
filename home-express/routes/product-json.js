@@ -7,7 +7,6 @@ const router = express.Router();
 // GET
 router.get('/', async (req, res, next) => {
   res.status(200).json({ message: 'Hello world' });
-  res.end();
 });
 
 // POST
@@ -41,7 +40,6 @@ router.post('/json-array-insert', async (req, res, next) => {
   //console.log(result);
   
   res.status(200).json({ 'result': result });
-  res.end();
 });
 
 module.exports = router;

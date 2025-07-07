@@ -10,10 +10,9 @@
     "stop": "pm2 delete ecosystem.config.js"
   },
   "dependencies": {
-    "body-parser": "^2.2.0",
     "debug": "^4.3.1",
     "ejs": "^3.1.5",
-    "express": "^4.17.1",
+    "express": "^5.1.0",
     "googleapis": "latest",
     "jsonwebtoken": "^9.0.0",
     "moment-timezone": "^0.6.0",
