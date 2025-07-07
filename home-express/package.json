@@ -10,16 +10,16 @@
     "stop": "pm2 delete ecosystem.config.js"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^2.2.0",
     "debug": "^4.3.1",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "googleapis": "latest",
     "jsonwebtoken": "^9.0.0",
-    "moment-timezone": "^0.5.32",
+    "moment-timezone": "^0.6.0",
     "morgan": "^1.10.0",
     "mysql2": "^3.0.0",
-    "nodemailer": "^6.4.17",
+    "nodemailer": "^7.0.0",
     "serve-favicon": "^2.5.0",
     "sha2": "^1.0.2"
   }
