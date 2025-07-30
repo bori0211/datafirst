@@ -1,0 +1,38 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+# remotes/origin/HEAD -> origin/master 헤드 삭제
+# git branch -a
+# git remote set-head origin -d
+
+# home-www
+config.inc.php
+
+# home-express
+config.js
+google_keys.json
+
+# home-vanilla
+firebase-config.js
+
+# home-python
+.env
+
+# vscode
+.vscode/
+
+# Firebase studio (IDX)
+.idx/
+
+# lock files
+package-lock.json
+composer.lock
+
+# dependencies
+bower/
+node_modules/
+vendor/
+
+# legacy
+ohmyapple/
+ohmyphone/
+ohmyspon/

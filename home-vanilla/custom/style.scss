@@ -1,0 +1,290 @@
+/*********************************************************************************
+ * SCSS: Variables                                                               *
+ ********************************************************************************/
+
+$primary-color: #1976d2;
+$success-color: #00a65a;
+$danger-color: #dd4b39;
+$warning-color: #f39c12;
+
+$text-body-color: #212529;
+$text-muted-color: #aab8c2;
+
+$text-icon-color: #b8b8b8;
+$text-icon-hover-color: #666;
+
+
+
+/*********************************************************************************
+ * Core: General Layout Style (필수)                                             *
+ ********************************************************************************/
+
+body {
+  background-color: #f1f1f1;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  overflow-y: scroll;
+}
+
+a {
+  color: $text-body-color;
+  transition: all 0.35s;
+
+  &:active,
+  &:hover,
+  &:focus {
+    color: $text-body-color;
+    text-decoration: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /*margin-bottom: 0;*/
+}
+
+
+
+/*********************************************************************************
+ * Layout: Navbar                                                                *
+ ********************************************************************************/
+
+.navbar {
+  height: 50px;
+  padding: 0;
+  background-color: white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+
+  .navbar-nav {
+    flex-direction: row;
+
+    .nav-item>a {
+      font-family: Raleway, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0.6;
+      padding: 4px 8px;
+      
+      color: $text-body-color;
+
+      &.selected,
+      &:hover {
+        opacity: 1;
+      }
+    }
+    
+  }
+}
+
+
+
+/*********************************************************************************
+ * Layout: Content                                                               *
+ ********************************************************************************/
+
+.content-main {
+  margin-left: 0;
+  padding-top: 50px;
+
+  .content-wrapper {
+    min-height: 250px;
+    margin: 12px auto 24px;
+    width: 970px;
+
+    .content {
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      width: 100%;
+
+      .content-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 24px;
+
+        h1.content-title {
+          font-size: 1.2em;
+        }
+      }
+
+      .content-body {
+        padding: 12px 9px;
+      }
+
+      .content-footer {
+        padding: 4px 0 16px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+
+
+/*********************************************************************************
+ * Layout: Modal                                                                 *
+ ********************************************************************************/
+
+.login-modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  
+  .login-modal-content {
+    display: block;
+    position: relative;
+    width: auto;
+    z-index: 1050;
+    
+    max-width: 500px;
+    margin: 1.75rem auto;
+    
+    background: white;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+  }
+}
+
+.board-modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  
+  .board-modal-content {
+    display: block;
+    position: relative;
+    width: auto;
+    z-index: 1050;
+    
+    max-width: 500px;
+    margin: 1.75rem auto;
+    
+    background: white;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+  }
+}
+
+
+
+/*********************************************************************************
+ * Components: Button                                                            *
+ ********************************************************************************/
+
+.btn {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+
+  &:hover:not([disabled]) {
+    cursor: pointer;
+  }
+
+  &:active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  }
+
+  &.btn-xs {
+    padding: 4px 6px;
+  }
+
+  &.btn-flat {
+    border-radius: 0;
+  }
+
+  &.btn-default {
+    background-color: #f4f4f4;
+    border-color: #ddd;
+    color: #444;
+
+    &:hover,
+    &:active {
+      background-color: #e7e7e7;
+    }
+  }
+
+  &.btn-primary {
+    background-color: $primary-color;
+    border-color: #0065a0;
+    color: #fff;
+
+    &:hover,
+    &:active {
+      background-color: #0065a0;
+    }
+  }
+  
+  &.btn-navbar-icon {
+    border: 0;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    color: $text-icon-color;
+    
+    &:active {
+      box-shadow: none;
+    }
+    
+    &:hover {
+      color: $text-icon-hover-color;
+    }
+    
+    .fa-fw {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+  
+}
+
+
+
+/*********************************************************************************
+ * Components: Markdown                                                          *
+ ********************************************************************************/
+
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 34px;
+}
+
+
+
+/*********************************************************************************
+ * Utilities: Colors                                                             *
+ ********************************************************************************/
+
+.text-primary {
+  color: $primary-color !important;
+}
+
+.text-grey {
+  color: grey !important;
+}
+
+.text-muted {
+  color: $text-muted-color !important;
+}

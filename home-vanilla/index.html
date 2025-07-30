@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no">
+    <title>Vanilla JS</title>
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:200,400,700|Raleway:200,400,700|Open+Sans:200,400,700">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!--<script src="https://kit.fontawesome.com/6cf4429a4a.js" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.3.0/github-markdown.css" integrity="sha512-9EEsfUEx9QyF/kZHJcwxsQ6QZtXNovUaCU041o4mvpIA94Xa0NfNga6JQ864kp6O/rzmcgc5CXfz7uQNxNkGoA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./custom/style.css">
+  </head>
+  
+  <body>
+    <nav class="navbar fixed-top">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="./">HOME</a></li>
+        <li class="nav-item">
+          <button class="btn btn-navbar-icon" id="login-status-icon"><i class="fas fa-spinner fa-spin fa-fw"></i></button>
+          <button class="btn btn-navbar-icon" id="login-modal-launch" style="display:none;"><i class="fas fa-user fa-fw"></i></button>
+          <button class="btn btn-navbar-icon" id="board-modal-launch" style="display:none;"><i class="fas fa-user fa-fw text-primary"></i></button>
+        </li>
+      </ul>
+    </nav>
+    
+    <div class="login-modal">
+      <div class="login-modal-content">
+        <h1 style="margin-top:0;">Login</h1>
+        <input type="text" name="email" value="" placeholder="이메일"><br>
+        <input type="password" name="password" value="" placeholder="패스워드"><br>
+        <div class="login-modal-actions" style="margin-top:10px;">
+          <button type="button" class="login-btn">Login</button>
+          <button type="button" class="close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="board-modal">
+      <div class="board-modal-content">
+        <h1 style="margin-top:0;">Board</h1>
+        제목: <input type="text" name="title" value="" placeholder=""><br>
+        예약 대기 환자 <input type="text" name="appointWait" value="" placeholder="" style="width:3rem;">명<br>
+        검사 대기 환자 <input type="text" name="testWait" value="" placeholder="검사 대기 환자" style="width:3rem;">명<br>
+        예상 대기 시간 <input type="text" name="estimatedWaitHour" value="" placeholder="" style="width:3rem;">시간
+        <input type="text" name="estimatedWaitMin" value="" placeholder="" style="width:3rem;">분<br>
+        <div class="board-modal-actions" style="margin-top:10px;">
+          <button type="button" class="save-btn">Save</button>
+          <button type="button" class="logout-btn">Logout</button>
+          <button type="button" class="close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="content-main">
+      <div class="content-wrapper">
+        <div class="content mb-2">
+          <div class="sign wait">
+            <article class="markdown-body">
+              <h1>Hello, Vanilla JS & Firebase Realtime DB</h1>
+              <blockquote>
+                <p>대기판 (#<strong class="updateCount"></strong>) / <strong class="title"></strong></p>
+                <ul>
+                  <li>예약 대기 환자: <strong class="appointWait"></strong>명</li>
+                  <li>검사 대기 환자: <strong class="testWait"></strong>명</li>
+                  <li>예상 대기 시간: <strong class="estimatedWaitHour"></strong>시간 <strong class="estimatedWaitMin"></strong>분</li>
+                </ul>
+              </blockquote>
+            </article>
+          </div>
+        </div>
+        
+        <div class="content">
+          <article class="markdown-body">
+            <h1>My practice (2021-07-16)</h1>
+            
+            <h2>js-basic</h2>
+            <ol>
+              <li>
+                ./practice/js-basic/vanilla-modal/index.html
+                <a href="./practice/js-basic/vanilla-modal/index.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-basic/create-dom-modal/made_dom.html
+                <a href="./practice/js-basic/create-dom-modal/made_dom.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-basic/create-dom-modal/create_dom.html
+                <a href="./practice/js-basic/create-dom-modal/create_dom.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+            </ol>
+            
+            <h2>js-es6 (ch1)</h2>
+            <ol>
+              <li>
+                ./practice/js-es6/arrow.html
+                <a href="./practice/js-es6/arrow.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-es6/arrow_this.html
+                <a href="./practice/js-es6/arrow_this.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-es6/loop.html
+                <a href="./practice/js-es6/loop.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-es6/object_literal.html
+                <a href="./practice/js-es6/object_literal.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-es6/rest_operator.html
+                <a href="./practice/js-es6/rest_operator.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+            </ol>
+            
+            <h2>js-es6 (ch2)</h2>
+            <ol>
+              <li>
+                ./practice/js-es6/class/basic.html
+                <a href="./practice/js-es6/class/basic.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-es6/class/getters_setters.html
+                <a href="./practice/js-es6/class/getters_setters.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-es6/class/iterators.html
+                <a href="./practice/js-es6/class/iterators.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-es6/class/symbol.html
+                <a href="./practice/js-es6/class/symbol.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+            </ol>
+            
+            <h2>js-es6 (ch3)</h2>
+            <ol>
+              <li>
+                ./practice/js-es6/maps_sets/maps.html
+                <a href="./practice/js-es6/maps_sets/maps.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-es6/maps_sets/sets.html
+                <a href="./practice/js-es6/maps_sets/sets.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+              <li>
+                ./practice/js-es6/module/index.html
+                <a href="./practice/js-es6/module/index.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </li>
+            </ol>
+            
+          </article>
+        </div>
+        
+      </div>
+    </div>
+    
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
+    <!--<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>-->
+    <!--<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>-->
+    <!--<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>-->
+    <!--<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>-->
+    <!--<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>-->
+    <!--<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-functions.js"></script>-->
+    
+    <!-- Config JS (필수) -->
+    <script src="./firebase-config.js"></script>
+    
+    <script>
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    
+    <!-- Custom JS (필수) -->
+    <script src="./custom/app.js"></script>
+    
+  </body>
+</html>
