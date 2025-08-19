@@ -1,4 +1,4 @@
-# Linux 111 222 333 444 555 666 777 888 999
+# Linux 111 222 333
 
 ## 시스템 세팅
 
@@ -15,10 +15,12 @@
 11. /etc/profile 변경
 12. .forward로 메일 설정 (bori0211@gmail.com)
 13. 시간대를 한국으로 변경
+14. UPDATE에 제외할 패키지: exclude=mysql84-community-release nodejs22*
 
 ```sh
 useradd -u 501 -g apache datafirst
 ```
+
 
 ## 네트워크 세팅
 
