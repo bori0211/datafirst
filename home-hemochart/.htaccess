@@ -1,0 +1,14 @@
+RewriteEngine On
+
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# SITEMAP
+RewriteRule ^sitemap\.xml/?$															/sitemap.php
+
+# 메뉴
+RewriteRule ^kidneylife$	/kidneylife.php
+RewriteRule ^catalog$		/catalog.php
+RewriteRule ^faq$			/faq.php
