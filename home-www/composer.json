@@ -14,7 +14,7 @@
         "twbs/bootstrap-icons": "^1.9",
         "dompdf/dompdf": "^3.1",
         "phpoffice/phpspreadsheet": "^5.0",
-        "google/analytics-data": "^0.22",
+        "google/analytics-data": "^0.23",
         "influxdata/influxdb-client-php": "^3.6",
         "firebase/php-jwt": "^6.10"
     },
