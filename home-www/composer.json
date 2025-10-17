@@ -10,7 +10,7 @@
     ],
     "require": {
         "aws/aws-sdk-php": "^3.232",
-        "phpmailer/phpmailer": "^6.6",
+        "phpmailer/phpmailer": "^7.0",
         "twbs/bootstrap-icons": "^1.9",
         "dompdf/dompdf": "^3.1",
         "phpoffice/phpspreadsheet": "^5.0",
