@@ -26,6 +26,10 @@
     <div class="container">
       
       <div class="text-center mb-4">
+        <a href="https://blog.naver.com/hemochart" class="btn btn-success btn-lg px-4" target="_blank">HemoChart Blog (2025.12.25 ~ 현재)</a>
+      </div>
+      
+      <div class="text-center mb-4">
         <a href="/assets/catalog/catalog_20200612.pdf" class="btn btn-danger btn-lg px-4" target="_blank">PDF 파일로 보기 (2020.6.12 version)</a>
       </div>
       

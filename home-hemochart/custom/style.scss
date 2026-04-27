@@ -486,6 +486,19 @@ select.form-control {
     }
   }
   
+  &.btn-success {
+    background-color: $success-color;
+    border-color: #d73925;
+    color: #fff;
+    
+    &:active,
+    &:hover{
+      background-color: #d73925 !important;
+      border-color: #d73925 !important;
+      color: #fff !important;
+    }
+  }
+  
   &.btn-danger {
     background-color: $danger-color;
     border-color: #d73925;

@@ -7,16 +7,13 @@
 	
 	
 	
+	$subject = "[HemoChart] Contact";
+	
 	$msg = date("Y-m-d H:i:s") . " 접수" . "\n\n";
 	$msg .= "병원: " . $_POST["hospital"] . "\n";
 	$msg .= "지역: " . $_POST["local"] . "\n";
 	$msg .= "연락처: " . $_POST["contact"] . "\n";
 	$msg .= "내용: " . $_POST["content"] . "\n";
-	
-	$to = "bori0211@gmail.com";
-	//$to = "ec2-user@localhost";
-	$subject = "[HemoChart] Contact";
-	$headers = "From: contact@hemochart.com";
 	
 	
 	
@@ -38,16 +35,17 @@
 		$mail->isSMTP();                                          //Send using SMTP
 		$mail->Host       = "smtp.gmail.com";                     //Set the SMTP server to send through
 		$mail->SMTPAuth   = true;                                 //Enable SMTP authentication
-		$mail->Username   = "datafirst.contact@gmail.com";        //SMTP username
-		$mail->Password   = GMAIL_DATAFIRST_PASSWORD;             //SMTP password
+		$mail->Username   = "hemochart.contact@gmail.com";        //SMTP username
+		$mail->Password   = GMAIL_HEMOCHART_PASSWORD;             //SMTP password
 		//$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;        //Enable implicit TLS encryption
 		$mail->SMTPSecure = "tls";
 		$mail->Port       = 587;                                  //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+		$mail->CharSet    = "UTF-8";                              // 인코딩을 UTF-8로 설정
 		
 		//Recipients
-		$mail->setFrom("datafirst.contact@gmail.com", "HemoChart");
-		$mail->addAddress("bori0211@gmail.com");     	     	 //Add a recipient
-		$mail->addAddress("kevinlee0508@hanmail.net");           //Add a recipient
+		$mail->setFrom("hemochart.contact@gmail.com", "HemoChart");
+		$mail->addAddress("bori0211@gmail.com", "김석태");     	 //Add a recipient
+		$mail->addAddress("kevinlee0508@hanmail.net", "이학성"); //Add a recipient
 		//$mail->addAddress('ellen@example.com');                //Name is optional
 		//$mail->addReplyTo('info@example.com', 'Information');
 		//$mail->addCC('cc@example.com');
@@ -71,5 +69,5 @@
 		
 		//echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 		echo '{"result": false}';
-	}	
+	}
 ?>
