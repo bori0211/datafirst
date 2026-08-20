@@ -81,12 +81,13 @@ DB 접속 정보와 API 키가 담긴 아래 파일들은 저장소에 포함되
 
 ```
 home-www/config.inc.php
-home-www/google_keys.json
 home-hemochart/config.inc.php
 home-express/config.js
-home-express/google_keys.json
 home-vanilla/firebase-config.js
+secrets/google_keys.json
 ```
+
+`secrets/`는 저장소 루트에 둔다. 각 사이트의 도큐먼트 루트보다 한 단계 위라서 웹으로 노출되지 않고, GCP 서비스 계정 키 하나를 home-www(GA4 조회)와 home-express(Google Sheets 기록)가 함께 쓴다. 코드가 `../../secrets/`로 참조하므로 **서버에도 저장소를 통째로 체크아웃해야 한다.**
 
 각 파일의 형태와 필요한 상수 목록은 [CLAUDE.md](CLAUDE.md)에 정리돼 있다.
 

@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - 루트의 `README.md`는 저장소 소개와 환경 준비 절차, `SystemSetting.md`는 서버/RDS/Apache/php.ini 운영 메모다. `MessagerDisplay.md`·`DevInterview.md`·`DesignPubInterview.md`는 코드와 무관한 개인 메모다.
 - **이 저장소는 GitHub에 public으로 공개돼 있다**(`bori0211/datafirst`). 커밋하는 모든 내용이 즉시 공개된다는 전제로 작업할 것. 아래 "시크릿 취급" 참고.
-- `.gitignore`의 시크릿 패턴은 **경로 앵커 없이** 파일명만 적혀 있다(`config.inc.php`, `config.js`, `google_keys.json`, `.env`). `config.inc.php` 하나가 home-www와 home-hemochart 양쪽을, `google_keys.json`이 home-express와 home-www 양쪽을 커버하므로 앵커를 붙이면 한쪽 시크릿이 추적 대상이 된다. 또 `.gitignore`는 줄 끝 주석을 지원하지 않으므로(패턴의 일부로 해석된다) 설명은 반드시 별도 줄에 둘 것.
+- `.gitignore`의 시크릿 패턴은 **경로 앵커 없이** 파일명만 적혀 있다(`config.inc.php`, `config.js`, `google_keys.json`, `firebase-config.js`, `.env`). `config.inc.php` 하나가 home-www와 home-hemochart 양쪽을 커버하므로 앵커를 붙이면 한쪽 시크릿이 추적 대상이 된다. 여기에 디렉터리 패턴 `secrets/`가 더해진다 — GCP 서비스 계정 키는 저장소 루트 `secrets/` 한 곳에만 둔다(아래 "gitignore된 필수 설정 파일" 참고). 또 `.gitignore`는 줄 끝 주석을 지원하지 않으므로(패턴의 일부로 해석된다) 설명은 반드시 별도 줄에 둘 것.
 - `.gitignore`에는 그 밖에 의존성 디렉터리(`bower/`, `node_modules/`, `vendor/`), 로그(`*.log`), 파이썬(`.venv/`, `venv/`, `__pycache__/`, `*.py[cod]`), SQLite(`*.db`, `*.db-shm`, `*.db-wal`, `*.sqlite3`), 레거시 폴더(`ohmyapple/`, `ohmyphone/`, `ohmyspon/`)가 들어 있다.
 - **락 파일은 커밋한다.** `home-www/composer.lock`, `home-hemochart/composer.lock`, `home-express/package-lock.json` 세 개가 추적 대상이다(`home-python/uv_test/uv.lock`도 함께 추적된다). 자세한 방침은 아래 "의존성 버전 관리" 참고.
 
@@ -103,21 +103,23 @@ sass --style=compressed --no-source-map style.scss style.css
 |---|---|
 | `home-www/config.inc.php` | `$db_config` + `define()` 상수 |
 | `home-hemochart/config.inc.php` | `$db_config` + `define()` 상수 |
-| `home-www/google_keys.json` | GCP 서비스 계정 키 (GA4 조회용) |
-| `home-express/config.js` | `JWT_KEY`, `MYSQL_HOST/USER/PASSWORD/DATABASE` |
-| `home-express/google_keys.json` | GCP 서비스 계정 키 (Google Sheets 기록용) |
+| `home-express/config.js` | `JWT_KEY`, `MYSQL_HOST/PORT/USER/PASSWORD/DATABASE`, `GMAIL_CHICKENDINNER_PASSWORD` |
+| `secrets/google_keys.json` | GCP 서비스 계정 키. home-www의 GA4 조회와 home-express의 Google Sheets 기록이 **한 파일을 공용**한다 |
+| `home-vanilla/firebase-config.js` | `firebaseConfig` 객체 (Firebase 웹 config) |
+
+**`secrets/`는 저장소 루트에 있다** — 각 사이트의 도큐먼트 루트(`home-www/`, `home-express/` …)보다 한 단계 위라서 웹으로 서빙되지 않는다. 참조는 전부 `__DIR__ . "/../../secrets/google_keys.json"`(PHP) / `require('../../secrets/google_keys.json')`(Node) 형태의 상대 경로다. **따라서 서버에도 저장소가 통째로 체크아웃돼 있어야 하고, 사이트 디렉터리만 떼어 배포하면 GA 배치와 `/telegraf`가 전부 깨진다.**
 
 - `config.inc.php`는 JSON 문자열을 `json_decode`한 `$db_config` 배열과 `define()` 상수들로 이뤄진다. home-www는 `GOOGLE_MAPS_JS_KEY`, `YOUTUBE_KEY`, `YOUTUBE_DEVELOPER_KEY_KEY`, `GMAIL_*_PASSWORD`(hemochart / datafirst / webframe / chickendinner / rollenglish), `INFLUXDATA_TOKEN`을 정의하고, home-hemochart는 `GOOGLE_MAPS_JS_KEY`, `GMAIL_HEMOCHART_PASSWORD`만 정의한다. **실제 시크릿이 평문으로 들어 있으므로 내용을 출력하거나 다른 파일로 옮기지 말 것.**
-- **home-express는 설정 파일 두 개가 다 없으면 부팅 자체가 안 된다.** `app.js`가 `routes/telegraf.js`를 무조건 마운트하는데 이 파일이 최상단에서 `require('../google_keys.json')`을 하고, `mysqlPool.js`는 `require('./config')`를 한다. 둘 중 하나라도 없으면 `npm run nodemon`이 즉시 모듈 로드 에러로 죽는다. `config.js`에서 실제로 읽히는 키는 `mysqlPool.js`의 `MYSQL_HOST`·`MYSQL_USER`·`MYSQL_PASSWORD`·`MYSQL_DATABASE`와 `restful.js`·`check_auth.js`의 `JWT_KEY` 다섯 개뿐이다(포트는 mysql2 기본값 3306을 쓴다).
-- `home-www/google_keys.json`이 없으면 `cli/*_ga_*.php`가 실패한다(웹 페이지는 영향 없음).
-- `home-vanilla/firebase-config.js`는 **예외적으로 커밋되어 추적 중이다**(아래 "시크릿 취급" 참고). 따라서 새로 만들 필요가 없다.
+- **home-express는 `config.js`와 `secrets/google_keys.json`이 다 없으면 부팅 자체가 안 된다.** `app.js`가 `routes/telegraf.js`를 무조건 마운트하는데 이 파일이 최상단에서 `require('../../secrets/google_keys.json')`을 하고, `mysqlPool.js`는 `require('./config')`를 한다. 둘 중 하나라도 없으면 `npm run nodemon`이 즉시 모듈 로드 에러로 죽는다. `config.js`에서 실제로 읽히는 키는 `mysqlPool.js`의 `MYSQL_HOST`·`MYSQL_USER`·`MYSQL_PASSWORD`·`MYSQL_DATABASE`, `restful.js`·`check_auth.js`의 `JWT_KEY`, `routes/lambda.js`의 `GMAIL_CHICKENDINNER_PASSWORD` 여섯 개다. `MYSQL_PORT`는 파일에 있어도 읽히지 않는다(mysql2 기본값 3306을 쓴다).
+- `secrets/google_keys.json`이 없으면 home-www의 `cli/*_ga_*.php`와 `modals/test_ga*.php`가 실패한다(일반 웹 페이지는 영향 없음).
+- `home-vanilla/firebase-config.js`는 **gitignore 대상이라 머신마다 직접 만들어야 한다.** 예전에는 의도적으로 커밋돼 있었으나 지금은 추적하지 않는다(아래 "시크릿 취급" 참고).
 
 ## 시크릿 취급
 
 저장소가 public이므로 아래를 전제로 판단할 것.
 
-- **`home-express/routes/lambda.js`·`routes/lambda.sav.js`에 Gmail 계정과 앱 비밀번호가 평문으로 하드코딩되어 있고, 그대로 공개돼 있다.** 이미 노출된 자격증명이므로 코드에서 지우는 것만으로는 해결되지 않는다. 앱 비밀번호 재발급이 선행돼야 하고, 코드 쪽은 `config.js`로 옮기는 것이 목표다. 이 파일들을 손댈 일이 있으면 이 정리를 함께 할 것.
-- **`home-vanilla/firebase-config.js`는 의도적으로 커밋한 것이다.** `b3431d0` 커밋이 `.gitignore`에서 `firebase-config.js` 패턴을 지우고 파일을 추가했다(현재 `.gitignore`에는 같은 이름의 *주석* 줄만 남아 있으니 패턴이 있는 것으로 착각하지 말 것). Firebase 웹 config(`apiKey` 등)는 원래 브라우저로 배포되는 공개값이라 자격증명 유출과는 성격이 다르지만, **안전성이 전적으로 Realtime Database 보안 규칙에 달려 있다.** `waitingBoard`·`users/<uid>`에 비인증 쓰기가 열려 있지 않은지가 실제 방어선이다.
+- **`home-express/routes/lambda.js`의 Gmail 하드코딩은 정리됐다.** 지금은 `config.GMAIL_CHICKENDINNER_PASSWORD`를 읽고, 백업 파일이던 `routes/lambda.sav.js`는 삭제됐다. 히스토리도 재작성돼 현재 저장소 어느 커밋에도 평문 비밀번호가 남아 있지 않다. 공개됐던 `chickendinner.me@gmail.com` 앱 비밀번호는 **2026-08-20에 재발급했으므로 노출된 옛 값은 무효다.** 다만 이 건에서 얻을 교훈은 남겨 둔다 — **한 번 public으로 공개된 자격증명은 히스토리를 지워도 무효화되지 않는다.** GitHub는 force-push 뒤에도 unreachable 커밋을 SHA로 한동안 서빙하고, 포크·클론·코드검색 캐시에도 남는다. 재발급만이 해결책이다.
+- **`home-vanilla/firebase-config.js`는 현재 gitignore 대상이다.** 과거에는 의도적으로 커밋했으나 지금은 `.gitignore`에 `firebase-config.js` 패턴이 살아 있고 파일도 추적되지 않는다. Firebase 웹 config(`apiKey` 등)는 원래 브라우저로 배포되는 공개값이라 자격증명 유출과는 성격이 다르지만, **안전성이 전적으로 Realtime Database 보안 규칙에 달려 있다.** `waitingBoard`·`users/<uid>`에 비인증 쓰기가 열려 있지 않은지가 실제 방어선이다.
 - 새 시크릿을 추가할 때는 `.gitignore` 패턴부터 확인하고, `git add` 전에 `git status`로 걸리는지 볼 것.
 
 ## 줄바꿈(CRLF/LF)
@@ -161,7 +163,9 @@ Linux 서버(datafirst-ec2, hermes-vps)와 Windows PC를 오가며 커밋한다.
 
 1. `footer.inc.php`에 빈 `<div id="contact-form-modal">`만 두고,
 2. `custom/app.js`가 `.contact-btn` 클릭 시 jQuery `.load()`로 `/modals/contact_form.php`를 끌어와 Bootstrap Modal로 띄우고,
-3. 폼은 `modals/contact_form_save.php`로 POST → PHPMailer가 Gmail SMTP(587/TLS)로 발송하고 `{"result": true|false}` JSON만 돌려준다. SMTP 비밀번호는 `config.inc.php`의 `GMAIL_*_PASSWORD` 상수를 쓴다.
+3. 폼은 `modals/contact_form_save.php`로 POST → PHPMailer가 Gmail SMTP(587/TLS)로 발송하고 `{"result": true|false}` JSON만 돌려준다. SMTP 계정과 비밀번호는 사이트마다 다르다 — home-www는 `chickendinner.me@gmail.com` / `GMAIL_CHICKENDINNER_PASSWORD`, home-hemochart는 `hemochart.contact@gmail.com` / `GMAIL_HEMOCHART_PASSWORD`를 쓴다.
+
+**`GMAIL_CHICKENDINNER_PASSWORD`는 두 프로젝트가 공용한다** — home-www의 CONTACT 모달과 home-express의 `POST /lambda/sendmail`이 같은 Gmail 계정을 쓴다. 앱 비밀번호를 재발급하면 `home-www/config.inc.php`와 `home-express/config.js` **두 파일을 함께** 고쳐야 하고, 둘 다 gitignore 대상이라 개발 PC와 서버에서 각각 손봐야 한다. 한쪽만 고치면 다른 쪽이 조용히 실패한다(PHPMailer는 `{"result": false}`, nodemailer는 로그에만 에러).
 
 `home-www/modals/contact_form_save.lambda.php`는 같은 폼을 메일 대신 AWS Lambda Function URL로 POST하는 대안 구현이다(현재 프런트에서 호출하지 않음).
 
@@ -188,14 +192,13 @@ Google Maps는 `footer.inc.php`에서 `GOOGLE_MAPS_JS_KEY`를 심어 `loading=as
 | `/lambda` | `routes/lambda.js` | Lambda POST 수신 + nodemailer 메일 발송 |
 | `/test` | `routes/test.js` | 200/400 응답 확인용 |
 
-- `routes/lambda.sav.js`는 마운트되지 않은 백업 파일이다.
 - `app.js`에 라우터 밖의 인라인 `GET /tmp` 핸들러가 하나 남아 있다.
 - **DB 풀은 `models/`가 아니라 프로젝트 루트의 `mysqlPool.js`다.** `mysql2`의 `createPool(...).promise()`를 그대로 export하며, 라우터든 모델이든 `require('../mysqlPool')`로 직접 가져다 쓴다.
 - `models/`는 그 풀을 감싼 정적 메서드 클래스 `ProductProvider`(`models/product.js`), `UserProvider`(`models/user.js`)다. 테이블은 `pdt`, `usr`, `usr_token`, 그리고 `routes/lambda.js`가 쓰는 `lambda_data`. **쿼리를 템플릿 문자열로 조립한다 — 플레이스홀더를 쓰지 않는다.** 기존 스타일을 따라 확장할 때도 이 점을 인지하고, 새 코드에는 반드시 `mysql.query(sql, params)` 형태를 쓸 것.
 - 인증: `POST /restful/getToken`이 `usr` 테이블의 평문 비밀번호를 비교해 1시간짜리 JWT를 발급하고 시도 이력을 `usr_token`에 남긴다. `middleware/check_auth.js`가 `Authorization: Bearer <token>`을 검증하지만 **끼워져 있는 라우트는 `GET /restful/products/:id` 하나뿐이다.** 나머지 REST 엔드포인트(POST/PUT/PATCH/DELETE 포함)는 전부 무인증이다.
 - 뷰는 EJS인데 델리미터를 PHP식으로 바꿔 놨다: `app.set('view options', { delimiter: '?', outputFunctionName: 'echo' })`. 템플릿에서 `<% %>`가 아니라 `<? ?>` / `<?= ?>`를 쓰고, include는 `<?- include('header') ?>` 형태다(`product/` 하위 뷰는 `'../header'`). 레이아웃 엔진은 없다. `views/error.ejs`만 예외로 `<h1><?= message ?></h1>` 한 줄뿐이라 header/footer를 include하지 않는다.
-- `routes/telegraf.js`는 Telegraf가 POST한 metrics에서 cpu/mem 필드를 뽑아 `googleapis` JWT 인증으로 지정 스프레드시트에 한 행씩 append한다. MySQL 저장 코드는 전부 주석 처리된 상태다.
-- `routes/lambda.js`: `POST /lambda`는 요청 본문을 통째로 `lambda_data`에 INSERT하고, `POST /lambda/sendmail`은 CloudWatch Logs 구독 필터가 보내는 gzip+base64 페이로드를 `zlib.unzip`으로 풀어 nodemailer로 메일을 보낸다. **이 파일에는 Gmail 계정과 앱 비밀번호가 소스에 하드코딩되어 있고 public 저장소에 그대로 공개돼 있다** — 위 "시크릿 취급" 참고. 손댈 일이 있으면 `config.js`로 옮기는 것을 우선 검토할 것.
+- `routes/telegraf.js`는 Telegraf가 POST한 metrics에서 cpu/mem 필드를 뽑아 `googleapis` JWT 인증(`../../secrets/google_keys.json`)으로 지정 스프레드시트에 한 행씩 append한다. MySQL 저장 코드는 전부 주석 처리된 상태다.
+- `routes/lambda.js`: `POST /lambda`는 요청 본문을 통째로 `lambda_data`에 INSERT하고, `POST /lambda/sendmail`은 CloudWatch Logs 구독 필터가 보내는 gzip+base64 페이로드를 `zlib.unzip`으로 풀어 nodemailer로 메일을 보낸다. SMTP 비밀번호는 `config.GMAIL_CHICKENDINNER_PASSWORD`를 쓴다(예전에 소스에 하드코딩돼 있던 것을 옮긴 것 — 위 "시크릿 취급" 참고).
 - CORS는 `app.js`에서 전역 `*` 허용이다(Origin/Methods/Headers 모두).
 - 에러 처리는 404 → `Error` 생성 → `views/error.ejs` 렌더가 전부다.
 
@@ -203,7 +206,7 @@ Google Maps는 `footer.inc.php`에서 `GOOGLE_MAPS_JS_KEY`를 심어 `loading=as
 
 번들러도 패키지 매니저도 없다. `index.html`이 CDN에서 FontAwesome 6.1.1과 github-markdown-css를 가져오고(Bootstrap CDN 링크는 전부 주석 처리됨), Firebase는 네임스페이스 방식 v8 SDK(`firebasejs/8.3.0`의 app/auth/database)를 직접 로드한다. 그 뒤 `firebase-config.js` → `firebase.initializeApp(firebaseConfig)` → `custom/app.js` 순으로 이어진다.
 
-`firebase-config.js`는 다른 사이트의 설정 파일과 달리 **저장소에 커밋돼 있다**(gitignore 대상 아님). 위 "시크릿 취급" 참고.
+`firebase-config.js`는 다른 사이트의 설정 파일과 마찬가지로 **gitignore 대상이라 저장소에 없다.** 새 환경에서는 직접 만들어야 한다(예전에는 커밋돼 있었으니 옛 문서나 기억에 의존하지 말 것). 위 "시크릿 취급" 참고.
 
 `custom/app.js`는 전역 `firebase` 객체로 Realtime Database의 `waitingBoard` 노드를 구독해 대기 현황판을 그리고, `firebase.auth()` 세션 로그인(`Persistence.SESSION`)으로 관리자만 값을 수정하게 한다. `users/<uid>`의 `isPayment`/`endDate`로 결제 상태를 판정한다.
 
