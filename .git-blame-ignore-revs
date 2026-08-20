@@ -1,0 +1,12 @@
+# git blame에서 건너뛸 커밋 목록
+# 줄바꿈 정규화, 일괄 재포맷처럼 내용은 그대로면서 모든 줄을 건드리는
+# 커밋을 여기 적는다. 적어두면 blame이 그 줄을 실제로 쓴 커밋을 가리킨다.
+#
+# 로컬에서 자동 적용하려면 머신마다 한 번 설정한다
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+# GitHub 웹 blame은 이 파일을 자동으로 인식한다.
+#
+# 형식은 전체 40자 SHA 한 줄에 하나. 주석은 별도 줄에 둔다.
+
+# chore: .gitattributes 도입하고 줄바꿈을 LF로 정규화 (106개 파일)
+ca37972de23b399d5f02151e5f6cd7e5f9e2e23d

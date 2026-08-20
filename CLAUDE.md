@@ -91,7 +91,7 @@ Linux 서버(datafirst-ec2, hermes-vps)와 Windows PC를 오가며 커밋하므�
 - **`core.autocrlf`는 이제 신경 쓰지 않아도 된다.** `text` 속성이 설정된 경로에서는 `.gitattributes`가 우선한다(이 PC는 system `true` / global `false`지만 결과에 영향 없다). 머신별 설정에 의존하지 않는 것이 `.gitattributes`를 쓰는 이유다.
 - **`*.sh`·`home-express/bin/www`·`.htaccess`는 `eol=lf`로 고정**했다. shebang 뒤에 CR이 붙으면 Linux에서 `bad interpreter: /bin/bash^M`로 죽고, Apache가 읽는 파일도 워킹트리에서 FTP로 그대로 올라갈 수 있다. 새 셸 스크립트를 Windows에서 만들어도 이 규칙이 막아준다.
 - 이미지·폰트·문서 확장자는 `binary`로 명시했다. **목록에 없는 바이너리 확장자를 새로 추가할 때는 `.gitattributes`에 한 줄 넣을 것** — 안 넣으면 `text=auto`의 자동 판별에 맡겨진다.
-- `ca37972`는 106개 파일의 줄바꿈만 바꾼 정규화 커밋이다. `git blame` 할 때 `--ignore-rev ca37972`로 건너뛸 수 있다.
+- `ca37972`는 106개 파일의 줄바꿈만 바꾼 정규화 커밋이라 그 파일들의 `git blame`을 통째로 가린다. 루트의 **`.git-blame-ignore-revs`** 에 이 SHA를 적어 뒀다. GitHub 웹 blame은 이 파일을 자동 인식하고, 로컬 CLI에서 쓰려면 머신마다 `git config blame.ignoreRevsFile .git-blame-ignore-revs` 를 한 번 설정한다. 앞으로 일괄 재포맷처럼 내용은 그대로면서 모든 줄을 건드리는 커밋이 생기면 이 파일에 SHA를 한 줄 추가할 것.
 
 ## PHP 사이트 아키텍처 (home-www · home-hemochart 공용)
 
