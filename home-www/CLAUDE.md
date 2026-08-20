@@ -45,4 +45,4 @@ InfluxDB 기록에는 `config.inc.php`의 `INFLUXDATA_TOKEN`을 쓴다.
 - **`vendor/`도 웹으로 직접 서빙된다** — `header.inc.php`가 `/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css`를 직접 링크한다(home-www 전용, hemochart는 참조 없음). Composer 패키지를 지울 때 이 참조를 확인할 것.
 - FontAwesome은 `bower.json`에 `^6.0.0`으로 선언돼 있다(hemochart·express는 `^5.0.0` — 의도된 차이).
 - `test/`는 라이브러리 실험장(dompdf, tcpdf, phpoffice, dropzone, fullcalendar, redis, jwt, GD, exif …)이고 `sample/`은 받아둔 HTML 템플릿이다. 배포 코드가 아니므로 참고만 할 것.
-- `test/`의 일부 페이지는 `bower.json`에 없는 패키지(`fontawesome-pro`, `fullcalendar`, `bootstrap-datepicker`, `toastr`)를 참조해 `bower install` 후에도 깨진 채로 남는다. 정상이다. 특히 `fontawesome-pro`는 유료 라이선스라 인증 없이는 설치되지 않는다.
+- `test/`의 일부 페이지는 `bower.json`에 없는 패키지(`fontawesome-pro`, `fullcalendar`, `bootstrap-datepicker`, `toastr`, `TCPDF`, `moment` 6개)를 참조해 `bower install` 후에도 깨진 채로 남는다. 정상이다. 특히 `fontawesome-pro`는 유료 라이선스라 인증 없이는 설치되지 않는다.

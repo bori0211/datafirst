@@ -4,7 +4,9 @@ vanilla.datafirst.co.kr — Firebase 대기 현황판 + JS 학습용 예제. **�
 
 ## 로드 순서
 
-`index.html`이 CDN에서 FontAwesome 6.1.1과 github-markdown-css를 가져오고(Bootstrap CDN 링크는 전부 주석 처리됨), Firebase는 네임스페이스 방식 v8 SDK(`firebasejs/8.3.0`의 app/auth/database)를 직접 로드한다. 그 뒤 이 순서로 이어진다.
+`index.html`이 CDN에서 Bootstrap 5.2.1 CSS·FontAwesome 6.1.1·github-markdown-css를 가져오고, Firebase는 네임스페이스 방식 v8 SDK(`firebasejs/8.3.0`의 app/auth/database)를 직접 로드한다. 그 뒤 이 순서로 이어진다.
+
+**Bootstrap은 CSS만 로드하고 JS 번들은 없다** — 드롭다운·모달처럼 JS가 필요한 컴포넌트는 동작하지 않는다. 바로 윗줄 세 개(4.4.1 / 5.0.2 / 5.2.0)가 주석 처리돼 있어 Bootstrap을 아예 안 쓰는 것으로 오해하기 쉬우니 주의할 것.
 
 ```
 firebase-config.js → firebase.initializeApp(firebaseConfig) → custom/app.js
