@@ -95,5 +95,13 @@ secrets/google_keys.json
 
 ## 문서
 
-- [CLAUDE.md](CLAUDE.md) — 저장소 구조, 프로젝트별 아키텍처, 코드 컨벤션
+- [CLAUDE.md](CLAUDE.md) — 저장소 전체 규칙(의존성·시크릿·줄바꿈)과 두 PHP 사이트의 공용 골격
 - [SystemSetting.md](SystemSetting.md) — 서버 · RDS · Apache · php.ini 운영 메모
+
+프로젝트별 상세는 각 디렉터리에 나눠 뒀다.
+
+- [home-www/CLAUDE.md](home-www/CLAUDE.md) — 라우팅, GA·InfluxDB 배치, PWA, `test/`·`sample/`
+- [home-express/CLAUDE.md](home-express/CLAUDE.md) — 실행 명령어, 부팅 조건, 라우터·모델 구조
+- [home-hemochart/CLAUDE.md](home-hemochart/CLAUDE.md) — home-www와의 차이, 페이지 추가 시 고칠 네 곳
+- [home-vanilla/CLAUDE.md](home-vanilla/CLAUDE.md) — Firebase 로드 순서, 대기 현황판
+- [home-python/CLAUDE.md](home-python/CLAUDE.md) — uv 사용법
