@@ -26,7 +26,7 @@ home-www와 가장 크게 다른 점이다. 하나라도 빠뜨리면 조용히 
 
 - `config.inc.php`는 `GOOGLE_MAPS_JS_KEY`, `GMAIL_HEMOCHART_PASSWORD` **두 개만** 정의한다(home-www는 아홉 개).
 - CONTACT 모달 SMTP 계정은 `hemochart.contact@gmail.com` / `GMAIL_HEMOCHART_PASSWORD`. home-www와 별개 계정이라 서로 영향이 없다.
-- 애널리틱스는 UA(`UA-140428812-1`)다. home-www는 GA4라서 서로 다르다.
+- **애널리틱스 태그는 `footer.inc.php`(header가 아니다)의 UA `UA-140428812-1` 하나뿐이지만, GA4 속성 `307755691`도 실제로 데이터를 수집한다.** UA 태그에 GA4 속성이 연결된 구성으로 보인다 — 페이지에 GA4 태그가 없다고 해서 GA4가 안 붙어 있다고 판단하지 말 것. home-www는 GA4 태그를 직접 심는다.
 - FontAwesome은 `bower.json`에 `^5.0.0`으로 선언돼 있다(home-www는 `^6.0.0` — 의도된 차이).
 - `vendor/`를 웹으로 링크하는 코드는 없다(home-www에는 있다).
 - GA·InfluxDB 배치 스크립트는 이 프로젝트에 없다. hemochart의 GA4 지표는 `home-www/cli/minutely_save_ga_hemochart.php`가 대신 수집한다(property_id `307755691`).

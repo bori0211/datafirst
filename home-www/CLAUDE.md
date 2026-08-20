@@ -28,6 +28,8 @@ GA4 조회에는 **저장소 루트의 `secrets/google_keys.json`** 이 필요�
 
 InfluxDB 기록에는 `config.inc.php`의 `INFLUXDATA_TOKEN`을 쓴다.
 
+**`modals/test_ga2.php`는 파싱조차 되지 않는 미완성 파일이다.** Google 문서의 Python/JS 예제를 붙여넣고 PHP로 옮기지 않아 `body={...}`, `{'key': 'value'}` 같은 문법이 그대로 남아 있다(41행). 어디서도 호출되지 않으므로 방치해도 무방하지만, GA 관련 코드를 찾다가 이 파일을 참고하지 말 것. 동작하는 예시는 `cli/`와 `modals/test_ga.php`다.
+
 ## CONTACT 모달
 
 흐름 자체는 루트 문서에 있다. home-www는 SMTP 계정으로 `chickendinner.me@gmail.com`, 비밀번호로 `config.inc.php`의 `GMAIL_CHICKENDINNER_PASSWORD`를 쓴다.
@@ -39,7 +41,7 @@ InfluxDB 기록에는 `config.inc.php`의 `INFLUXDATA_TOKEN`을 쓴다.
 ## 기타
 
 - **PWA다.** `header.inc.php`가 `manifest.json`을 링크하고 `custom/app.js`가 `/sw.js`를 등록한다. `sw.js`는 아직 install/activate 로그만 찍는 빈 껍데기라 캐싱 동작은 없다.
-- 애널리틱스는 GA4(`G-DJLB1YNXHW`)다. home-hemochart는 UA라서 서로 다르다.
+- 애널리틱스는 GA4(`G-DJLB1YNXHW`)이고 `footer.inc.php`에서 gtag.js로 로드한다(`header.inc.php`가 아니다). home-hemochart는 태그가 UA라서 서로 다르다.
 - **`vendor/`도 웹으로 직접 서빙된다** — `header.inc.php`가 `/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css`를 직접 링크한다(home-www 전용, hemochart는 참조 없음). Composer 패키지를 지울 때 이 참조를 확인할 것.
 - FontAwesome은 `bower.json`에 `^6.0.0`으로 선언돼 있다(hemochart·express는 `^5.0.0` — 의도된 차이).
 - `test/`는 라이브러리 실험장(dompdf, tcpdf, phpoffice, dropzone, fullcalendar, redis, jwt, GD, exif …)이고 `sample/`은 받아둔 HTML 템플릿이다. 배포 코드가 아니므로 참고만 할 것.
