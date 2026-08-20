@@ -1,0 +1,29 @@
+# 저장소 안에는 항상 LF로 저장한다
+# 워킹트리 줄바꿈은 core.eol(기본 native)을 따른다
+# Windows는 CRLF, Linux 서버는 LF로 체크아웃된다
+* text=auto
+
+# Linux에서 실행되는 파일은 워킹트리에서도 LF를 강제한다
+# shebang 뒤에 CR이 붙으면 bad interpreter 에러가 난다
+*.sh text eol=lf
+home-express/bin/www text eol=lf
+
+# Apache가 읽는 파일
+.htaccess text eol=lf
+
+# 바이너리 - 자동 판별에 맡기지 않는다
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.mov binary
+*.pdf binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.eot binary
+*.xls binary
+*.xlsx binary
