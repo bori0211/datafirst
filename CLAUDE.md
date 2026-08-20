@@ -85,7 +85,13 @@ sass --style=compressed --no-source-map style.scss style.css
 
 ## 줄바꿈(CRLF/LF)
 
-Linux 서버(datafirst-ec2, hermes-vps)와 Windows PC를 오가며 커밋한다. `.gitattributes`가 없고 `core.autocrlf`도 설정돼 있지 않아 커밋되는 줄바꿈이 그대로 저장된다. 이미 추적 파일이 LF/CRLF로 갈려 있고 `home-www/sample/BizPage/css/style.css`는 한 파일 안에 혼재한다. **기존 파일을 편집할 때 에디터가 파일 전체 줄바꿈을 바꾸지 않도록 주의할 것** — 한 줄만 고쳐도 전체가 diff로 뜬다.
+Linux 서버(datafirst-ec2, hermes-vps)와 Windows PC를 오가며 커밋하므로 한때 추적 파일이 LF 188 / CRLF 105로 갈려 있었고 한 파일은 내부에 혼재했다. `ca37972` 커밋에서 `.gitattributes`를 도입하고 전부 LF로 정규화했다.
+
+- **`* text=auto`** — 저장소에는 항상 LF로 저장된다. 워킹트리 줄바꿈은 `core.eol`(기본 `native`)을 따르므로 **Windows에서는 CRLF, Linux 서버에서는 LF로 체크아웃**된다. 어느 쪽에서 편집하든 커밋 시 LF로 정규화되므로 줄바꿈 때문에 전체가 diff로 뜨는 일은 없다.
+- **`core.autocrlf`는 이제 신경 쓰지 않아도 된다.** `text` 속성이 설정된 경로에서는 `.gitattributes`가 우선한다(이 PC는 system `true` / global `false`지만 결과에 영향 없다). 머신별 설정에 의존하지 않는 것이 `.gitattributes`를 쓰는 이유다.
+- **`*.sh`·`home-express/bin/www`·`.htaccess`는 `eol=lf`로 고정**했다. shebang 뒤에 CR이 붙으면 Linux에서 `bad interpreter: /bin/bash^M`로 죽고, Apache가 읽는 파일도 워킹트리에서 FTP로 그대로 올라갈 수 있다. 새 셸 스크립트를 Windows에서 만들어도 이 규칙이 막아준다.
+- 이미지·폰트·문서 확장자는 `binary`로 명시했다. **목록에 없는 바이너리 확장자를 새로 추가할 때는 `.gitattributes`에 한 줄 넣을 것** — 안 넣으면 `text=auto`의 자동 판별에 맡겨진다.
+- `ca37972`는 106개 파일의 줄바꿈만 바꾼 정규화 커밋이다. `git blame` 할 때 `--ignore-rev ca37972`로 건너뛸 수 있다.
 
 ## PHP 사이트 아키텍처 (home-www · home-hemochart 공용)
 

@@ -44,4 +44,3 @@ InfluxDB 기록에는 `config.inc.php`의 `INFLUXDATA_TOKEN`을 쓴다.
 - FontAwesome은 `bower.json`에 `^6.0.0`으로 선언돼 있다(hemochart·express는 `^5.0.0` — 의도된 차이).
 - `test/`는 라이브러리 실험장(dompdf, tcpdf, phpoffice, dropzone, fullcalendar, redis, jwt, GD, exif …)이고 `sample/`은 받아둔 HTML 템플릿이다. 배포 코드가 아니므로 참고만 할 것.
 - `test/`의 일부 페이지는 `bower.json`에 없는 패키지(`fontawesome-pro`, `fullcalendar`, `bootstrap-datepicker`, `toastr`)를 참조해 `bower install` 후에도 깨진 채로 남는다. 정상이다. 특히 `fontawesome-pro`는 유료 라이선스라 인증 없이는 설치되지 않는다.
-- `sample/BizPage/css/style.css`는 한 파일 안에 LF/CRLF가 혼재한다(루트 `CLAUDE.md`의 "줄바꿈" 참고).
