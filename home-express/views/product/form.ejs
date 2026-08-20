@@ -1,0 +1,116 @@
+<?- include('../header') ?>
+
+<form method="post" role="form" id="db-form">
+
+  <div class="content">
+    <div class="content-header">
+      <h1 class="content-title">제품</h1>
+      <div>
+        <a class="btn btn-default btn-xs btn-flat list-btn" href="/products"><i class="fas fa-level-up-alt fa-rotate-270 fa-fw"></i></a>
+      </div>
+    </div>
+
+    <div class="content-body">
+      <div class="container-fluid">
+
+        <div class="mb-3 row">
+          <label class="col-md-3 col-form-label text-md-end"><span class="text-danger">*</span> 상태</label>
+          <div class="col-md-9">
+            <div class="form-inline">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="status" value="대기중" <?= row.status === '대기중' ? 'checked' : '' ?> id="radio_status_1">
+                <label class="form-check-label" for="radio_status_1">대기중</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="status" value="판매중" <?= row.status === '판매중' ? 'checked' : '' ?> id="radio_status_2">
+                <label class="form-check-label" for="radio_status_2">판매중</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="status" value="판매종료" <?= row.status === '판매종료' ? 'checked' : '' ?> id="radio_status_3">
+                <label class="form-check-label" for="radio_status_3">판매종료</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-md-3 col-form-label text-md-end"><span class="text-danger">*</span> 제품명</label>
+          <div class="col-md-9">
+            <div class="form-inline">
+              <input class="form-control" type="text" name="title" value="<?= row.title ?>" maxlength="60" style="width:18em;">
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-md-3 col-form-label text-md-end">설명</label>
+          <div class="col-md-9">
+            <div class="form-inline">
+              <textarea class="form-control" rows="3" name="description" style="width:18em;"><?= row.description ?></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-md-3 col-form-label text-md-end">이미지 URL</label>
+          <div class="col-md-9">
+            <div class="form-inline">
+              <input class="form-control" type="text" name="imageUrl" value="<?= row.imageUrl ?>" maxlength="60" style="width:18em;">
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-md-3 col-form-label text-md-end"><span class="text-danger">*</span> 가격</label>
+          <div class="col-md-9">
+            <div class="form-inline">
+              <input class="form-control text-right" type="text" name="price" value="<?= row.price ?>" maxlength="6" style="width:6em;">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="content-footer">
+      <button class="btn btn-primary save-btn px-3" type="submit">저장</button>
+    </div>
+  </div>
+
+  <? if (act == 'new') { ?>
+  <input type="hidden" name="act" value="insert">
+  <? } else if (act == 'modify') { ?>
+  <input type="hidden" name="act" value="update">
+  <input type="hidden" name="id" value="<?= row.id ?>">
+  <? } ?>
+</form>
+
+<script>
+  $(document).ready(function() {
+    $("#db-form").on("submit", function(e) {
+      e.preventDefault();
+
+      if ($("#db-form :input[name='title']").val() == "") {
+        alert("제품명을 입력하여 주십시오");
+        $("#db-form :input[name='title']").focus();
+        return false;
+      }
+
+      if ($("#db-form :input[name='price']").val() == "") {
+        alert("가격을 입력하여 주십시오");
+        $("#db-form :input[name='price']").focus();
+        return false;
+      }
+
+      var act = $("#db-form :input[name='act']").val();
+      $.post("/products/" + act, $("#db-form").serialize(), function(response) {
+        $(location).attr("href", $("#db-form .list-btn").attr("href"));
+      }, "json").fail(function (xhr) {
+        // toastr.error(xhr.responseText);
+        console.log(xhr);
+      });
+    });
+  });
+</script>
+
+<?- include('../footer') ?>

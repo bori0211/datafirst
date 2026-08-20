@@ -1,0 +1,26 @@
+{
+    "name": "datafirst/home-www",
+    "type": "project",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Seok-tae Kim",
+            "email": "bori0211@gmail.com"
+        }
+    ],
+    "require": {
+        "aws/aws-sdk-php": "^3.232",
+        "phpmailer/phpmailer": "^7.0",
+        "twbs/bootstrap-icons": "^1.9",
+        "dompdf/dompdf": "^3.1",
+        "phpoffice/phpspreadsheet": "^5.0",
+        "google/analytics-data": "^0.24",
+        "influxdata/influxdb-client-php": "^3.6",
+        "firebase/php-jwt": "^7.00"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}

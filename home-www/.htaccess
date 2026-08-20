@@ -1,0 +1,13 @@
+RewriteEngine On
+
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^favicon\.ico$                                                          - [L,NC,R=204]
+RewriteRule ^apple-touch-icon.*\.png$                                               - [L,NC,R=204]
+
+# 메뉴
+RewriteRule ^hemo$		/hemo.php
+RewriteRule ^websign$	/websign.php

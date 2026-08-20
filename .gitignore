@@ -1,0 +1,43 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+# remotes/origin/HEAD -> origin/master 헤드 삭제
+# git branch -a
+# git remote set-head origin -d
+
+# 시크릿
+# config.inc.php (home-www, home-hemochart)
+# config.js (home-express)
+# google_keys.json (home-www, home-express)
+# .env (현재 없음)
+config.inc.php
+config.js
+google_keys.json
+firebase-config.js
+.env
+secrets/
+
+# 의존성
+bower/
+node_modules/
+vendor/
+
+# 로그
+*.log
+npm-debug.log*
+
+# 파이썬
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+*.sqlite3
+
+# legacy
+ohmyapple/
+ohmyphone/
+ohmyspon/

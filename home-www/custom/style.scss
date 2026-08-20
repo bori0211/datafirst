@@ -1,0 +1,540 @@
+/*********************************************************************************
+ * SCSS: Variables                                                               *
+ ********************************************************************************/
+
+:root {
+  --bs-primary: #1976d2;
+  --bs-body-font-size: 1.12rem;
+}
+
+$primary-color: #1976d2;
+$success-color: #00a65a;
+$danger-color: #dd4b39;
+$warning-color: #f39c12;
+
+$text-body-color: var(--bs-body-color);
+$text-muted-color: #aab8c2;
+
+$text-icon-color: #b8b8b8;
+$text-icon-hover-color: #666;
+
+
+
+/*********************************************************************************
+ * Core: General Layout Style (필수)                                             *
+ ********************************************************************************/
+
+body {
+  background-color: #000;
+  font-family: Arial, sans-serif;
+  /*font-size: 18px;*/
+  font-weight: 400;
+  overflow-y: scroll;
+}
+
+a {
+  color: $text-body-color;
+  transition: all 0.35s;
+  text-decoration: none;
+  
+  &:active,
+  &:hover,
+  &:focus {
+    color: $text-body-color;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.3;
+  margin-bottom: 0;
+}
+
+.text-title-span {
+  display: block;
+  
+  /* 768px 이상일 때 (767px 이하라면 적용되지 않음) */
+  @media (min-width: 768px) {
+    display: inline;
+  }
+}
+
+
+
+/*********************************************************************************
+ * Layout: Navbar                                                                *
+ ********************************************************************************/
+
+.navbar {
+  /* height: 50px; */
+  background-color: #fff; /* collapse 시 흰색 배경 필요 */
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  padding: 10px 0;
+  
+  .container {
+    padding: 0 15px;
+    
+    .navbar-logo {
+      margin: 0;
+      padding: 0;
+      
+      .navbar-brand {
+        margin: 0;
+        padding: 0;
+        font-size: 1rem;
+        
+        .logo-img {
+          width: auto;
+          height: 30px;
+        }
+      }
+    }
+    
+    .navbar-toggler {
+      font-size: 16px;
+      opacity: 0.4;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+    
+    .navbar-nav {
+      font-family: Raleway, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background-color: #fff;
+      
+      padding-top: 10px;
+      
+      /* 768px 이상일 때 (767px 이하라면 적용되지 않음) */
+      @media (min-width: 768px) {
+        padding-top: 0;
+      }
+      
+      .nav-item {
+        a.nav-link {
+          padding: 4px 8px;
+          opacity: 0.65;
+          
+          color: $text-body-color;
+          
+          &.selected,
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+/*********************************************************************************
+ * Layout: Header                                                                *
+ ********************************************************************************/
+
+header {
+  margin-top: 50px;
+  width: 100%;
+  height: 410px;
+  position: relative;
+  overflow: hidden;
+  
+  &#index-background-image {
+    background-image: url("/assets/header_index.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+  
+  &#hemo-background-image {
+    background-image: url("/assets/header_hemo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  
+  &#websign-background-image {
+    background-image: url("/assets/header_websign.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+  
+  .header-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    
+    .header-overlay {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      
+      h1.display-4 {
+        font-size: 2.8rem;
+        
+        /* 768px 이상일 때 (767px 이하라면 적용되지 않음) */
+        @media (min-width: 768px) {
+          font-size: 3.5rem;
+        }
+      }
+    }
+  }
+}
+
+
+
+/*********************************************************************************
+ * Layout: Section                                                               *
+ ********************************************************************************/
+
+section {
+  padding: 5rem 0;
+  
+  &:nth-of-type(odd) {
+    background-color: #fff;
+  }
+  
+  &:nth-of-type(even) {
+    background-color: #f8f9fa;
+  }
+  
+  .prepare {
+    width: 100%;
+    height: 480px;
+    background-image: url("/assets/prepare.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    color: #fff;
+    
+    .wait-content {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+      
+      h1.message {
+        display: inline-block;
+        margin: 0;
+        padding: 10px 30px;
+        background-color: rgba(218, 68, 83, 0.5);
+      }
+    }
+  }
+}
+
+
+
+/*********************************************************************************
+ * Layout: Footer                                                                *
+ ********************************************************************************/
+
+footer {
+  padding: 3rem 0 2rem;
+  font-size: 14px;
+  background-color: #222;
+  color: rgba(255, 255, 255, 0.4);
+  
+  ul {
+    padding-left: 1rem;
+    list-style-type: square;
+    
+    li {
+      font-family: Roboto, Arial, sans-serif;
+    }
+  }
+  
+  .partner {
+    font-family: Raleway, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+}
+
+
+
+/*********************************************************************************
+ * Layout: Modal                                                                 *
+ ********************************************************************************/
+
+.modal {
+  body.modal-open & {
+    background: rgba(0,0,0,0.3);
+    overflow-y: scroll;
+  }
+  
+  .modal-dialog {
+    .modal-content {
+      border-radius: 0;
+      
+      .modal-header {
+        justify-content: space-between;
+        
+        h2.modal-title {
+          font-family: Raleway, Arial, sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 1px;
+        }
+      }
+      
+      .modal-body {
+        .motd {
+          margin: 20px 0 30px;
+          min-height: 64px;
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 1.5;
+          text-align: center;
+          text-shadow: 0px 0px 1px rgba(0,0,0,0.4);
+        }
+      }
+      
+      .modal-footer {
+        justify-content: center;
+      }
+      
+    }
+  }
+}
+
+
+
+/*********************************************************************************
+ * Content: Table                                                                *
+ ********************************************************************************/
+
+.table {
+  --bs-table-bg: unset;
+  --bs-table-border-color: #ddd;
+  
+  >thead.table-title >tr {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  >thead, >tbody, >tfoot {
+    >tr {
+      >th {
+        padding: 8px;
+        vertical-align: middle;
+        font-weight: normal;
+        text-align: center;
+        
+        &.bg-blue {
+          background-color: rgba($primary-color, 0.1);
+        }
+        
+        &.bg-green {
+          background-color: rgba($success-color, 0.1);
+        }
+        
+        &.bg-red {
+          background-color: rgba($danger-color, 0.1);
+        }
+        
+        &.bg-yellow {
+          background-color: rgba($warning-color, 0.1);
+        }
+      }
+      
+      >td {
+        padding: 8px;
+        vertical-align: middle;
+        
+        &.bg-blue {
+          background-color: rgba($primary-color, 0.05);
+        }
+        
+        &.bg-green {
+          background-color: rgba($success-color, 0.05);
+        }
+        
+        &.bg-red {
+          background-color: rgba($danger-color, 0.05);
+        }
+        
+        &.bg-yellow {
+          background-color: rgba($warning-color, 0.05);
+        }
+      }
+    }
+  }
+  
+}
+
+
+
+/*********************************************************************************
+ * Forms                                                                         *
+ ********************************************************************************/
+
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.form-inline .form-control,
+.form-inline .form-select,
+.form-inline .input-group.date {
+  width: auto; /* 575이하일 때 100% 되는 것을 방지 */
+}
+
+.form-inline .form-check {
+  padding-top: 7px; /* 상하 간격 맞추기 */
+}
+
+.col-form-label {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.form-control,
+.form-select {
+  border-color: #d2d6de;
+  border-radius: 0;
+  padding: 5px;
+  font-size: 12px;
+  /*line-height: 18px;*/
+  min-height: 30px;
+  
+  &:focus {
+    border-color: $primary-color;
+  }
+}
+
+.form-select {
+  background-position: right 0.15rem center;
+  padding: 5px 23px 5px 5px;
+}
+
+input.form-control,
+select.form-control {
+  height: 30px;
+}
+
+.form-text {
+  margin: 0;
+  padding: 7px 0;
+  font-size: 13px;
+  color: $text-body-color;
+}
+
+
+
+/*********************************************************************************
+ * Components: Button                                                            *
+ ********************************************************************************/
+
+.btn {
+  &.btn-header {
+    padding: 15px 35px;
+    font-family: Raleway, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    
+    border: 1px solid #fff;
+    color: #fff;
+    
+    &:active,
+    &:hover,
+    &:focus {
+      border: 1px solid $success-color !important;
+      background-color: $success-color !important;
+      color: #fff !important;
+      box-shadow: 0;
+    }
+  }
+  
+  &.btn-modal-icon {
+    border: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    color: $text-icon-color;
+    
+    &:active {
+      box-shadow: none;
+    }
+    
+    &:hover {
+      color: $text-icon-hover-color;
+    }
+    
+    .fa-fw {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}
+
+
+
+/*********************************************************************************
+ * Components: Media                                                             *
+ ********************************************************************************/
+
+.single-item {
+  margin-bottom: 0.4rem;
+  
+  .single-icon {
+    display: inline-block;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #fff;
+    background-color: $primary-color;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
+
+
+/*********************************************************************************
+ * Utilities: Colors                                                             *
+ ********************************************************************************/
+
+.text-primary {
+  color: $primary-color !important;
+}
+
+.text-success {
+  color: $success-color !important;
+}
+
+.text-danger {
+  color: $danger-color !important;
+}
+
+.text-warning {
+  color: $warning-color !important;
+}
+
+.text-grey {
+  color: grey !important;
+}
+
+.text-muted {
+  color: $text-muted-color !important;
+}

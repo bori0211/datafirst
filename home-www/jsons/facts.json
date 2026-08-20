@@ -1,0 +1,12 @@
+{
+  "facts": [
+    {
+      "private": false,
+      "text": "1+1=2"
+    },
+    {
+      "private": false,
+      "text": "Fish can talk"
+    }
+  ]
+}
