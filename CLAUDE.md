@@ -101,7 +101,7 @@ Linux 서버(datafirst-ec2, hermes-vps)와 Windows PC를 오가며 커밋하므�
 <?
 	require "./config.inc.php";        // $db_config, define() 상수
 	require "./set_init_data.inc.php"; // addslashes, extract($_REQUEST), 로케일, no-cache 헤더
-	require "./function.inc.php";      // DB가 필요한 페이지만 (index/hemo/websign/catalog/faq는 안 부름)
+	require "./function.inc.php";      // DB가 필요한 페이지만 (배포 페이지 중엔 hemochart/sitemap.php 하나뿐)
 	
 	$selected_menu = "home";           // header.inc.php의 내비 활성 표시에 쓰임
 	
@@ -113,8 +113,8 @@ Linux 서버(datafirst-ec2, hermes-vps)와 Windows PC를 오가며 커밋하므�
 ?>
 ```
 
-- **`<?` 숏 오픈 태그를 전제로 한다.** `php.ini`에 `short_open_tag=On`이 필요하다(`SystemSetting.md` 참고). 배포되는 페이지(`index.php`·`hemo.php`·`websign.php`·`kidneylife.php`·`catalog.php`·`faq.php`·`sitemap.php`, `*.inc.php`, `modals/`, `cli/` 5개)는 전부 `<?`를 쓰므로 새 코드도 이 스타일을 유지한다. **배포 파일 중 `<?php`를 쓰는 것은 `phpinfo.php`(두 사이트) 뿐이고**, 나머지 `<?php` 파일은 전부 `test/`·`sample/` 아래 실험 코드다.
-- `function.inc.php`는 `header.inc.php`가 부르지 않는다. DB나 Composer 오토로더가 필요한 페이지가 3번째 줄에서 직접 `require` 한다.
+- **`<?` 숏 오픈 태그를 전제로 한다.** `php.ini`에 `short_open_tag=On`이 필요하다(`SystemSetting.md` 참고). 배포되는 페이지(`index.php`·`hemo.php`·`websign.php`·`kidneylife.php`·`catalog.php`·`faq.php`·`sitemap.php`, `*.inc.php`, `modals/`)와 `cli/`의 배치 4개는 `<?`를 쓰므로 새 코드도 이 스타일을 유지한다. `<?php`를 쓰는 것은 `phpinfo.php`(두 사이트)와 `cli/get_influxdata.php`, 그리고 `test/`·`sample/` 아래 실험 코드다.
+- `function.inc.php`는 `header.inc.php`가 부르지 않는다. 필요한 파일이 직접 `require` 하는데, 실제로 부르는 것은 `home-hemochart/sitemap.php`와 `home-www/cli/` 5개뿐이다. **`modals/`의 PHPMailer·GA 페이지는 `function.inc.php`가 아니라 `vendor/autoload.php`를 직접 `require` 한다** — DB 없이 오토로더만 필요해서다. 새 코드도 필요한 쪽만 부를 것.
 - `function.inc.php`가 Composer 오토로더를 불러오고 `mysqli_ext`(mysqli 상속)를 정의한다. DB는 `mysqli_instance()`로 얻고, 조회는 `query_fetch_first_row()`(숫자 인덱스 배열) / `query_fetch_all()`(기본 `MYSQLI_ASSOC`)을 쓴다. **`MYSQLI_REPORT_OFF`로 예외를 꺼 놓았기 때문에** 쿼리 실패는 던져지지 않고 `error_log()`에만 남은 뒤 `false`가 반환된다. 반환값을 반드시 확인할 것. 접속 후 문자셋이 `utf8mb4`가 아니면 즉시 `exit`한다.
 - `set_init_data.inc.php`가 `extract($_REQUEST, EXTR_SKIP)`로 요청 파라미터를 전역 변수로 풀어놓는다. 레거시 `register_globals` 흉내이므로, 페이지 안에 선언 없이 등장하는 전역 변수는 URL 파라미터에서 왔을 수 있다. 같은 파일이 `addslashes`(magic_quotes 흉내)와 `Cache-Control: no-store` 헤더도 건다.
 - **라우팅은 `.htaccess` rewrite 뿐이고, 실제 파일/디렉터리가 아닐 때만 적용된다.** 새 메뉴 페이지를 추가하면 `.htaccess`에 `RewriteRule ^name$ /name.php` 한 줄을 같이 넣어야 확장자 없는 URL이 동작한다. hemochart는 여기에 더해 `header.meta.php`와 `sitemap.php`까지 손봐야 한다. 두 사이트 모두 `.htaccess` 맨 앞에 `favicon.ico`와 `apple-touch-icon*.png`를 `R=204`로 흘려보내는 규칙이 있다(파일이 없어 404 로그가 쌓이는 것을 막는 용도).
