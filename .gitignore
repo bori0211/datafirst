@@ -16,9 +16,6 @@ firebase-config.js
 .env
 secrets/
 
-# 노트
-home-www/notes
-
 # 의존성
 bower/
 node_modules/

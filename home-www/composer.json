@@ -16,8 +16,7 @@
         "phpoffice/phpspreadsheet": "^5.0",
         "google/analytics-data": "^0.24",
         "influxdata/influxdb-client-php": "^3.6",
-        "firebase/php-jwt": "^7.00",
-        "league/commonmark": "^2.10"
+        "firebase/php-jwt": "^7.00"
     },
     "config": {
         "allow-plugins": {

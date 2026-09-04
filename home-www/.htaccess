@@ -11,8 +11,3 @@ RewriteRule ^apple-touch-icon.*\.png$                                           
 # 메뉴
 RewriteRule ^hemo$		/hemo.php
 RewriteRule ^websign$	/websign.php
-
-# 노트 뷰어 — /notes/ 아래 실제 파일·디렉터리가 아닌 경로는 index.php 가 라우팅한다
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^notes/.	/notes/index.php [L]
