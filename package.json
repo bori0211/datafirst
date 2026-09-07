@@ -1,0 +1,15 @@
+{
+  "name": "datafirst",
+  "version": "1.0.0",
+  "description": "DataFirst Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "www:sass:style": "sass --style=compressed --no-source-map ./home-www/custom/style.scss:./home-www/custom/style.css",
+    "hemochart:sass:style": "sass --style=compressed --no-source-map ./home-hemochart/custom/style.scss:./home-hemochart/custom/style.css",
+    "express:sass:style": "sass --style=compressed --no-source-map ./home-express/public/custom/style.scss:./home-express/public/custom/style.css",
+    "vanilla:sass:style": "sass --style=compressed --no-source-map ./home-vanilla/custom/style.scss:./home-vanilla/custom/style.css"
+  },
+  "author": "Seok-tae Kim",
+  "license": "ISC"
+}
