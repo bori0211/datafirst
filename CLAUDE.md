@@ -85,13 +85,12 @@ sass --style=compressed --no-source-map style.scss style.css
 
 ## 줄바꿈(CRLF/LF)
 
-Linux 서버(datafirst-ec2, hermes-vps)와 Windows PC를 오가며 커밋하므로 한때 추적 파일이 LF 188 / CRLF 105로 갈려 있었고 한 파일은 내부에 혼재했다. `ca37972` 커밋에서 `.gitattributes`를 도입하고 전부 LF로 정규화했다.
+Linux 서버(datafirst-ec2, hermes-vps)와 Windows PC를 오가며 커밋한다. 한때 추적 파일이 LF 188 / CRLF 105로 갈려 있었고, `ca37972` 커밋에서 전부 LF로 정규화했다. 그때 함께 넣었던 `.gitattributes`와 `.git-blame-ignore-revs`는 저장소 루트를 단순하게 두려고 2026-09-07에 지웠다. 줄바꿈은 Git이 아니라 편집기 설정으로 지킨다.
 
-- **`* text=auto`** — 저장소에는 항상 LF로 저장된다. 워킹트리 줄바꿈은 `core.eol`(기본 `native`)을 따르므로 **Windows에서는 CRLF, Linux 서버에서는 LF로 체크아웃**된다. 어느 쪽에서 편집하든 커밋 시 LF로 정규화되므로 줄바꿈 때문에 전체가 diff로 뜨는 일은 없다.
-- **`core.autocrlf`는 이제 신경 쓰지 않아도 된다.** `text` 속성이 설정된 경로에서는 `.gitattributes`가 우선한다(이 PC는 system `true` / global `false`지만 결과에 영향 없다). 머신별 설정에 의존하지 않는 것이 `.gitattributes`를 쓰는 이유다.
-- **`*.sh`·`home-express/bin/www`·`.htaccess`는 `eol=lf`로 고정**했다. shebang 뒤에 CR이 붙으면 Linux에서 `bad interpreter: /bin/bash^M`로 죽고, Apache가 읽는 파일도 워킹트리에서 FTP로 그대로 올라갈 수 있다. 새 셸 스크립트를 Windows에서 만들어도 이 규칙이 막아준다.
-- 이미지·폰트·문서 확장자는 `binary`로 명시했다. **목록에 없는 바이너리 확장자를 새로 추가할 때는 `.gitattributes`에 한 줄 넣을 것** — 안 넣으면 `text=auto`의 자동 판별에 맡겨진다.
-- `ca37972`는 106개 파일의 줄바꿈만 바꾼 정규화 커밋이라 그 파일들의 `git blame`을 통째로 가린다. 루트의 **`.git-blame-ignore-revs`** 에 이 SHA를 적어 뒀다. GitHub 웹 blame은 이 파일을 자동 인식하고, 로컬 CLI에서 쓰려면 머신마다 `git config blame.ignoreRevsFile .git-blame-ignore-revs` 를 한 번 설정한다. 앞으로 일괄 재포맷처럼 내용은 그대로면서 모든 줄을 건드리는 커밋이 생기면 이 파일에 SHA를 한 줄 추가할 것.
+- **저장소의 텍스트 파일은 LF다.** 새 파일도 LF로 만든다. Windows 편집기(UltraEdit)는 새 파일 기본 형식을 UNIX로, Unix 파일 자동 변환을 끄고, 읽어들인 형식 그대로 저장하도록 설정해 둔다. 이 설정은 PC마다 해야 한다.
+- 파일 하나가 통째로 diff에 뜨면 편집기가 CRLF로 바꿔 저장한 것이다. 내용을 고치기 전에 `dos2unix` 나 Vim의 `:set ff=unix` 로 되돌린다.
+- PHP·JS·CSS·HTML은 CRLF여도 동작에 문제가 없다. **`*.sh`와 `home-express/bin/www`처럼 shebang으로 직접 실행되는 파일만은 반드시 LF여야 한다.** CR이 붙으면 Linux에서 `bad interpreter: /bin/bash^M`로 죽는다. cron이 부르는 스크립트가 대표적이다.
+- `ca37972`는 106개 파일의 줄바꿈만 바꾼 커밋이라 그 파일들의 `git blame`이 이 커밋을 가리킨다. 이전 이력이 필요하면 `git blame --ignore-rev ca37972` 를 쓴다.
 
 ## PHP 사이트 아키텍처 (home-www · home-hemochart 공용)
 
