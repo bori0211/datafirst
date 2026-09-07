@@ -1,0 +1,1195 @@
+
+<title>기억의 궁전 지도</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F3EE; --surface:#FBFAF7; --surface-2:#ECEAE2; --line:#D9D6CB; --line-soft:#E7E4DA;
+  --ink:#1F2422; --ink-2:#575D58; --ink-3:#8B908A;
+  --accent:#2F6F5E; --accent-ink:#FFFFFF; --accent-soft:#DCEBE4; --accent-line:#A9CBBD;
+  --empty:#B8BBB2;
+  --serif:"Gowun Batang","Noto Serif KR","Apple SD Gothic Neo",serif;
+  --sans:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#15191A; --surface:#1D2224; --surface-2:#242A2C; --line:#343B3D; --line-soft:#2A3133;
+    --ink:#E8E6DE; --ink-2:#AEB3AC; --ink-3:#7C827C;
+    --accent:#7DBBA5; --accent-ink:#0F1A16; --accent-soft:#213730; --accent-line:#3E6A5B;
+    --empty:#5B615C; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15191A; --surface:#1D2224; --surface-2:#242A2C; --line:#343B3D; --line-soft:#2A3133;
+  --ink:#E8E6DE; --ink-2:#AEB3AC; --ink-3:#7C827C;
+  --accent:#7DBBA5; --accent-ink:#0F1A16; --accent-soft:#213730; --accent-line:#3E6A5B;
+  --empty:#5B615C; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* 머리 */
+.head{padding:64px 0 36px;border-bottom:1px solid var(--line)}
+.head .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin:0 0 18px}
+.head h1{font-family:var(--serif);font-weight:700;font-size:clamp(38px,5.2vw,58px);line-height:1.12;margin:0 0 20px;letter-spacing:-.01em;text-wrap:balance}
+.head .quote{max-width:46em;margin:0;font-family:var(--serif);font-size:18px;line-height:1.75;color:var(--ink-2)}
+.head .quote cite{display:block;margin-top:10px;font-family:var(--mono);font-style:normal;font-size:12px;color:var(--ink-3)}
+.totals{display:flex;flex-wrap:wrap;gap:0 40px;margin:34px 0 0;padding:0;list-style:none}
+.totals li{display:flex;flex-direction:column;gap:2px}
+.totals .v{font-family:var(--mono);font-size:30px;line-height:1.1;font-variant-numeric:tabular-nums}
+.totals .k{font-size:12.5px;color:var(--ink-3);letter-spacing:.04em}
+
+/* 찾는 법 */
+.how{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;padding:36px 0;border-bottom:1px solid var(--line)}
+.how h2{font-family:var(--serif);font-size:21px;margin:0 0 14px;font-weight:700}
+.how ol{margin:0;padding-left:1.4em;color:var(--ink-2)}
+.how ol li{margin:0 0 8px;padding-left:.2em}
+.how ol li::marker{font-family:var(--mono);color:var(--accent);font-weight:500}
+.how p{margin:0 0 10px;color:var(--ink-2)}
+.how code{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);padding:1px 6px;border-radius:3px;color:var(--ink)}
+pre{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;overflow-x:auto;
+  font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--ink)}
+pre .c{color:var(--ink-3)}
+.legend{margin-top:16px;font-size:13px;color:var(--ink-3)}
+
+/* 목차 띠 */
+.toc{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.toc ul{display:flex;gap:6px;list-style:none;margin:0;padding:10px 0;overflow-x:auto;scrollbar-width:none}
+.toc a{display:inline-flex;align-items:baseline;gap:7px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;
+  color:var(--ink);font-size:13px;white-space:nowrap;background:var(--surface)}
+.toc a:hover{border-color:var(--accent);text-decoration:none}
+.toc a .n{font-family:var(--mono);font-size:11.5px;color:var(--accent)}
+
+/* 시트 = 전시실 */
+.hall{padding:48px 0 12px;scroll-margin-top:60px}
+.hall-head{display:grid;grid-template-columns:auto 1fr auto;gap:18px 22px;align-items:end;padding-bottom:18px;border-bottom:2px solid var(--ink);margin-bottom:22px}
+.hall-head .glyph{font-family:var(--serif);font-weight:700;font-size:56px;line-height:.9;color:var(--accent)}
+.hall-head h2{font-family:var(--serif);font-size:30px;margin:0;line-height:1.15;font-weight:700}
+.hall-head .blurb{margin:6px 0 0;color:var(--ink-2);font-size:14.5px;max-width:52em}
+.hall-head .meta{display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-size:12.5px;color:var(--ink-3);white-space:nowrap}
+.hall-head .meta .stat{font-family:var(--mono);color:var(--ink-2)}
+.hall-head .meta .stat b{color:var(--ink);font-weight:500}
+
+/* 탭 = 방 카드 */
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.room{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px 14px;display:flex;flex-direction:column;gap:10px}
+.room-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.room-head h3{margin:0;font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.25}
+.room-head .cnt{font-family:var(--mono);font-size:12px;color:var(--ink-3);white-space:nowrap}
+.room-head .cnt b{font-weight:500;color:var(--ink-2)}
+.shelves{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-soft)}
+.shelves li{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line-soft);font-size:13.5px;line-height:1.5}
+.shelves li:last-child{border-bottom:0}
+.shelves .h{color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.shelves .n{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.shelves li.empty .h{color:var(--empty)}
+.shelves li.empty .n{color:var(--empty);font-size:11px}
+.room .bar{height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-top:auto}
+.room .bar i{display:block;height:100%;background:var(--accent);border-radius:2px}
+
+/* 꼬리 */
+.foot{padding:40px 0 64px;border-top:1px solid var(--line);margin-top:36px;color:var(--ink-3);font-size:13px}
+.foot p{margin:0 0 6px}
+
+@media (max-width:760px){
+  .wrap{padding:0 18px}
+  .head{padding:44px 0 28px}
+  .how{grid-template-columns:1fr;gap:26px}
+  .hall-head{grid-template-columns:auto 1fr}
+  .hall-head .meta{grid-column:1/-1;flex-direction:row;align-items:baseline;gap:14px;white-space:normal}
+  .totals{gap:14px 28px}
+}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+</style>
+
+<div class="wrap">
+
+<header class="head">
+  <p class="kicker">notes/atman · 구글 시트 8개의 사본</p>
+  <h1>기억의 궁전 지도</h1>
+  <blockquote class="quote">기억의 궁전이란 체계 시스템을 만드는 것이다. 분류화 하고 체계화 하고 누적적으로 지식을 축적하는 것.
+    <cite>9_Brain Science › Memory › 기억의 궁전</cite></blockquote>
+  <ul class="totals">
+    <li><span class="v">8</span><span class="k">시트 (전시실)</span></li>
+    <li><span class="v">86</span><span class="k">탭 (방)</span></li>
+    <li><span class="v">303</span><span class="k">열 (선반)</span></li>
+    <li><span class="v">9,749</span><span class="k">줄 (카드)</span></li>
+  </ul>
+</header>
+<section class="how">
+  <div>
+    <h2>찾는 순서</h2>
+    <ol>
+      <li>이 지도에서 시트와 탭을 좁힌다. 열 머리글이 곧 주제다.</li>
+      <li><code>notes/atman/</code> 사본을 <code>grep</code> 으로 찾는다. 탭은 <code>##</code>, 열 머리글은 <code>###</code>, 셀은 글머리 한 줄이다.</li>
+      <li>사본이 하루보다 오래됐으면 <code>memory-palace-sync</code> 로 갱신한다 (약 15초). 매일 00:30 KST 에 cron 이 돌린다.</li>
+      <li>원본을 고쳐야 하면 각 전시실 머리의 링크로 구글 시트를 연다.</li>
+    </ol>
+    <p class="legend">카드마다 방 이름, 선반(열 머리글)과 그 선반의 줄 수를 적었다. 카드 아래 초록 띠는 같은 시트 안에서 그 방이 차지하는 비중이다. 흐린 선반은 아직 비어 있는 열이다.</p>
+  </div>
+  <div>
+    <h2>명령</h2>
+<pre><span class="c"># 주제로 찾기 (탭·열 머리글 우선)</span>
+grep -n '^##' notes/atman/*.md | grep 도파민
+
+<span class="c"># 본문까지 찾기</span>
+grep -rn '한계효용' notes/atman/
+
+<span class="c"># 사본 갱신</span>
+~/.claude/scripts/memory-palace-sync
+
+<span class="c"># 오늘의 카드 (무작위 한 장 + 이어지는 카드 2~3장)</span>
+~/.claude/scripts/daily-card-send</pre>
+  </div>
+</section>
+</div>
+
+<nav class="toc" aria-label="시트 목차"><div class="wrap"><ul>
+<li><a href="#1-역사"><span class="n">1</span>역사</a></li>
+<li><a href="#2-철학"><span class="n">2</span>철학</a></li>
+<li><a href="#3-이야기"><span class="n">3</span>이야기</a></li>
+<li><a href="#4-인문학"><span class="n">4</span>인문학</a></li>
+<li><a href="#5-메커니즘"><span class="n">5</span>메커니즘</a></li>
+<li><a href="#6-사람"><span class="n">6</span>사람</a></li>
+<li><a href="#9-Brain-Science"><span class="n">9</span>Brain Science</a></li>
+<li><a href="#a-Long-term-Plan"><span class="n">a</span>Long term Plan</a></li>
+</ul></div></nav><main class="wrap">
+
+<section class="hall" id="1-역사">
+  <div class="hall-head">
+    <div class="glyph" aria-hidden="true">1</div>
+    <div>
+      <h2>역사</h2>
+      <p class="blurb">인류학에서 한국사까지. 사회화·갈등·정주와 유목, 그리고 연대표.</p>
+    </div>
+    <div class="meta">
+      <span class="stat">탭 <b>10</b> · 열 <b>27</b> · 줄 <b>534</b></span>
+      <span><a href="https://docs.google.com/spreadsheets/d/19Qqajppr_9gd0Lv9LLJpKF2XEnUKv5e23M-Hqw0s1XE" target="_blank" rel="noopener">구글 시트 열기 ↗</a> · <span class="num">1_역사.md</span></span>
+    </div>
+  </div>
+  <div class="rooms">
+
+    <article class="room">
+      <div class="room-head"><h3>인류학</h3><span class="cnt">2열 · <b>102</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">인류의 기원</span><span class="n">73</span></li>
+<li><span class="h">결정적 지식</span><span class="n">29</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 73%"><i style="width:73%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>인류학2</h3><span class="cnt">5열 · <b>139</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">누적적 문화 (맥락 분리)</span><span class="n">28</span></li>
+<li><span class="h">계보</span><span class="n">19</span></li>
+<li><span class="h">공동의 목표</span><span class="n">25</span></li>
+<li><span class="h">단편</span><span class="n">25</span></li>
+<li><span class="h">매너리즘</span><span class="n">42</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 100%"><i style="width:100%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>인류학3</h3><span class="cnt">3열 · <b>41</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">분업</span><span class="n">19</span></li>
+<li><span class="h">갈등 해소</span><span class="n">6</span></li>
+<li><span class="h">트레이드 오프</span><span class="n">16</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 29%"><i style="width:29%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>사회화</h3><span class="cnt">5열 · <b>124</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">사회화</span><span class="n">36</span></li>
+<li><span class="h">아싸비아</span><span class="n">25</span></li>
+<li><span class="h">국가</span><span class="n">8</span></li>
+<li><span class="h">갈등 해소</span><span class="n">25</span></li>
+<li><span class="h">인간의 욕심은 끝이 없고 같은 실수를 반복한다</span><span class="n">30</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 89%"><i style="width:89%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>고대사</h3><span class="cnt">5열 · <b>10</b>줄</span></div>
+      <ul class="shelves">
+<li class="empty"><span class="h">메소포타미아</span><span class="n">비어 있음</span></li>
+<li><span class="h">이집트</span><span class="n">2</span></li>
+<li class="empty"><span class="h">인더스</span><span class="n">비어 있음</span></li>
+<li><span class="h">중국</span><span class="n">6</span></li>
+<li><span class="h">한국</span><span class="n">2</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 7%"><i style="width:7%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>고대사2</h3><span class="cnt">2열 · <b>36</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">역사적 기억, 기억된 역사</span><span class="n">30</span></li>
+<li><span class="h">강대국 클럽</span><span class="n">6</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 26%"><i style="width:26%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>유럽사</h3><span class="cnt">2열 · <b>29</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">(머리글 없음)</span><span class="n">14</span></li>
+<li><span class="h">스파르타</span><span class="n">15</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 21%"><i style="width:21%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>중국사</h3><span class="cnt">1열 · <b>21</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">BC 2070 ~ 1600 (470년)</span><span class="n">21</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 15%"><i style="width:15%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>정주/유목</h3><span class="cnt">1열 · <b>8</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">유목</span><span class="n">8</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 6%"><i style="width:6%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>한국사</h3><span class="cnt">1열 · <b>24</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">BC 2333 ~ BC 100</span><span class="n">24</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 17%"><i style="width:17%"></i></div>
+    </article>
+</div></section>
+
+<section class="hall" id="2-철학">
+  <div class="hall-head">
+    <div class="glyph" aria-hidden="true">2</div>
+    <div>
+      <h2>철학</h2>
+      <p class="blurb">생존과 이율배반에서 출발해 인정투쟁·쾌락주의·허무주의·실존주의로.</p>
+    </div>
+    <div class="meta">
+      <span class="stat">탭 <b>12</b> · 열 <b>51</b> · 줄 <b>1,469</b></span>
+      <span><a href="https://docs.google.com/spreadsheets/d/1N-9_Ph1gs-jeSflfYwqSCxsN22kb1KqkTMT_M3CDci4" target="_blank" rel="noopener">구글 시트 열기 ↗</a> · <span class="num">2_철학.md</span></span>
+    </div>
+  </div>
+  <div class="rooms">
+
+    <article class="room">
+      <div class="room-head"><h3>Start</h3><span class="cnt">3열 · <b>99</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">생존</span><span class="n">32</span></li>
+<li><span class="h">엔티노미 (이율배반) (부조리)</span><span class="n">40</span></li>
+<li><span class="h">근원 (아르케) (원인)</span><span class="n">27</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 39%"><i style="width:39%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>균형</h3><span class="cnt">5열 · <b>99</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">현실과 이상</span><span class="n">37</span></li>
+<li><span class="h">권위와 실용</span><span class="n">22</span></li>
+<li><span class="h">사업가 마인드 (분업, 사유재산)</span><span class="n">13</span></li>
+<li><span class="h">진화의 역사</span><span class="n">19</span></li>
+<li><span class="h">감정가</span><span class="n">8</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 39%"><i style="width:39%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>중첩</h3><span class="cnt">3열 · <b>51</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">중첩</span><span class="n">22</span></li>
+<li><span class="h">정치적 성향</span><span class="n">21</span></li>
+<li><span class="h">인간의 본성</span><span class="n">8</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 20%"><i style="width:20%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>인정투쟁</h3><span class="cnt">5열 · <b>251</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">목숨을 건 인정 투쟁</span><span class="n">92</span></li>
+<li><span class="h">인정 투쟁 2</span><span class="n">23</span></li>
+<li><span class="h">모두 주인공이 되고 싶어 한다</span><span class="n">57</span></li>
+<li><span class="h">서열 (질서) (정치)</span><span class="n">51</span></li>
+<li><span class="h">기득권에 저항</span><span class="n">28</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 100%"><i style="width:100%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>쾌락주의</h3><span class="cnt">5열 · <b>115</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">도파민</span><span class="n">50</span></li>
+<li><span class="h">에너지 절약</span><span class="n">4</span></li>
+<li><span class="h">너무 쉬우면 금방 질리고 너무 어려우면 포기해 버림</span><span class="n">16</span></li>
+<li><span class="h">균형</span><span class="n">19</span></li>
+<li><span class="h">반작용</span><span class="n">26</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 46%"><i style="width:46%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>에피쿠로스</h3><span class="cnt">5열 · <b>154</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">아타락시아</span><span class="n">30</span></li>
+<li><span class="h">Pain (양면성)</span><span class="n">61</span></li>
+<li><span class="h">경외 (복종)</span><span class="n">39</span></li>
+<li><span class="h">헤라클레이토스</span><span class="n">10</span></li>
+<li><span class="h">철학 사조</span><span class="n">14</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 61%"><i style="width:61%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>쇼펜하워</h3><span class="cnt">4열 · <b>102</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">(머리글 없음)</span><span class="n">18</span></li>
+<li><span class="h">쇼펜하워의 역설</span><span class="n">9</span></li>
+<li><span class="h">욕망의 동력원이다 (ai)</span><span class="n">49</span></li>
+<li><span class="h">욕망</span><span class="n">26</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 41%"><i style="width:41%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>허무주의</h3><span class="cnt">4열 · <b>212</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">허무주의 (니힐리즘)</span><span class="n">78</span></li>
+<li><span class="h">니체</span><span class="n">71</span></li>
+<li><span class="h">지식 (권위)</span><span class="n">40</span></li>
+<li><span class="h">퇴폐주의</span><span class="n">23</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 84%"><i style="width:84%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>허무주의2</h3><span class="cnt">5열 · <b>121</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">염세주의</span><span class="n">10</span></li>
+<li><span class="h">카오스. 혼돈</span><span class="n">44</span></li>
+<li><span class="h">힘에의 의지</span><span class="n">19</span></li>
+<li><span class="h">리바이어던</span><span class="n">41</span></li>
+<li><span class="h">인간은 자기 기만의 동물</span><span class="n">7</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 48%"><i style="width:48%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>실존주의</h3><span class="cnt">5열 · <b>152</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">알베르 카뮈 (부조리)</span><span class="n">59</span></li>
+<li><span class="h">합리화 (정신 승리)</span><span class="n">17</span></li>
+<li><span class="h">시지프스 신화</span><span class="n">11</span></li>
+<li><span class="h">삶의 의미</span><span class="n">45</span></li>
+<li><span class="h">반출생주의</span><span class="n">20</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 61%"><i style="width:61%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>셀리그만</h3><span class="cnt">5열 · <b>93</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">셀리그만, 내쉬 균형, 성취</span><span class="n">29</span></li>
+<li><span class="h">도전을 멈추면 안되는 이유</span><span class="n">19</span></li>
+<li><span class="h">변화해야 하는 이유</span><span class="n">13</span></li>
+<li><span class="h">내쉬균형</span><span class="n">23</span></li>
+<li><span class="h">삶의 의미</span><span class="n">9</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 37%"><i style="width:37%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>인도</h3><span class="cnt">2열 · <b>20</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">높은 지식, 낮은 지식</span><span class="n">10</span></li>
+<li><span class="h">큰 나, 작은 나</span><span class="n">10</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 8%"><i style="width:8%"></i></div>
+    </article>
+</div></section>
+
+<section class="hall" id="3-이야기">
+  <div class="hall-head">
+    <div class="glyph" aria-hidden="true">3</div>
+    <div>
+      <h2>이야기</h2>
+      <p class="blurb">뇌가 사실보다 이야기에 끌리는 이유. 신화·환상·이미지·추상, 그리고 영화 넷.</p>
+    </div>
+    <div class="meta">
+      <span class="stat">탭 <b>11</b> · 열 <b>35</b> · 줄 <b>982</b></span>
+      <span><a href="https://docs.google.com/spreadsheets/d/1qAdXkkpdmpcFytzzfTzmKCewt2Y9_b6ywBreuyfoKzc" target="_blank" rel="noopener">구글 시트 열기 ↗</a> · <span class="num">3_이야기.md</span></span>
+    </div>
+  </div>
+  <div class="rooms">
+
+    <article class="room">
+      <div class="room-head"><h3>Story</h3><span class="cnt">4열 · <b>101</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">뇌는 사실에 끌리지 않는다</span><span class="n">33</span></li>
+<li><span class="h">인과 관계</span><span class="n">22</span></li>
+<li><span class="h">리추얼</span><span class="n">22</span></li>
+<li><span class="h">상징</span><span class="n">24</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 57%"><i style="width:57%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Mythology</h3><span class="cnt">4열 · <b>136</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">신화</span><span class="n">34</span></li>
+<li><span class="h">신화</span><span class="n">62</span></li>
+<li><span class="h">역사는 전설이 되고, 전설은 신화가 된다</span><span class="n">21</span></li>
+<li><span class="h">이데올로기</span><span class="n">19</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 77%"><i style="width:77%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>신화2</h3><span class="cnt">1열 · <b>15</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">알레고리</span><span class="n">15</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 9%"><i style="width:9%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>환상</h3><span class="cnt">4열 · <b>52</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">우리가 가진 건 환상 뿐이었는데, 너가 버렸어</span><span class="n">25</span></li>
+<li><span class="h">과장 (발 없는 말이 천리 간다)</span><span class="n">13</span></li>
+<li><span class="h">감동 터치</span><span class="n">8</span></li>
+<li><span class="h">공포로써의 환상</span><span class="n">6</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 30%"><i style="width:30%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Image</h3><span class="cnt">5열 · <b>149</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">판타지, 포비아</span><span class="n">27</span></li>
+<li><span class="h">이미지</span><span class="n">26</span></li>
+<li><span class="h">실재</span><span class="n">23</span></li>
+<li><span class="h">사상. 이론.</span><span class="n">10</span></li>
+<li><span class="h">목숨을 바칠 수 있는 이유 (숭고함)</span><span class="n">63</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 85%"><i style="width:85%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>추상</h3><span class="cnt">4열 · <b>176</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">추상화</span><span class="n">81</span></li>
+<li><span class="h">현상</span><span class="n">41</span></li>
+<li><span class="h">퉁치기 (일반화)</span><span class="n">20</span></li>
+<li><span class="h">현실의 문제</span><span class="n">34</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 100%"><i style="width:100%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Gilgamesh</h3><span class="cnt">3열 · <b>102</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">길가메쉬</span><span class="n">39</span></li>
+<li><span class="h">이중 언어</span><span class="n">37</span></li>
+<li><span class="h">메소포타미아</span><span class="n">26</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 58%"><i style="width:58%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>MadMax</h3><span class="cnt">4열 · <b>154</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">임모탄 조</span><span class="n">47</span></li>
+<li><span class="h">워보이 (What a lovely day!)</span><span class="n">28</span></li>
+<li><span class="h">시타델</span><span class="n">3</span></li>
+<li><span class="h">디멘투스</span><span class="n">76</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 88%"><i style="width:88%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>KillBill</h3><span class="cnt">4열 · <b>70</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">- You loved Emilio, didn&#x27;t you?</span><span class="n">18</span></li>
+<li><span class="h">에밀리오를 사랑했지?</span><span class="n">17</span></li>
+<li><span class="h">I used to think my life was a tragedy,</span><span class="n">18</span></li>
+<li><span class="h">비극인줄 알았는데 알고보니 코미디</span><span class="n">17</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 40%"><i style="width:40%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>미드소마</h3><span class="cnt">1열 · <b>15</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">호혜</span><span class="n">15</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 9%"><i style="width:9%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>양들의침묵</h3><span class="cnt">1열 · <b>12</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">사회의 주인</span><span class="n">12</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 7%"><i style="width:7%"></i></div>
+    </article>
+</div></section>
+
+<section class="hall" id="4-인문학">
+  <div class="hall-head">
+    <div class="glyph" aria-hidden="true">4</div>
+    <div>
+      <h2>인문학</h2>
+      <p class="blurb">두 세계와 인용구, 언어와 종교, 손자병법·유가·도가·기타, 4자성어.</p>
+    </div>
+    <div class="meta">
+      <span class="stat">탭 <b>11</b> · 열 <b>44</b> · 줄 <b>1,082</b></span>
+      <span><a href="https://docs.google.com/spreadsheets/d/1Nf1Umvh6g9eYdC8G3a8IFx4y4LmiXJIXwBs99egBIMg" target="_blank" rel="noopener">구글 시트 열기 ↗</a> · <span class="num">4_인문학.md</span></span>
+    </div>
+  </div>
+  <div class="rooms">
+
+    <article class="room">
+      <div class="room-head"><h3>Two worlds</h3><span class="cnt">3열 · <b>103</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">삶의 단계 - 헤르만 헤세</span><span class="n">31</span></li>
+<li><span class="h">두 세계</span><span class="n">34</span></li>
+<li><span class="h">내가 만들고 마주해야 하는 세계</span><span class="n">38</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 54%"><i style="width:54%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Quotation</h3><span class="cnt">3열 · <b>56</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">연탄재 함부로 차지 마라.</span><span class="n">37</span></li>
+<li><span class="h">강한자가 약한자에게 못할 것이 없는 것과 같이</span><span class="n">2</span></li>
+<li><span class="h">고달프지 않은 인생은 어디 있고,</span><span class="n">17</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 30%"><i style="width:30%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>인문학</h3><span class="cnt">4열 · <b>78</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">인문학</span><span class="n">27</span></li>
+<li><span class="h">고전</span><span class="n">21</span></li>
+<li><span class="h">동력 (모멘텀)</span><span class="n">21</span></li>
+<li><span class="h">본성</span><span class="n">9</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 41%"><i style="width:41%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>언어학</h3><span class="cnt">4열 · <b>189</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">이름</span><span class="n">99</span></li>
+<li><span class="h">제목</span><span class="n">53</span></li>
+<li><span class="h">작은 차이</span><span class="n">16</span></li>
+<li><span class="h">언어화</span><span class="n">21</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 100%"><i style="width:100%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>종교</h3><span class="cnt">3열 · <b>64</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">(머리글 없음)</span><span class="n">25</span></li>
+<li><span class="h">유대교</span><span class="n">11</span></li>
+<li><span class="h">형이상학 레벨 (종교)</span><span class="n">28</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 34%"><i style="width:34%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>손자병법</h3><span class="cnt">5열 · <b>39</b>줄</span></div>
+      <ul class="shelves">
+<li class="empty"><span class="h">道 (정당성)</span><span class="n">비어 있음</span></li>
+<li><span class="h">天 (타이밍, 시중)</span><span class="n">15</span></li>
+<li><span class="h">地 (이미 만들어진 조건) (내쉬 균형)</span><span class="n">19</span></li>
+<li class="empty"><span class="h">將 (사람)</span><span class="n">비어 있음</span></li>
+<li><span class="h">法 (시스템)</span><span class="n">5</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 21%"><i style="width:21%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>유가</h3><span class="cnt">5열 · <b>135</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">(머리글 없음)</span><span class="n">15</span></li>
+<li><span class="h">구일신 일일신 우일신</span><span class="n">40</span></li>
+<li><span class="h">중용</span><span class="n">30</span></li>
+<li><span class="h">선을 넘다 (Cross the line) (시중)</span><span class="n">31</span></li>
+<li><span class="h">성장 중독</span><span class="n">19</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 71%"><i style="width:71%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>도가</h3><span class="cnt">5열 · <b>153</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">도덕경</span><span class="n">33</span></li>
+<li><span class="h">총욕약경 (내가 겸손해야 되는 이유)</span><span class="n">31</span></li>
+<li><span class="h">자연의 섭리</span><span class="n">33</span></li>
+<li><span class="h">사회화</span><span class="n">32</span></li>
+<li><span class="h">위아주의</span><span class="n">24</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 81%"><i style="width:81%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>바가바드 기타</h3><span class="cnt">3열 · <b>134</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">바가바드 기타 (주어진 현실에서 최선을 다 할 뿐)</span><span class="n">34</span></li>
+<li><span class="h">브라따 (Vrata, व्रत) (서약) (맹세)</span><span class="n">60</span></li>
+<li><span class="h">진인사대천명, 운칠기삼</span><span class="n">40</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 71%"><i style="width:71%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>데페이즈망</h3><span class="cnt">5열 · <b>65</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">데페이즈망</span><span class="n">21</span></li>
+<li><span class="h">양가 감정</span><span class="n">9</span></li>
+<li><span class="h">영지주의</span><span class="n">5</span></li>
+<li><span class="h">변증법</span><span class="n">16</span></li>
+<li><span class="h">데카당스 (퇴폐주의)</span><span class="n">14</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 34%"><i style="width:34%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>4자성어</h3><span class="cnt">4열 · <b>66</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">여도지죄: 먹다 남은 복숭아를 준 죄</span><span class="n">17</span></li>
+<li><span class="h">포정해우: 어떤 일에 오랜 숙련을 거쳐 신의 경지에</span><span class="n">17</span></li>
+<li><span class="h">오매불망: 자나 깨나 잊지 못함</span><span class="n">10</span></li>
+<li><span class="h">절차탁마: 돌이나 상아, 옥 등을 깎고, 쓸고, 쪼고,</span><span class="n">22</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 35%"><i style="width:35%"></i></div>
+    </article>
+</div></section>
+
+<section class="hall" id="5-메커니즘">
+  <div class="hall-head">
+    <div class="glyph" aria-hidden="true">5</div>
+    <div>
+      <h2>메커니즘</h2>
+      <p class="blurb">선순환·피드백·계단식 발전·도파민·엔트로피·혁신·인프라·티어.</p>
+    </div>
+    <div class="meta">
+      <span class="stat">탭 <b>13</b> · 열 <b>49</b> · 줄 <b>1,822</b></span>
+      <span><a href="https://docs.google.com/spreadsheets/d/1EBkW9JQe-18IQDdWsSMzyfWj476rTHxkCKaCfZ_dCMo" target="_blank" rel="noopener">구글 시트 열기 ↗</a> · <span class="num">5_메커니즘.md</span></span>
+    </div>
+  </div>
+  <div class="rooms">
+
+    <article class="room">
+      <div class="room-head"><h3>Mechanism</h3><span class="cnt">4열 · <b>119</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">메커니즘 (선순환)</span><span class="n">25</span></li>
+<li><span class="h">완벽하게 이해하는 것</span><span class="n">39</span></li>
+<li><span class="h">정당성</span><span class="n">25</span></li>
+<li><span class="h">아는만큼 사랑한다</span><span class="n">30</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 35%"><i style="width:35%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Circle</h3><span class="cnt">3열 · <b>102</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">동기 (동력, 모멘텀) (브랏따, 맹세)</span><span class="n">45</span></li>
+<li><span class="h">What (구체적인 단계) (악기의 단계)</span><span class="n">32</span></li>
+<li><span class="h">순환 (Circle) 이라는 개념</span><span class="n">25</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 30%"><i style="width:30%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Circle2</h3><span class="cnt">2열 · <b>77</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">생태계 (시뮬레이션)</span><span class="n">32</span></li>
+<li><span class="h">퇴화 (에너지 절약)</span><span class="n">45</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 23%"><i style="width:23%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>진화론</h3><span class="cnt">4열 · <b>208</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">평준화</span><span class="n">54</span></li>
+<li><span class="h">유한함, 고차원</span><span class="n">65</span></li>
+<li><span class="h">그룹 선택</span><span class="n">58</span></li>
+<li><span class="h">인간이 체계적인 선택과 무의식적인 방법을 통해</span><span class="n">31</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 61%"><i style="width:61%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>한계효용</h3><span class="cnt">2열 · <b>65</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">한계효용 (손자병법)</span><span class="n">29</span></li>
+<li><span class="h">맥락</span><span class="n">36</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 19%"><i style="width:19%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Feedback</h3><span class="cnt">5열 · <b>125</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">장기적인 피드백 (Long), 단기적인 피드백 (Short)</span><span class="n">39</span></li>
+<li><span class="h">보상 심리 (피드백)</span><span class="n">26</span></li>
+<li><span class="h">도전</span><span class="n">15</span></li>
+<li><span class="h">선순환 악순환</span><span class="n">24</span></li>
+<li><span class="h">선례 (인프라)</span><span class="n">21</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 37%"><i style="width:37%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Stairs</h3><span class="cnt">4열 · <b>134</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">계단식 발전 (단계)</span><span class="n">29</span></li>
+<li><span class="h">작은 차이</span><span class="n">17</span></li>
+<li><span class="h">지속 가능</span><span class="n">58</span></li>
+<li><span class="h">버전 관리 (수학)</span><span class="n">30</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 40%"><i style="width:40%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>도파민</h3><span class="cnt">4열 · <b>166</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">에너지를 적게 쓰는 쪽</span><span class="n">47</span></li>
+<li><span class="h">목표 설정</span><span class="n">69</span></li>
+<li><span class="h">승자 효과 (인지부조화)</span><span class="n">17</span></li>
+<li><span class="h">불확실함</span><span class="n">33</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 49%"><i style="width:49%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>엔트로피</h3><span class="cnt">4열 · <b>176</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">엔트로피</span><span class="n">43</span></li>
+<li><span class="h">에너지</span><span class="n">29</span></li>
+<li><span class="h">Soft Power</span><span class="n">62</span></li>
+<li><span class="h">네거티브 엔트로피</span><span class="n">42</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 52%"><i style="width:52%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Innovation</h3><span class="cnt">5열 · <b>339</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">혁신과 리스크는 한끗 차이</span><span class="n">78</span></li>
+<li><span class="h">미니멀 리스트 (혁신)</span><span class="n">49</span></li>
+<li><span class="h">효율 (전쟁사)</span><span class="n">103</span></li>
+<li><span class="h">의미있는 시간의 총합</span><span class="n">92</span></li>
+<li><span class="h">간절함 (절박함) VS 노련함</span><span class="n">17</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 100%"><i style="width:100%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Innovation2</h3><span class="cnt">5열 · <b>122</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">동기 ( Motivation )</span><span class="n">33</span></li>
+<li><span class="h">정주민</span><span class="n">31</span></li>
+<li><span class="h">변화의 속도</span><span class="n">25</span></li>
+<li><span class="h">교역</span><span class="n">17</span></li>
+<li><span class="h">테세우스의 배</span><span class="n">16</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 36%"><i style="width:36%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Infra</h3><span class="cnt">4열 · <b>116</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">인프라</span><span class="n">30</span></li>
+<li><span class="h">예방, 연구</span><span class="n">10</span></li>
+<li><span class="h">미니멀 리스트 (단순화 하는 능력) (통제감)</span><span class="n">38</span></li>
+<li><span class="h">단순함이란 궁극의 정교함이다</span><span class="n">38</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 34%"><i style="width:34%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Tier</h3><span class="cnt">3열 · <b>73</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">티어 (스케일)</span><span class="n">43</span></li>
+<li><span class="h">던바의 수</span><span class="n">25</span></li>
+<li><span class="h">미치지 못하면 미치지 못한다.</span><span class="n">5</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 22%"><i style="width:22%"></i></div>
+    </article>
+</div></section>
+
+<section class="hall" id="6-사람">
+  <div class="hall-head">
+    <div class="glyph" aria-hidden="true">6</div>
+    <div>
+      <h2>사람</h2>
+      <p class="blurb">최진석·박문호·임용한·황농문, 그리고 믿음·욕망·메타인지.</p>
+    </div>
+    <div class="meta">
+      <span class="stat">탭 <b>11</b> · 열 <b>30</b> · 줄 <b>996</b></span>
+      <span><a href="https://docs.google.com/spreadsheets/d/1LnM5QR5uDCGckDF1evgAdge72QZpO3L3tCa7lixekkU" target="_blank" rel="noopener">구글 시트 열기 ↗</a> · <span class="num">6_사람.md</span></span>
+    </div>
+  </div>
+  <div class="rooms">
+
+    <article class="room">
+      <div class="room-head"><h3>최진석</h3><span class="cnt">5열 · <b>256</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">아는만큼 보인다</span><span class="n">35</span></li>
+<li><span class="h">시선의 높이 (아는 만큼 보인다) (수준의 문제)</span><span class="n">106</span></li>
+<li><span class="h">알면 사랑한다 (길들여짐, 익숙해짐)</span><span class="n">43</span></li>
+<li><span class="h">책임자</span><span class="n">35</span></li>
+<li><span class="h">경향성</span><span class="n">37</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 100%"><i style="width:100%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>최진석2</h3><span class="cnt">4열 · <b>48</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">사유의 종속성</span><span class="n">13</span></li>
+<li class="empty"><span class="h">원시적 지적 본능</span><span class="n">비어 있음</span></li>
+<li><span class="h">지적 호전성</span><span class="n">3</span></li>
+<li><span class="h">동기</span><span class="n">32</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 19%"><i style="width:19%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>최진석3</h3><span class="cnt">3열 · <b>89</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">수준</span><span class="n">20</span></li>
+<li><span class="h">동료 의식 (협력과 경쟁)</span><span class="n">34</span></li>
+<li><span class="h">Live as it is.</span><span class="n">35</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 35%"><i style="width:35%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>박문호</h3><span class="cnt">3열 · <b>116</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">맥락 분리</span><span class="n">34</span></li>
+<li><span class="h">범주화 / 분류화 / 집합론적 사고</span><span class="n">36</span></li>
+<li><span class="h">모듈화, 분류</span><span class="n">46</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 45%"><i style="width:45%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>임용한</h3><span class="cnt">2열 · <b>87</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">고유함</span><span class="n">63</span></li>
+<li><span class="h">당위</span><span class="n">24</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 34%"><i style="width:34%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>황농문</h3><span class="cnt">2열 · <b>46</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">(머리글 없음)</span><span class="n">8</span></li>
+<li><span class="h">몰입 (황농문)</span><span class="n">38</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 18%"><i style="width:18%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>이율배반</h3><span class="cnt">1열 · <b>47</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">이율배반</span><span class="n">47</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 18%"><i style="width:18%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>관심</h3><span class="cnt">1열 · <b>26</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">정신적 에너지</span><span class="n">26</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 10%"><i style="width:10%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>믿음</h3><span class="cnt">5열 · <b>149</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">믿음</span><span class="n">40</span></li>
+<li><span class="h">파가 생기는 이유</span><span class="n">26</span></li>
+<li><span class="h">믿음</span><span class="n">22</span></li>
+<li><span class="h">강경파 VS 온건파</span><span class="n">23</span></li>
+<li><span class="h">이상주의 VS 현실주의</span><span class="n">38</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 58%"><i style="width:58%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>욕망</h3><span class="cnt">2열 · <b>54</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">욕망</span><span class="n">25</span></li>
+<li><span class="h">매슬로우</span><span class="n">29</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 21%"><i style="width:21%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>메타인지</h3><span class="cnt">2열 · <b>78</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">메타 인지</span><span class="n">52</span></li>
+<li><span class="h">메타 인지</span><span class="n">26</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 30%"><i style="width:30%"></i></div>
+    </article>
+</div></section>
+
+<section class="hall" id="9-Brain-Science">
+  <div class="hall-head">
+    <div class="glyph" aria-hidden="true">9</div>
+    <div>
+      <h2>Brain Science</h2>
+      <p class="blurb">예측·생존·동기·맥락·기억·주의. 기억의 궁전이라는 말이 나온 곳.</p>
+    </div>
+    <div class="meta">
+      <span class="stat">탭 <b>7</b> · 열 <b>33</b> · 줄 <b>753</b></span>
+      <span><a href="https://docs.google.com/spreadsheets/d/1lOfIGNGaigewGjNaYa1S2eyz9TfzoJG2P8_6zxMpdUU" target="_blank" rel="noopener">구글 시트 열기 ↗</a> · <span class="num">9_Brain-Science.md</span></span>
+    </div>
+  </div>
+  <div class="rooms">
+
+    <article class="room">
+      <div class="room-head"><h3>Prediction</h3><span class="cnt">5열 · <b>117</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">예측 VS 생존</span><span class="n">30</span></li>
+<li><span class="h">추론</span><span class="n">12</span></li>
+<li><span class="h">과학을 공부하는 이유</span><span class="n">13</span></li>
+<li><span class="h">이성</span><span class="n">14</span></li>
+<li><span class="h">도파민</span><span class="n">48</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 61%"><i style="width:61%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Survival</h3><span class="cnt">4열 · <b>89</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">생존</span><span class="n">24</span></li>
+<li><span class="h">효율 (Efficiency)</span><span class="n">14</span></li>
+<li><span class="h">재미</span><span class="n">26</span></li>
+<li><span class="h">행동</span><span class="n">25</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 47%"><i style="width:47%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Survival 2</h3><span class="cnt">5열 · <b>41</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">생존의 양과 질이 본질</span><span class="n">8</span></li>
+<li><span class="h">허무주의</span><span class="n">4</span></li>
+<li><span class="h">Something beyond oneself.</span><span class="n">5</span></li>
+<li><span class="h">부정 편향</span><span class="n">18</span></li>
+<li><span class="h">Use it or lose it</span><span class="n">6</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 21%"><i style="width:21%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Motivation</h3><span class="cnt">5열 · <b>191</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">동기부여</span><span class="n">72</span></li>
+<li><span class="h">Why</span><span class="n">44</span></li>
+<li><span class="h">미래에 대한 불안</span><span class="n">31</span></li>
+<li><span class="h">궁즉변 변즉통 통즉구</span><span class="n">13</span></li>
+<li><span class="h">인생은 짧고 예술은 길다</span><span class="n">31</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 100%"><i style="width:100%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Context</h3><span class="cnt">5열 · <b>97</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">디폴트 모드 네트워크</span><span class="n">10</span></li>
+<li><span class="h">심층적 훈련</span><span class="n">24</span></li>
+<li><span class="h">라우터 (파인튜닝)</span><span class="n">22</span></li>
+<li><span class="h">불확실</span><span class="n">18</span></li>
+<li><span class="h">창발</span><span class="n">23</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 51%"><i style="width:51%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Memory</h3><span class="cnt">5열 · <b>73</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">기억의 궁전</span><span class="n">15</span></li>
+<li><span class="h">서술적 기억 (Declarative memory)</span><span class="n">19</span></li>
+<li><span class="h">일화 기억 (Episodic memory)</span><span class="n">6</span></li>
+<li class="empty"><span class="h">절차적 기억 (Procedural memory)</span><span class="n">비어 있음</span></li>
+<li><span class="h">작업 기억 (Working Memory)</span><span class="n">33</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 38%"><i style="width:38%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Attention</h3><span class="cnt">4열 · <b>145</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">관심</span><span class="n">41</span></li>
+<li><span class="h">당사자</span><span class="n">56</span></li>
+<li><span class="h">관심</span><span class="n">37</span></li>
+<li><span class="h">상황의 힘</span><span class="n">11</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 76%"><i style="width:76%"></i></div>
+    </article>
+</div></section>
+
+<section class="hall" id="a-Long-term-Plan">
+  <div class="hall-head">
+    <div class="glyph" aria-hidden="true">a</div>
+    <div>
+      <h2>Long term Plan</h2>
+      <p class="blurb">우선순위·일·고유함·타이밍·아름다움·관계·사랑·삶·죽음.</p>
+    </div>
+    <div class="meta">
+      <span class="stat">탭 <b>11</b> · 열 <b>34</b> · 줄 <b>2,111</b></span>
+      <span><a href="https://docs.google.com/spreadsheets/d/1e3S9WjAqBRV4R_eRJ-RrGWsRa9neVm_G8w-SK3SeKX0" target="_blank" rel="noopener">구글 시트 열기 ↗</a> · <span class="num">a_Long-term-Plan.md</span></span>
+    </div>
+  </div>
+  <div class="rooms">
+
+    <article class="room">
+      <div class="room-head"><h3>Priority</h3><span class="cnt">6열 · <b>332</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">(머리글 없음)</span><span class="n">97</span></li>
+<li><span class="h">인간 관계 (귀하게 여기기)</span><span class="n">58</span></li>
+<li><span class="h">일 (HemoChart, WebFrame, Youtube)</span><span class="n">61</span></li>
+<li><span class="h">인문학 (역사, 철학, 예술)</span><span class="n">23</span></li>
+<li><span class="h">경험 (새로운 시도, 호기심, 모험, 도전)</span><span class="n">42</span></li>
+<li><span class="h">구체적인 실천</span><span class="n">51</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 100%"><i style="width:100%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>My work</h3><span class="cnt">1열 · <b>297</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">내가 이루려고 하는 것 / 세상을 조금 더 효율적으로 만듭니다 (소명 의식, 그레이트 쓰임) (지식을 찾으러, 아름다움을 찾으러) (지적 호전성) (시간 = 유한한 자원)</span><span class="n">297</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 89%"><i style="width:89%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Unique</h3><span class="cnt">4열 · <b>108</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">고유함</span><span class="n">34</span></li>
+<li><span class="h">존재감</span><span class="n">28</span></li>
+<li><span class="h">이타심</span><span class="n">16</span></li>
+<li><span class="h">삶의 이유 (성취, 생산의 총합)</span><span class="n">30</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 33%"><i style="width:33%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Timing</h3><span class="cnt">3열 · <b>24</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">헤라클래스, 로물로스</span><span class="n">16</span></li>
+<li><span class="h">실행</span><span class="n">6</span></li>
+<li><span class="h">손자병법</span><span class="n">2</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 7%"><i style="width:7%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>FitRun</h3><span class="cnt">1열 · <b>326</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">So what? 뭔가를 배우는 것은 중요하다. 하지만 더 중요한 것은 배운 것을 써 먹어야 하는 것이다. 내가 표현할 수 있어야 하는 것이다. / 내가 공부하는 이유는 현실의 문제를 해결하기 위해서이다. / 공부를 해서 써 먹지 않으면 금방 잊어 버린다.</span><span class="n">326</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 98%"><i style="width:98%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Beauty</h3><span class="cnt">1열 · <b>205</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">아름다움은 진화의 선택, 인간은 그 유용함에 매혹된다.</span><span class="n">205</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 62%"><i style="width:62%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>부심</h3><span class="cnt">3열 · <b>102</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">프라이드 (자부심)</span><span class="n">53</span></li>
+<li><span class="h">자존감, 초라함, 삶의 의미</span><span class="n">30</span></li>
+<li><span class="h">주도권 (권위)</span><span class="n">19</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 31%"><i style="width:31%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Relationship</h3><span class="cnt">2열 · <b>51</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">(머리글 없음)</span><span class="n">20</span></li>
+<li><span class="h">내쉬 균형</span><span class="n">31</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 15%"><i style="width:15%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Love</h3><span class="cnt">5열 · <b>219</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">무라카미 류가 말하는 쿨한 연애학</span><span class="n">68</span></li>
+<li><span class="h">신호 보내기 (비용, 과시, 허세)</span><span class="n">42</span></li>
+<li><span class="h">홀리다</span><span class="n">27</span></li>
+<li><span class="h">혼자 있고 싶은 이유 (구심점)</span><span class="n">41</span></li>
+<li><span class="h">공동의 목표</span><span class="n">41</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 66%"><i style="width:66%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Life</h3><span class="cnt">4열 · <b>212</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">살아 있다는 것</span><span class="n">80</span></li>
+<li><span class="h">성벽이 생기는 것 (안과 밖) (세포)</span><span class="n">66</span></li>
+<li><span class="h">흘러가는 강물처럼</span><span class="n">56</span></li>
+<li><span class="h">절박함</span><span class="n">10</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 64%"><i style="width:64%"></i></div>
+    </article>
+
+    <article class="room">
+      <div class="room-head"><h3>Death</h3><span class="cnt">4열 · <b>235</b>줄</span></div>
+      <ul class="shelves">
+<li><span class="h">요즘 대변을 보면 피가 나온다. 예전에도 이런 적이 있어 곧 괜찮아지겠지 했지만</span><span class="n">71</span></li>
+<li><span class="h">스티브 잡스의 말처럼 나의 시간은 제한되어 있다. 돈을 아무리 많이 준다고 하더라도</span><span class="n">56</span></li>
+<li><span class="h">하루 하루 열심히 살아야 한다. 그것만이 나중 실제 죽을 때 조금이나마 후회하지 않고</span><span class="n">56</span></li>
+<li><span class="h">죽음은 존재의 비가역적인 종말</span><span class="n">52</span></li>
+</ul>
+      <div class="bar" title="시트 안 최대 방 대비 71%"><i style="width:71%"></i></div>
+    </article>
+</div></section>
+
+<footer class="foot">
+  <p>2026-09-07 사본 기준. 시트 8개 → 탭 86 → 열 303 → 줄 9,749. 시트 번호는 notes/brahman·유튜브 재생목록 폴더와 같은 체계다.</p>
+  <p>구조는 README 의 "기억의 궁전" 절과 같다. 이 페이지는 열 머리글까지만 담고 본문 셀은 담지 않는다.</p>
+</footer>
+</main>
