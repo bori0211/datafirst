@@ -16,6 +16,11 @@ firebase-config.js
 .env
 secrets/
 
+# lock files
+composer.lock
+package-lock.json
+uv.lock
+
 # 의존성
 bower/
 node_modules/
