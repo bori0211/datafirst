@@ -87,7 +87,7 @@ home-vanilla/firebase-config.js
 secrets/google_keys.json
 ```
 
-`secrets/`는 저장소 루트에 둔다. 각 사이트의 도큐먼트 루트보다 한 단계 위라서 웹으로 노출되지 않고, GCP 서비스 계정 키 하나를 home-www(GA4 조회)와 home-express(Google Sheets 기록)가 함께 쓴다. 코드가 `../../secrets/`로 참조하므로 **서버에도 저장소를 통째로 체크아웃해야 한다.**
+`secrets/`는 저장소 루트에 둔다. 각 사이트의 도큐먼트 루트보다 한 단계 위라서 웹으로 노출되지 않고, GCP 서비스 계정 키를 home-www의 GA4 조회 배치(`cli/`)가 쓴다. 코드가 `../../secrets/`로 참조하므로 **서버에도 저장소를 통째로 체크아웃해야 한다.**
 
 각 파일의 형태와 필요한 상수 목록은 [CLAUDE.md](CLAUDE.md)에 정리돼 있다.
 
