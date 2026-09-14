@@ -29,17 +29,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |---|---|---|
 | home-www | `composer install` + `bower install` | `vendor/`, `bower/` |
 | home-hemochart | `composer install` + `bower install` | `vendor/`, `bower/` |
-| home-express | `npm ci` + `bower install` | `node_modules/`, `public/bower/` |
+| home-express | `npm install` + `bower install` | `node_modules/`, `public/bower/` |
 | home-vanilla | 없음 (CDN만 사용) | — |
 
-### 락 파일은 커밋한다
+### 락 파일은 커밋하지 않는다
 
-`home-www/composer.lock`, `home-hemochart/composer.lock`, `home-express/package-lock.json` 세 개가 추적 대상이다(`home-python/uv_test/uv.lock`도 함께 추적된다).
+`composer.lock`·`package-lock.json`·`uv.lock`은 2026-09-07(`4e48e3a`)에 추적을 끊고 `.gitignore`에 넣었다. 각 머신에서 설치할 때 `package.json`·`composer.json`의 `^` 범위 안 최신이 새로 해석되므로, 머신마다 마이너 버전이 다를 수 있다.
 
-- **배포·재설치는 `npm ci` / `composer install`** 을 쓴다. 락 파일에 적힌 버전을 그대로 설치한다. `npm update`·`composer update`는 버전을 올릴 의도가 있을 때만 쓰고, 갱신된 락 파일을 반드시 함께 커밋한다.
-- `composer install`은 락 파일이 없으면 `composer update`처럼 동작해 `^` 범위 안 최신을 새로 해석한다. 락 파일을 지우지 말 것.
-- **`package.json`의 버전 범위를 바꾸면 반드시 `npm install`을 한 번 돌린다.** `package-lock.json` 루트의 `packages[""].dependencies`가 `package.json`의 선언을 복사해 두는데, 둘이 어긋나면 `npm ci`가 "can only install packages when your package.json and package-lock.json are in sync" 에러로 실패한다. 이때 `npm install`은 범위를 만족하는 기존 버전을 유지한 채 그 한 줄만 갱신한다.
-- 의존성은 전부 `^` 범위로 지정한다. 과거 `googleapis`가 `"latest"`로 잡혀 있어 설치할 때마다 최신 메이저가 들어왔고, `home-express/routes/telegraf.js`의 Google Sheets 연동이 예고 없이 깨질 수 있는 상태였다. 현재는 `^176.0.0`으로 고정돼 있다. 새 패키지를 추가할 때도 `latest`를 쓰지 말 것.
+- **설치는 `npm install` / `composer install`** 을 쓴다. `npm ci`는 `package-lock.json`이 있어야만 동작하므로 갓 클론한 저장소에서는 실패한다.
+- 버전은 `^` 범위로만 묶인다. 메이저를 올릴 때는 `package.json`·`composer.json`의 범위를 고쳐 커밋하고 `npm install` / `composer install`을 다시 돌린다.
+- 의존성은 전부 `^` 범위로 지정한다. 과거 `googleapis`가 `"latest"`로 잡혀 있어 설치할 때마다 최신 메이저가 들어왔고, `home-express/routes/telegraf.js`의 Google Sheets 연동이 예고 없이 깨질 수 있는 상태였다. 현재는 `^180.0.0`으로 잡혀 있다(연동 자체는 주석 처리됨). 새 패키지를 추가할 때도 `latest`를 쓰지 말 것.
 
 ### Bower · SCSS
 

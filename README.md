@@ -33,7 +33,7 @@ Express 실습 겸 API 서버. products CRUD 화면과 JWT 기반 REST API, Tele
 뷰는 EJS지만 델리미터를 PHP식(`<? ?>`)으로 바꿔 쓴다.
 
 ```bash
-npm ci
+npm install
 bower install
 npm run nodemon      # 개발 (PORT 3001)
 npm start            # pm2로 기동
@@ -71,7 +71,7 @@ bower install
 
 `bower/`, `node_modules/`, `vendor/`는 gitignore 대상이므로 새 환경에서는 각각 설치해야 한다.
 
-락 파일(`package-lock.json`, `composer.lock`)은 저장소에 커밋돼 있다. 위의 `npm ci`·`composer install`은 락 파일에 적힌 버전을 그대로 설치하므로 어느 환경에서든 결과가 같다. 버전을 올릴 때만 `npm update`·`composer update`를 쓰고, 갱신된 락 파일을 함께 커밋한다. 패키지를 추가하거나 `package.json`의 버전 범위를 바꿨다면 `npm install`을 한 번 돌려 락 파일을 맞춰야 `npm ci`가 동작한다.
+락 파일(`package-lock.json`, `composer.lock`, `uv.lock`)은 저장소에 커밋하지 않는다(`.gitignore`). 위의 `npm install`·`composer install`은 `package.json`·`composer.json`의 `^` 범위 안에서 설치 시점의 최신을 가져오므로, 환경마다 마이너 버전이 다를 수 있다. 메이저를 올릴 때는 버전 범위를 고쳐 커밋한다.
 
 Bower에는 락 파일이 없어 `bower.json`의 `^` 범위가 설치 시점마다 새로 해석된다.
 

@@ -16,7 +16,7 @@ npm run stop         # pm2 delete
 
 테스트 러너는 없다. `tests/`의 `server.js`·`test.js`·`test_influxdb2.js`는 `node tests/test.js` 처럼 직접 돌리는 실험용 스크립트다.
 
-의존성 설치는 `npm ci` + `bower install`(→ `public/bower/`). FontAwesome은 `^5.0.0`으로 선언돼 있다.
+의존성 설치는 `npm install` + `bower install`(→ `public/bower/`). `package-lock.json`은 커밋하지 않으므로 `npm ci`는 쓰지 않는다. FontAwesome은 `^5.0.0`으로 선언돼 있다.
 
 ## 부팅 조건
 
