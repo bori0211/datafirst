@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 저장소 구성
 
-루트에는 빌드 시스템이 없다. 서로 독립적인 4개의 웹사이트에 파이썬 학습 폴더 하나를 더한 형태이고, 웹사이트는 각 디렉터리가 곧 웹서버의 도큐먼트 루트다. 한 프로젝트를 고칠 때 다른 프로젝트를 함께 고려할 필요는 거의 없다.
+루트의 `package.json`은 SCSS 컴파일 스크립트(`npm run <site>:style`)만 담고 있고, 그 밖의 빌드 시스템은 없다. 서로 독립적인 4개의 웹사이트에 파이썬 학습 폴더 하나를 더한 형태이고, 웹사이트는 각 디렉터리가 곧 웹서버의 도큐먼트 루트다. 한 프로젝트를 고칠 때 다른 프로젝트를 함께 고려할 필요는 거의 없다.
 
 | 디렉터리 | 스택 | 배포처 | 프로젝트 문서 |
 |---|---|---|---|
@@ -48,13 +48,16 @@ Bower를 아직 쓴다. `.bowerrc`가 설치 경로를 지정한다: home-www/ho
 
 `bower install`을 빠뜨리면 Bootstrap·jQuery·FontAwesome을 `/bower/...` 경로에서 직접 링크하는 세 사이트가 CSS·JS 없이 뜬다. 아이콘만 깨진다면 `bower/fontawesome/webfonts/`가 있는지 확인할 것 — `all.min.css`가 `../webfonts`를 상대 참조한다.
 
-CSS는 SCSS 컴파일 결과물이며 커밋된다. `home-www/custom/`·`home-hemochart/custom/`에 한 줄짜리 `csspack.sh`가 있다:
+CSS는 SCSS 컴파일 결과물이며 커밋된다. 컴파일은 루트 `package.json`의 스크립트로 한다(전역 설치된 Dart Sass를 부르며, 루트에 `node_modules/`는 없다):
 
 ```bash
-sass --style=compressed --no-source-map style.scss style.css
+npm run www:style        # home-www/custom/style.scss → style.css
+npm run hemochart:style  # home-hemochart/custom/
+npm run express:style    # home-express/public/custom/
+npm run vanilla:style    # home-vanilla/custom/
 ```
 
-`home-express/public/custom/`과 `home-vanilla/custom/`에는 `csspack.sh`가 없고 `style.css.map`이 함께 커밋되어 있다(소스맵 포함, 비압축으로 컴파일된 결과).
+네 사이트 모두 `--style=compressed --no-source-map`으로 컴파일하므로 `style.css.map`은 커밋하지 않는다. 예전의 사이트별 `custom/csspack.sh`와 `style.css.map`은 `7bf9524`에서 지웠다.
 
 ## gitignore된 필수 설정 파일
 

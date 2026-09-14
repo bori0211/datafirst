@@ -49,4 +49,4 @@ npm run stop         # pm2 delete
 - `routes/lambda.js`: `POST /lambda`는 요청 본문을 통째로 `lambda_data`에 INSERT하고, `POST /lambda/sendmail`은 CloudWatch Logs 구독 필터가 보내는 gzip+base64 페이로드를 `zlib.unzip`으로 풀어 nodemailer로 메일을 보낸다. SMTP 비밀번호는 `config.GMAIL_CHICKENDINNER_PASSWORD`를 쓴다(예전에 소스에 하드코딩돼 있던 것을 옮긴 것 — 루트 `CLAUDE.md`의 "시크릿 취급" 참고).
 - CORS는 `app.js`에서 전역 `*` 허용이다(Origin/Methods/Headers 모두).
 - 에러 처리는 404 → `Error` 생성 → `views/error.ejs` 렌더가 전부다.
-- `public/custom/`에는 `csspack.sh`가 없고 `style.css.map`이 함께 커밋되어 있다(소스맵 포함, 비압축 컴파일 결과).
+- `public/custom/style.css`는 저장소 루트에서 `npm run express:style`로 컴파일한다(압축, 소스맵 없음).

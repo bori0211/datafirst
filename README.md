@@ -66,7 +66,7 @@ bower install
 | Composer | home-www, home-hemochart |
 | Node.js 18 이상 | home-express (Express 5) |
 | Bower (전역) | home-www, home-hemochart, home-express |
-| Dart Sass | `custom/csspack.sh` 로 SCSS 컴파일 |
+| Dart Sass (전역) | 루트에서 `npm run www:style` 등으로 SCSS 컴파일 |
 | pm2, nodemon (전역) | home-express 실행 스크립트가 전제로 함 |
 
 `bower/`, `node_modules/`, `vendor/`는 gitignore 대상이므로 새 환경에서는 각각 설치해야 한다.
