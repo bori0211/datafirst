@@ -5,7 +5,7 @@ const { google } = require('googleapis');
 const moment = require('moment-timezone');
 
 const mysql = require('../mysqlPool');
-const keys = require('../../secrets/google_keys.json');
+//const keys = require('../../secrets/google_keys.json');
 
 const router = express.Router();
 
@@ -100,6 +100,7 @@ router.post('/', async (req, res, next) => {
     }
   }
 
+  /*
   // 2. google sheet
   const client = new google.auth.JWT(
     keys.client_email,
@@ -136,8 +137,9 @@ router.post('/', async (req, res, next) => {
       res.status(200).json({ result: true });
     }
   });
+  */
 
-  //return res.status(200).json({ result: true });
+  return res.status(200).json({ result: true });
 
 });
 
