@@ -24,11 +24,9 @@ php home-www/cli/minutely_save_ga_hemochart.php
 - `minutely_save_ga_hemochart.php` / `minutely_save_ga_lcampus.php` — GA4 실시간 `activeUsers`(1분 전 / 최근 30분)를 읽어 InfluxDB Cloud 버킷 `datafirst`의 `ga2` measurement에 기록한다. property_id는 각각 `307755691`, `312666327`이고 `host` 태그로 구분한다.
 - `get_ga_data.php`·`get_influxdata.php`·`set_influx_data.php` — 위 흐름을 쪼개 놓은 실험용.
 
-GA4 조회에는 **저장소 루트의 `secrets/google_keys.json`** 이 필요하다(`__DIR__ . "/../../secrets/google_keys.json"`). 없으면 이 배치들과 `modals/test_ga*.php`가 실패한다 — 일반 웹 페이지는 영향 없다.
+GA4 조회에는 **저장소 루트의 `secrets/google_keys.json`** 이 필요하다(`__DIR__ . "/../../secrets/google_keys.json"`). 없으면 이 배치들이 실패한다 — 일반 웹 페이지는 영향 없다.
 
 InfluxDB 기록에는 `config.inc.php`의 `INFLUXDATA_TOKEN`을 쓴다.
-
-**`modals/test_ga2.php`는 파싱조차 되지 않는 미완성 파일이다.** Google 문서의 Python/JS 예제를 붙여넣고 PHP로 옮기지 않아 `body={...}`, `{'key': 'value'}` 같은 문법이 그대로 남아 있다(41행). 어디서도 호출되지 않으므로 방치해도 무방하지만, GA 관련 코드를 찾다가 이 파일을 참고하지 말 것. 동작하는 예시는 `cli/`와 `modals/test_ga.php`다.
 
 ## CONTACT 모달
 

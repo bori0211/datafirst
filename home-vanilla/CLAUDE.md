@@ -23,5 +23,5 @@ firebase-config.js → firebase.initializeApp(firebaseConfig) → custom/app.js
 ## 기타
 
 - Bower를 쓰지 않는다(CDN만 사용). `bower install` 대상이 아니다.
-- `custom/`에는 `csspack.sh`가 없고 `style.css.map`이 함께 커밋되어 있다(소스맵 포함, 비압축 컴파일 결과).
+- `custom/style.css`는 저장소 루트에서 `npm run vanilla:style`로 컴파일한다(압축, 소스맵 없음).
 - `practice/`는 학습용 예제(js-basic, js-es6)다.

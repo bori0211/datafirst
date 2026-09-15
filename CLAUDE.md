@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 저장소 구성
 
-루트에는 빌드 시스템이 없다. 서로 독립적인 4개의 웹사이트에 파이썬 학습 폴더 하나를 더한 형태이고, 웹사이트는 각 디렉터리가 곧 웹서버의 도큐먼트 루트다. 한 프로젝트를 고칠 때 다른 프로젝트를 함께 고려할 필요는 거의 없다.
+루트의 `package.json`은 SCSS 컴파일 스크립트(`npm run <site>:style`)만 담고 있고, 그 밖의 빌드 시스템은 없다. 서로 독립적인 4개의 웹사이트에 파이썬 학습 폴더 하나를 더한 형태이고, 웹사이트는 각 디렉터리가 곧 웹서버의 도큐먼트 루트다. 한 프로젝트를 고칠 때 다른 프로젝트를 함께 고려할 필요는 거의 없다.
 
 | 디렉터리 | 스택 | 배포처 | 프로젝트 문서 |
 |---|---|---|---|
@@ -29,17 +29,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |---|---|---|
 | home-www | `composer install` + `bower install` | `vendor/`, `bower/` |
 | home-hemochart | `composer install` + `bower install` | `vendor/`, `bower/` |
-| home-express | `npm ci` + `bower install` | `node_modules/`, `public/bower/` |
+| home-express | `npm install` + `bower install` | `node_modules/`, `public/bower/` |
 | home-vanilla | 없음 (CDN만 사용) | — |
 
-### 락 파일은 커밋한다
+### 락 파일은 커밋하지 않는다
 
-`home-www/composer.lock`, `home-hemochart/composer.lock`, `home-express/package-lock.json` 세 개가 추적 대상이다(`home-python/uv_test/uv.lock`도 함께 추적된다).
+`composer.lock`·`package-lock.json`·`uv.lock`은 2026-09-07(`4e48e3a`)에 추적을 끊고 `.gitignore`에 넣었다. 각 머신에서 설치할 때 `package.json`·`composer.json`의 `^` 범위 안 최신이 새로 해석되므로, 머신마다 마이너 버전이 다를 수 있다.
 
-- **배포·재설치는 `npm ci` / `composer install`** 을 쓴다. 락 파일에 적힌 버전을 그대로 설치한다. `npm update`·`composer update`는 버전을 올릴 의도가 있을 때만 쓰고, 갱신된 락 파일을 반드시 함께 커밋한다.
-- `composer install`은 락 파일이 없으면 `composer update`처럼 동작해 `^` 범위 안 최신을 새로 해석한다. 락 파일을 지우지 말 것.
-- **`package.json`의 버전 범위를 바꾸면 반드시 `npm install`을 한 번 돌린다.** `package-lock.json` 루트의 `packages[""].dependencies`가 `package.json`의 선언을 복사해 두는데, 둘이 어긋나면 `npm ci`가 "can only install packages when your package.json and package-lock.json are in sync" 에러로 실패한다. 이때 `npm install`은 범위를 만족하는 기존 버전을 유지한 채 그 한 줄만 갱신한다.
-- 의존성은 전부 `^` 범위로 지정한다. 과거 `googleapis`가 `"latest"`로 잡혀 있어 설치할 때마다 최신 메이저가 들어왔고, `home-express/routes/telegraf.js`의 Google Sheets 연동이 예고 없이 깨질 수 있는 상태였다. 현재는 `^176.0.0`으로 고정돼 있다. 새 패키지를 추가할 때도 `latest`를 쓰지 말 것.
+- **설치는 `npm install` / `composer install`** 을 쓴다. `npm ci`는 `package-lock.json`이 있어야만 동작하므로 갓 클론한 저장소에서는 실패한다.
+- 버전은 `^` 범위로만 묶인다. 메이저를 올릴 때는 `package.json`·`composer.json`의 범위를 고쳐 커밋하고 `npm install` / `composer install`을 다시 돌린다.
+- 의존성은 전부 `^` 범위로 지정한다. 과거 `googleapis`가 `"latest"`로 잡혀 있어 설치할 때마다 최신 메이저가 들어왔고, `home-express/routes/telegraf.js`의 Google Sheets 연동이 예고 없이 깨질 수 있는 상태였다. 현재는 `^180.0.0`으로 잡혀 있다(연동 자체는 주석 처리됨). 새 패키지를 추가할 때도 `latest`를 쓰지 말 것.
 
 ### Bower · SCSS
 
@@ -49,13 +48,16 @@ Bower를 아직 쓴다. `.bowerrc`가 설치 경로를 지정한다: home-www/ho
 
 `bower install`을 빠뜨리면 Bootstrap·jQuery·FontAwesome을 `/bower/...` 경로에서 직접 링크하는 세 사이트가 CSS·JS 없이 뜬다. 아이콘만 깨진다면 `bower/fontawesome/webfonts/`가 있는지 확인할 것 — `all.min.css`가 `../webfonts`를 상대 참조한다.
 
-CSS는 SCSS 컴파일 결과물이며 커밋된다. `home-www/custom/`·`home-hemochart/custom/`에 한 줄짜리 `csspack.sh`가 있다:
+CSS는 SCSS 컴파일 결과물이며 커밋된다. 컴파일은 루트 `package.json`의 스크립트로 한다(전역 설치된 Dart Sass를 부르며, 루트에 `node_modules/`는 없다):
 
 ```bash
-sass --style=compressed --no-source-map style.scss style.css
+npm run www:style        # home-www/custom/style.scss → style.css
+npm run hemochart:style  # home-hemochart/custom/
+npm run express:style    # home-express/public/custom/
+npm run vanilla:style    # home-vanilla/custom/
 ```
 
-`home-express/public/custom/`과 `home-vanilla/custom/`에는 `csspack.sh`가 없고 `style.css.map`이 함께 커밋되어 있다(소스맵 포함, 비압축으로 컴파일된 결과).
+네 사이트 모두 `--style=compressed --no-source-map`으로 컴파일하므로 `style.css.map`은 커밋하지 않는다. 예전의 사이트별 `custom/csspack.sh`와 `style.css.map`은 `7bf9524`에서 지웠다.
 
 ## gitignore된 필수 설정 파일
 
@@ -66,10 +68,10 @@ sass --style=compressed --no-source-map style.scss style.css
 | `home-www/config.inc.php` | `$db_config` + `define()` 상수 |
 | `home-hemochart/config.inc.php` | `$db_config` + `define()` 상수 |
 | `home-express/config.js` | `JWT_KEY`, `MYSQL_HOST/PORT/USER/PASSWORD/DATABASE`, `GMAIL_CHICKENDINNER_PASSWORD` |
-| `secrets/google_keys.json` | GCP 서비스 계정 키. home-www의 GA4 조회와 home-express의 Google Sheets 기록이 **한 파일을 공용**한다 |
+| `secrets/google_keys.json` | GCP 서비스 계정 키. home-www의 GA4 조회 배치(`cli/`)만 쓴다. home-express의 Google Sheets 기록은 2026-09-14에 주석 처리돼 더 이상 참조하지 않는다 |
 | `home-vanilla/firebase-config.js` | `firebaseConfig` 객체 (Firebase 웹 config) |
 
-**`secrets/`는 저장소 루트에 있다** — 각 사이트의 도큐먼트 루트(`home-www/`, `home-express/` …)보다 한 단계 위라서 웹으로 서빙되지 않는다. 참조는 전부 `__DIR__ . "/../../secrets/google_keys.json"`(PHP) / `require('../../secrets/google_keys.json')`(Node) 형태의 상대 경로다. **따라서 서버에도 저장소가 통째로 체크아웃돼 있어야 하고, 사이트 디렉터리만 떼어 배포하면 GA 배치와 `/telegraf`가 전부 깨진다.**
+**`secrets/`는 저장소 루트에 있다** — 각 사이트의 도큐먼트 루트(`home-www/`, `home-express/` …)보다 한 단계 위라서 웹으로 서빙되지 않는다. 참조는 전부 `__DIR__ . "/../../secrets/google_keys.json"`(PHP) 형태의 상대 경로다. **따라서 서버에도 저장소가 통째로 체크아웃돼 있어야 하고, home-www 디렉터리만 떼어 배포하면 GA 배치가 깨진다.**
 
 - `config.inc.php`는 JSON 문자열을 `json_decode`한 `$db_config` 배열과 `define()` 상수들로 이뤄진다. home-www는 `GOOGLE_MAPS_JS_KEY`, `YOUTUBE_KEY`, `YOUTUBE_DEVELOPER_KEY_KEY`, `GMAIL_*_PASSWORD`(hemochart / datafirst / webframe / chickendinner / rollenglish), `INFLUXDATA_TOKEN`을 정의하고, home-hemochart는 `GOOGLE_MAPS_JS_KEY`, `GMAIL_HEMOCHART_PASSWORD`만 정의한다. **실제 시크릿이 평문으로 들어 있으므로 내용을 출력하거나 다른 파일로 옮기지 말 것.**
 - **`GMAIL_CHICKENDINNER_PASSWORD`는 두 프로젝트가 공용한다** — home-www의 CONTACT 모달과 home-express의 `POST /lambda/sendmail`이 같은 Gmail 계정을 쓴다. 앱 비밀번호를 재발급하면 `home-www/config.inc.php`와 `home-express/config.js` **두 파일을 함께** 고쳐야 하고, 둘 다 gitignore 대상이라 개발 PC와 서버에서 각각 손봐야 한다. 한쪽만 고치면 다른 쪽이 조용히 실패한다.
@@ -113,7 +115,7 @@ Linux 서버(datafirst-ec2, hermes-vps)와 Windows PC를 오가며 커밋한다.
 ```
 
 - **`<?` 숏 오픈 태그를 전제로 한다.** `php.ini`에 `short_open_tag=On`이 필요하다(`SystemSetting.md` 참고). 배포되는 페이지(`index.php`·`hemo.php`·`websign.php`·`kidneylife.php`·`catalog.php`·`faq.php`·`sitemap.php`, `*.inc.php`, `modals/`)와 `cli/`의 배치 4개는 `<?`를 쓰므로 새 코드도 이 스타일을 유지한다. `<?php`를 쓰는 것은 `phpinfo.php`(두 사이트)와 `cli/get_influxdata.php`, 그리고 `test/`·`sample/` 아래 실험 코드다.
-- `function.inc.php`는 `header.inc.php`가 부르지 않는다. 필요한 파일이 직접 `require` 하는데, 실제로 부르는 것은 `home-hemochart/sitemap.php`와 `home-www/cli/` 5개뿐이다. **`modals/`의 PHPMailer·GA 페이지는 `function.inc.php`가 아니라 `vendor/autoload.php`를 직접 `require` 한다** — DB 없이 오토로더만 필요해서다. 새 코드도 필요한 쪽만 부를 것.
+- `function.inc.php`는 `header.inc.php`가 부르지 않는다. 필요한 파일이 직접 `require` 하는데, 실제로 부르는 것은 `home-hemochart/sitemap.php`와 `home-www/cli/` 5개뿐이다. **`modals/`의 PHPMailer 페이지는 `function.inc.php`가 아니라 `vendor/autoload.php`를 직접 `require` 한다** — DB 없이 오토로더만 필요해서다. 새 코드도 필요한 쪽만 부를 것.
 - `function.inc.php`가 Composer 오토로더를 불러오고 `mysqli_ext`(mysqli 상속)를 정의한다. DB는 `mysqli_instance()`로 얻고, 조회는 `query_fetch_first_row()`(숫자 인덱스 배열) / `query_fetch_all()`(기본 `MYSQLI_ASSOC`)을 쓴다. **`MYSQLI_REPORT_OFF`로 예외를 꺼 놓았기 때문에** 쿼리 실패는 던져지지 않고 `error_log()`에만 남은 뒤 `false`가 반환된다. 반환값을 반드시 확인할 것. 접속 후 문자셋이 `utf8mb4`가 아니면 즉시 `exit`한다.
 - `set_init_data.inc.php`가 `extract($_REQUEST, EXTR_SKIP)`로 요청 파라미터를 전역 변수로 풀어놓는다. 레거시 `register_globals` 흉내이므로, 페이지 안에 선언 없이 등장하는 전역 변수는 URL 파라미터에서 왔을 수 있다. 같은 파일이 `addslashes`(magic_quotes 흉내)와 `Cache-Control: no-store` 헤더도 건다.
 - **라우팅은 `.htaccess` rewrite 뿐이고, 실제 파일/디렉터리가 아닐 때만 적용된다.** 새 메뉴 페이지를 추가하면 `.htaccess`에 `RewriteRule ^name$ /name.php` 한 줄을 같이 넣어야 확장자 없는 URL이 동작한다. hemochart는 여기에 더해 `header.meta.php`와 `sitemap.php`까지 손봐야 한다. 두 사이트 모두 `.htaccess` 맨 앞에 `favicon.ico`와 `apple-touch-icon*.png`를 `R=204`로 흘려보내는 규칙이 있다(파일이 없어 404 로그가 쌓이는 것을 막는 용도).
